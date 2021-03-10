@@ -112,170 +112,153 @@ async function getContributors(pages) {
 }
 
 exports.createPages = async ({ actions, graphql }) => {
-  const { errors, data } = await graphql(`
-    {
-      pages: allMdx(
-        filter: { frontmatter: { title: { ne: "" } } }
-        sort: { order: ASC, fields: [frontmatter___order] }
-      ) {
-        edges {
-          node {
-            id
-            fileAbsolutePath
-            fields {
-              relativeFilePath
-              url
-              isHomepage
-            }
-            frontmatter {
-              title
-              displayName
-              description
-            }
-            wordCount {
-              paragraphs
-            }
-          }
-        }
-      }
-    }
-  `)
-
-  if (errors) {
-    console.log(errors)
-    return null
-  }
-
-  const { edges: allPages } = data.pages
-
-  const navTree = createNavTree(allPages)
-
-  // Do not fetch page contributors during development
-  // to prevent the GitHub access token reaching the rate limit.
-  const contributors = IS_DEV ? [] : await getContributors(allPages)
-
-  const [categories, pages] = allPages.reduce(
-    (acc, { node }) => {
-      const [prevCategories, prevPages] = acc
-      const isCategory = node.wordCount.paragraphs === null
-
-      if (isCategory) {
-        return [prevCategories.concat(node), prevPages]
-      }
-
-      return [prevCategories, prevPages.concat(node)]
-    },
-    [[], []],
-  )
-
-  pages.forEach((node) => {
-    actions.createPage({
-      path: node.fields.url,
-      component: DOCS_PAGE_TEMPLATE,
-      context: {
-        postId: node.id,
-        breadcrumbs: getDocumentBreadcrumbs(node, navTree),
-        navTree,
-        contributors: contributors[node.id],
-        lastModified: getLastModifiedDate(node.fileAbsolutePath),
-      },
-    })
-  })
-
-  // Populate each category node with its child nodes
-  // and build a hierarchical nav tree for each category.
-  const categoriesWithChildren = await Promise.all(
-    categories.map(async (node) => {
-      const regex = new RegExp(`^${node.fields.url}\/.+`).toString()
-      const { errors, data } = await graphql(`
-        {
-          allMdx(
-            filter: { fields: { url: { regex: "${regex}" } } }
-            sort: { order: ASC, fields: [frontmatter___order] }
-          ) {
-            edges {
-              node {
-                fileAbsolutePath
-                fields {
-                  url
-                }
-                frontmatter {
-                  title
-                  displayName
-                  description
-                }
-              }
-            }
-          }
-        }
-      `)
-
-      if (errors) {
-        return null
-      }
-
-      const { edges: childPages } = data.allMdx
-      return [node, childPages, createNavTree(childPages)]
-    }),
-  )
-
-  categoriesWithChildren.forEach(([node, childPages, childNavTree]) => {
-    actions.createPage({
-      path: node.fields.url,
-      component: DOCS_CATEGORY_TEMPLATE,
-      context: {
-        categoryTitle: node.frontmatter.title,
-        categoryDescription: node.frontmatter.description,
-        childPages,
-        childNavTree,
-        breadcrumbs: getDocumentBreadcrumbs(node, navTree),
-        navTree,
-        contributors: contributors[node.id],
-      },
-    })
-  })
+  // const { errors, data } = await graphql(`
+  //   {
+  //     pages: allMdx(
+  //       filter: { frontmatter: { title: { ne: "" } } }
+  //       sort: { order: ASC, fields: [frontmatter___order] }
+  //     ) {
+  //       edges {
+  //         node {
+  //           id
+  //           fileAbsolutePath
+  //           fields {
+  //             relativeFilePath
+  //             url
+  //             isHomepage
+  //           }
+  //           frontmatter {
+  //             title
+  //             displayName
+  //             description
+  //           }
+  //           wordCount {
+  //             paragraphs
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  // `)
+  // if (errors) {
+  //   console.log(errors)
+  //   return null
+  // }
+  // const { edges: allPages } = data.pages
+  // const navTree = createNavTree(allPages)
+  // // Do not fetch page contributors during development
+  // // to prevent the GitHub access token reaching the rate limit.
+  // const contributors = IS_DEV ? [] : await getContributors(allPages)
+  // const [categories, pages] = allPages.reduce(
+  //   (acc, { node }) => {
+  //     const [prevCategories, prevPages] = acc
+  //     const isCategory = node.wordCount.paragraphs === null
+  //     if (isCategory) {
+  //       return [prevCategories.concat(node), prevPages]
+  //     }
+  //     return [prevCategories, prevPages.concat(node)]
+  //   },
+  //   [[], []],
+  // )
+  // pages.forEach((node) => {
+  //   actions.createPage({
+  //     path: node.fields.url,
+  //     component: DOCS_PAGE_TEMPLATE,
+  //     context: {
+  //       postId: node.id,
+  //       breadcrumbs: getDocumentBreadcrumbs(node, navTree),
+  //       navTree,
+  //       contributors: contributors[node.id],
+  //       lastModified: getLastModifiedDate(node.fileAbsolutePath),
+  //     },
+  //   })
+  // })
+  // // Populate each category node with its child nodes
+  // // and build a hierarchical nav tree for each category.
+  // const categoriesWithChildren = await Promise.all(
+  //   categories.map(async (node) => {
+  //     const regex = new RegExp(`^${node.fields.url}\/.+`).toString()
+  //     const { errors, data } = await graphql(`
+  //       {
+  //         allMdx(
+  //           filter: { fields: { url: { regex: "${regex}" } } }
+  //           sort: { order: ASC, fields: [frontmatter___order] }
+  //         ) {
+  //           edges {
+  //             node {
+  //               fileAbsolutePath
+  //               fields {
+  //                 url
+  //               }
+  //               frontmatter {
+  //                 title
+  //                 displayName
+  //                 description
+  //               }
+  //             }
+  //           }
+  //         }
+  //       }
+  //     `)
+  //     if (errors) {
+  //       return null
+  //     }
+  //     const { edges: childPages } = data.allMdx
+  //     return [node, childPages, createNavTree(childPages)]
+  //   }),
+  // )
+  // categoriesWithChildren.forEach(([node, childPages, childNavTree]) => {
+  //   actions.createPage({
+  //     path: node.fields.url,
+  //     component: DOCS_CATEGORY_TEMPLATE,
+  //     context: {
+  //       categoryTitle: node.frontmatter.title,
+  //       categoryDescription: node.frontmatter.description,
+  //       childPages,
+  //       childNavTree,
+  //       breadcrumbs: getDocumentBreadcrumbs(node, navTree),
+  //       navTree,
+  //       contributors: contributors[node.id],
+  //     },
+  //   })
+  // })
 }
 
 exports.onCreateNode = async ({ node, getNode, actions }) => {
-  const { createNodeField } = actions
-
-  if (['mdx'].includes(node.internal.type.toLowerCase())) {
-    const postSlug = createFilePath({
-      node,
-      getNode,
-      basePath: DOCS_BASE_PATH,
-      trailingSlash: false,
-    })
-
-    const relativeFilePath = path.relative(__dirname, node.fileAbsolutePath)
-    createNodeField({
-      node,
-      name: 'relativeFilePath',
-      value: relativeFilePath,
-    })
-
-    // Reference the raw file on GitHub to allow edits
-    createNodeField({
-      node,
-      name: 'editUrl',
-      value: `${REPO_URL}/tree/master/${relativeFilePath}`,
-    })
-
-    createNodeField({
-      node,
-      name: 'url',
-      value: ['/', DOCS_BASE_PATH, '/', postSlug]
-        .filter(Boolean)
-        .join('')
-        .replace(/\/+/g, '/'),
-    })
-
-    createNodeField({
-      node,
-      name: 'isHomepage',
-      value: postSlug === '/',
-    })
-  }
+  // const { createNodeField } = actions
+  // if (['mdx'].includes(node.internal.type.toLowerCase())) {
+  //   const postSlug = createFilePath({
+  //     node,
+  //     getNode,
+  //     basePath: DOCS_BASE_PATH,
+  //     trailingSlash: false,
+  //   })
+  //   const relativeFilePath = path.relative(__dirname, node.fileAbsolutePath)
+  //   createNodeField({
+  //     node,
+  //     name: 'relativeFilePath',
+  //     value: relativeFilePath,
+  //   })
+  //   // Reference the raw file on GitHub to allow edits
+  //   createNodeField({
+  //     node,
+  //     name: 'editUrl',
+  //     value: `${REPO_URL}/tree/master/${relativeFilePath}`,
+  //   })
+  //   createNodeField({
+  //     node,
+  //     name: 'url',
+  //     value: ['/', DOCS_BASE_PATH, '/', postSlug]
+  //       .filter(Boolean)
+  //       .join('')
+  //       .replace(/\/+/g, '/'),
+  //   })
+  //   createNodeField({
+  //     node,
+  //     name: 'isHomepage',
+  //     value: postSlug === '/',
+  //   })
+  // }
 }
 
 //

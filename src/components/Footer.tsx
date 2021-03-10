@@ -1,165 +1,121 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Composition, Box } from 'atomic-layout'
+import * as React from 'react'
 import { Link } from 'gatsby'
+import {
+  RiGithubFill as GitHubIcon,
+  RiDiscordFill as DiscordIcon,
+  RiTwitterFill as TwitterIcon,
+} from 'react-icons/ri'
+import { ReactComponent as MswLogo } from '../images/logos/msw.svg'
 
-import { ReactComponent as Logo } from '../images/logos/msw-mask.svg'
-import { ReactComponent as VercelLogo } from '../../media/vercel-logo.svg'
-
-import { Grid } from './Grid'
-import { HeadingDiminished } from './HeadingDiminished'
-
-const StyledFooter = styled.footer`
-  background-color: var(--color-black);
-  color: var(--color-gray-light);
-  font-size: 90%;
-
-  a {
-    color: #fff;
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
-  ul {
-    margin: 0;
-    list-style: none;
-  }
-
-  h4 {
-    margin-bottom: 1rem;
-    color: var(--color-gray-light);
-  }
-
-  .alt-stroke {
-    stroke: var(--color-black);
-  }
-
-  .alt {
-    fill: var(--color-black);
-  }
-`
-
-const HostedLink = styled.a`
-  svg {
-    fill: var(--color-gray-light);
-  }
-
-  :hover svg {
-    fill: #fff;
-  }
-`
-
-export const Footer: React.FC = () => {
-  const currentYear = new Date().getFullYear()
-
+export function Footer() {
   return (
-    <Box as={StyledFooter} paddingVertical={64} paddingVerticalLg={100}>
-      <Grid>
-        <Composition
-          templateCols="1fr 1fr"
-          templateColsMd="32px repeat(3, 1fr)"
-          gap={48}
-        >
-          <Box
-            align="center"
-            alignMd="flex-start"
-            colMd="1"
-            justify="center"
-            justifyMd="flex-start"
-          >
-            <Logo height={48} fill="#fff" />
-          </Box>
-          <section>
-            <HeadingDiminished>Documentation</HeadingDiminished>
-            <ul>
+    <footer className="bg-black py-20 text-gray text-sm font-medium">
+      <div className="container">
+        <div className="grid grid-cols-4 gap-20">
+          <div className="col-span-2">
+            <MswLogo width={48} className="mb-2" />
+            <p className="text-base">
+              Seamless REST and GraphQL API mocking library for browser and
+              Node.js.
+            </p>
+            <ul className="mt-8 -ml-2 flex spacing-md text-2xl text-gray-dark">
               <li>
-                <Link to="/docs/getting-started/install">Getting started</Link>
+                <a
+                  href="https://github.com/mswjs/msw"
+                  className="inline-flex hover:text-white p-2"
+                  target="_blank"
+                >
+                  <GitHubIcon />
+                </a>
               </li>
               <li>
-                <Link to="/examples">Examples</Link>
+                <a
+                  href="https://twitter.com/ApiMocking"
+                  className="inline-flex hover:text-white p-2"
+                  target="_blank"
+                >
+                  <TwitterIcon />
+                </a>
               </li>
               <li>
-                <Link to="/docs/api">API</Link>
-              </li>
-              <li>
-                <Link to="/docs/faq">Help</Link>
-              </li>
-              <li>
-                <Link to="/repl">Path matching REPL</Link>
+                <a
+                  href="#"
+                  className="inline-flex hover:text-white p-2"
+                  target="_blank"
+                >
+                  <DiscordIcon />
+                </a>
               </li>
             </ul>
-          </section>
-          <section>
-            <HeadingDiminished>Recipes</HeadingDiminished>
+          </div>
+          <div>
+            <h4 className="mb-3 text-white uppercase font-bold tracking-widest">
+              Documentation
+            </h4>
             <ul>
               <li>
-                <Link to="/docs/recipes/cookies">Cookies</Link>
+                <Link to="/" className="inline-block py-1.5 hover:text-orange">
+                  Getting started
+                </Link>
               </li>
               <li>
-                <Link to="/docs/recipes/query-parameters">
+                <Link to="/" className="inline-block py-1.5 hover:text-orange">
+                  API
+                </Link>
+              </li>
+              <li>
+                <Link to="/" className="inline-block py-1.5 hover:text-orange">
+                  Examples
+                </Link>
+              </li>
+              <li>
+                <Link to="/" className="inline-block py-1.5 hover:text-orange">
+                  FAQ
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="mb-3 text-white uppercase font-bold tracking-widest">
+              Recipes
+            </h4>
+            <ul>
+              <li>
+                <Link to="/" className="inline-block py-1.5 hover:text-orange">
+                  Cookies
+                </Link>
+              </li>
+              <li>
+                <Link to="/" className="inline-block py-1.5 hover:text-orange">
                   Query parameters
                 </Link>
               </li>
               <li>
-                <Link to="/docs/recipes/mocking-error-responses">
+                <Link to="/" className="inline-block py-1.5 hover:text-orange">
                   Mocking error responses
                 </Link>
               </li>
               <li>
-                <Link to="/docs/recipes/binary-response-type">
-                  Binary response type
+                <Link to="/" className="inline-block py-1.5 hover:text-orange">
+                  Debugging uncaught requests
                 </Link>
               </li>
             </ul>
-          </section>
-          <section>
-            <HeadingDiminished>Community</HeadingDiminished>
-            <ul>
-              <li>
-                <Link to="/get-involved">
-                  <strong>Get involved</strong>
-                </Link>
-              </li>
-              <li>
-                <a href="https://github.com/mswjs/msw">GitHub</a>
-              </li>
-              <li>
-                <a href="https://github.com/mswjs/mswjs.io">
-                  Edit docs on GitHub
-                </a>
-              </li>
-              <li>
-                <a href="https://kentcdodds.com/discord/">Discord</a>
-              </li>
-              <li>
-                <a href="https://twitter.com/ApiMocking">Twitter</a>
-              </li>
-            </ul>
-          </section>
-        </Composition>
-        <Box flex alignItems="center" justifyContent="center" marginTop={48}>
-          <Box as="span" marginRight={4}>
-            Hosted by
-          </Box>
-          <Box
-            as={HostedLink}
-            href="https://vercel.com/?utm_source=artemz"
-            alt="Vercel"
+          </div>
+        </div>
+        <hr className="mt-20 mb-10 border-gray-dark opacity-25" />
+        <p className="text-center">
+          © {new Date().getFullYear()} Artem Zakharchenko and{' '}
+          <a
+            href="https://github.com/mswjs/msw/graphs/contributors"
             target="_blank"
-            rel="noopener noreferrer"
-            flex
-            alignItems="center"
+            className="text-white hover:underline"
           >
-            <VercelLogo width={75} />
-          </Box>
-        </Box>
-        <Box as="p" flex alignItems="flex-start" justifyContentMd="center">
-          Copyright © 2018-{currentYear} Artem Zakharchenko and contributors.
-        </Box>
-      </Grid>
-    </Box>
+            contributors
+          </a>
+          .
+        </p>
+      </div>
+    </footer>
   )
 }

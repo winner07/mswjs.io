@@ -1,77 +1,80 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Composition } from 'atomic-layout'
+import * as React from 'react'
 import {
-  AiTwotoneWarning,
-  AiTwotonePlayCircle,
-  AiTwotoneUpSquare,
-} from 'react-icons/ai'
+  SiVueDotJs as VueIcon,
+  SiGraphql as GraphQLIcon,
+  SiTypescript as TypeScriptIcon,
+} from 'react-icons/si'
+import {
+  IoIosRibbon as SeamlessIcon,
+  IoIosImages as MediaIcon,
+  IoIosDocument as DocumentIcon,
+} from 'react-icons/io'
+import { Badge } from '../components/Badge'
 
-import { Grid } from '../components/Grid'
-import { Text } from '../components/Text'
-import { Heading } from '../components/Heading'
+interface FeatureItemProps {
+  icon: JSX.Element
+  title: string
+  description: string
+}
 
-const Section = styled.section`
-  position: relative;
-`
-
-const Block = styled.div`
-  display: inline-flex;
-  margin: 0.5ch 0.5ch 0 0;
-  border-radius: 4px;
-  color: var(--color-black);
-`
-
-export const Features = () => {
+const FeatureItems: React.FC<FeatureItemProps> = ({
+  icon: Icon,
+  title,
+  description,
+}) => {
   return (
-    <Grid>
-      <Composition
-        templateColsLg="repeat(3, 1fr)"
-        gap={64}
-        paddingVertical={64}
-        paddingVerticalMd={80}
-        paddingVerticalLg={120}
-      >
-        <Section>
-          <Heading level={3} flex alignItems="flex-start">
-            <Block>
-              <AiTwotonePlayCircle size={20} />
-            </Block>
-            Seamless
-          </Heading>
-          <Text color="gray">
-            Dedicated layer of requests interception at your disposal. Keep your
-            application's code and tests unaware whether something is mocked or
-            not.
-          </Text>
-        </Section>
-        <Section>
-          <Heading level={3} flex alignItems="flex-start">
-            <Block>
-              <AiTwotoneWarning size={20} />
-            </Block>
-            Deviation-free
-          </Heading>
-          <Text color="gray">
-            Request the same production resources and test the actual behavior
-            of your app. Augment an existing API, or design it as you go, when
-            there is none.
-          </Text>
-        </Section>
-        <Section>
-          <Heading level={3} flex alignItems="flex-start">
-            <Block>
-              <AiTwotoneUpSquare size={20} />
-            </Block>
-            Familiar & Powerful
-          </Heading>
-          <Text color="gray">
-            Use Express-like routing syntax to capture outgoing requests.
-            Parameters, wildcards, regular expressions—mocking has never been
-            easier.
-          </Text>
-        </Section>
-      </Composition>
-    </Grid>
+    <div className="group relative p-8 bg-gray-lightest rounded-2xl">
+      <Badge
+        icon={Icon}
+        className="absolute top-0 left-0 right-0 mx-auto transform -translate-y-1/2 transition-transform group-hover:scale-125"
+      />
+      <p className="my-3 text-xl font-bold text-center">{title}</p>
+      <p className="text-gray-dark dark:text-gray">{description}</p>
+    </div>
+  )
+}
+
+export const Features: React.FC = () => {
+  return (
+    <div className="container py-40">
+      <header className="text-center">
+        <p className="mb-2 text-orange text-sm uppercase font-bold tracking-widest">
+          Sneak peek at
+        </p>
+        <h2 className="mb-5">Features</h2>
+      </header>
+      <section className="mt-20 grid items-start px-16 md:px-0 lg:px-32 md:grid-cols-2 xl:grid-cols-3 gap-x-10 gap-y-20">
+        <FeatureItems
+          icon={<SeamlessIcon size={18} />}
+          title="Seamless"
+          description="With its award-winning concept, Mock Service Worker requires no changes to your application or tests to get the mocking in place."
+        />
+        <FeatureItems
+          icon={<VueIcon size={18} />}
+          title="Framework-agnostic"
+          description="Each application is unique and different. Mock Service Worker doesn't let that variativity to stand in the way of superb API mocking experience."
+        />
+        <FeatureItems
+          icon={<GraphQLIcon size={18} />}
+          title="GraphQL support"
+          description="Capture GraphQL requests based on their operation kind/name, endpoint URL, or resolve anything against a mocked root value."
+        />
+        <FeatureItems
+          icon={<MediaIcon size={18} />}
+          title="Binary response types"
+          description="Stretch your mocks beyond plain text and JSON: respond with images, audio, and video using binary responses."
+        />
+        <FeatureItems
+          icon={<TypeScriptIcon size={18} />}
+          title="TypeScript support"
+          description="Mock Service Worker is natively written in TypeScript, giving you a superb developer experience and the necessary tools to have type-safe API mocking."
+        />
+        <FeatureItems
+          icon={<DocumentIcon size={18} />}
+          title="Specification-driven"
+          description="Learn while you're mocking your API: handle requests and compose responses according to their specification."
+        />
+      </section>
+    </div>
   )
 }

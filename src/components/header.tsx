@@ -1,137 +1,67 @@
-import React from 'react'
-import { Link } from 'gatsby'
-import styled from 'styled-components'
-import { Box, Composition, Only } from 'atomic-layout'
-import { IoIosMenu as MenuIcon } from 'react-icons/io'
-import { DiGithubBadge as GitHubIcon } from 'react-icons/di'
+import * as React from 'react'
+import { Link, GatsbyLinkProps } from 'gatsby'
+import {
+  RiGithubFill as GitHubIcon,
+  RiSearchLine as SearchIcon,
+} from 'react-icons/ri'
+import { ReactComponent as MswLogo } from '../images/logos/msw.svg'
 
-import { Grid } from './Grid'
-import { ShowOnly } from './ShowOnly'
-import { ReactComponent as Logo } from '../images/logos/msw.svg'
-
-const StyledHeader = styled.header`
-  position: sticky;
-  top: 0;
-
-  color: var(--color-gray);
-  font-size: 0.9rem;
-  font-weight: 600;
-
-  background-color: #fff;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  z-index: 2;
-`
-
-const LibraryName = styled.span`
-  color: var(--color-black);
-  font-weight: 800;
-`
-
-const HeaderLink = styled.a`
-  position: relative;
-  padding: 1.5rem 0.5rem;
-  color: inherit;
-  text-decoration: none;
-  transition: color 0.1s ease;
-
-  &:hover {
-    color: var(--color-black);
-  }
-
-  &.active {
-    color: var(--color-black);
-
-    ::before {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background-color: var(--color-black);
-    }
-  }
-`
-
-const BurgerMenuButton = styled.button`
-  margin-left: -1rem;
-  padding: 1rem;
-  position: relative;
-  display: flex;
-  align-items: center;
-  background: transparent;
-  border: 0;
-  cursor: pointer;
-  color: var(--color-gray);
-  z-index: 11;
-
-  :hover {
-    color: var(--color-black);
-  }
-`
-
-interface Props {
-  className?: string
-  withMenu?: boolean
-  onMenuClick?: () => void
-}
-
-const Header: React.FC<Props> = ({ className, withMenu, onMenuClick }) => {
+const HeaderNavLink: React.FC<GatsbyLinkProps<any>> = (props) => {
   return (
-    <Box as={StyledHeader} className={className}>
-      <Composition
-        as={Grid}
-        templateCols="minmax(0, 1fr) auto"
-        gap={10}
-        alignItems="center"
-        justifyContent="space-between"
-      >
-        <Box flex justify="flex-start" alignItems="center">
-          <Box as={Link} to="/" alt="Mock Service Worker logo" flex>
-            <Logo height="48" width="48" />
-          </Box>
-          <ShowOnly from="md" as="span" marginLeft={8}>
-            <LibraryName>Mock Service Worker</LibraryName>
-          </ShowOnly>
-        </Box>
-        <Composition inline autoFlow="column" alignItems="center" gap={16}>
-          <HeaderLink
-            as={Link}
-            to="/docs/"
-            activeClassName="active"
-            partiallyActive
-          >
-            Docs
-          </HeaderLink>
-          <ShowOnly from="sm" flex>
-            <HeaderLink
-              as={Link}
-              to="/examples/"
-              activeClassName="active"
-              partiallyActive
-            >
-              Examples
-            </HeaderLink>
-          </ShowOnly>
-          <Box
-            as={HeaderLink}
-            href="https://github.com/mswjs/msw"
-            alt="GitHub repository"
-            flex
-          >
-            <GitHubIcon size={24} />
-          </Box>
-          {withMenu && (
-            <Only to="lg">
-              <BurgerMenuButton onClick={onMenuClick}>
-                <MenuIcon size={24} />
-              </BurgerMenuButton>
-            </Only>
-          )}
-        </Composition>
-      </Composition>
-    </Box>
+    <Link
+      {...props}
+      className="inline-block py-3 px-4 hover:text-orange"
+      activeClassName="text-orange"
+    />
   )
 }
 
-export default Header
+export function Header() {
+  return (
+    <header className="sticky top-0 bg-white z-20">
+      <div className="container py-3 flex items-center justify-between font-medium text-sm">
+        <Link to="/" className="flex items-center font-bold">
+          <MswLogo className="w-1/6 mr-2" />
+          <span>Mock Service Worker</span>
+        </Link>
+        <div className="flex align-middle space-x-4">
+          <div className="relative self-center">
+            <SearchIcon size={16} className="absolute top-2 left-2 text-gray" />
+            <input
+              type="search"
+              name="search"
+              className="inline py-1.5 px-4 pl-7 border bg-white border-gray-light rounded-lg self-center shadow-sm placeholder-gray-dark focus:border-orange focus:outline-none focus:ring-2 focus:ring-orange focus:ring-opacity-40 dark:border-gray-dark dark:bg-black dark:placeholder-gray"
+              placeholder="Search"
+              autoComplete="off"
+              aria-labelledby="Search"
+            />
+          </div>
+          <nav>
+            <ul className="-mr-4 flex items-center">
+              <li>
+                <HeaderNavLink to="/docs">Docs</HeaderNavLink>
+              </li>
+              <li>
+                <HeaderNavLink to="/tutorials">Tutorials</HeaderNavLink>
+              </li>
+              <li>
+                <HeaderNavLink to="/blog/mocking-authentication-with-auth0">
+                  Blog
+                </HeaderNavLink>
+              </li>
+              <li>
+                <a
+                  href="https://github.com/mswjs/msw"
+                  className="inline-flex py-3 px-4 hover:text-orange"
+                  target="_blank"
+                >
+                  <GitHubIcon size={24} />
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+  )
+}
