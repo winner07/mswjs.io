@@ -6,12 +6,13 @@ import {
 } from 'react-icons/ri'
 import { ReactComponent as MswLogo } from '../images/logos/msw.svg'
 
-const HeaderNavLink: React.FC<GatsbyLinkProps<any>> = (props) => {
+const HeaderLink: React.FC<GatsbyLinkProps<any>> = (props) => {
   return (
     <Link
       {...props}
-      className="inline-block py-3 px-4 hover:text-orange"
+      className="inline-flex py-3 px-4 hover:text-orange"
       activeClassName="text-orange"
+      partiallyActive
     />
   )
 }
@@ -39,24 +40,20 @@ export function Header() {
           <nav>
             <ul className="-mr-4 flex items-center">
               <li>
-                <HeaderNavLink to="/docs">Docs</HeaderNavLink>
+                <HeaderLink to="/docs">Docs</HeaderLink>
               </li>
               <li>
-                <HeaderNavLink to="/tutorials">Tutorials</HeaderNavLink>
+                <HeaderLink to="/tutorials">Tutorials</HeaderLink>
               </li>
               <li>
-                <HeaderNavLink to="/blog/mocking-authentication-with-auth0">
+                <HeaderLink to="/blog/mocking-authentication-with-auth0">
                   Blog
-                </HeaderNavLink>
+                </HeaderLink>
               </li>
               <li>
-                <a
-                  href="https://github.com/mswjs/msw"
-                  className="inline-flex py-3 px-4 hover:text-orange"
-                  target="_blank"
-                >
+                <HeaderLink to="https://github.com/mswjs/msw" target="_blank">
                   <GitHubIcon size={24} />
-                </a>
+                </HeaderLink>
               </li>
             </ul>
           </nav>

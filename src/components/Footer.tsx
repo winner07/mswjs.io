@@ -54,7 +54,10 @@ export function Footer() {
             </h4>
             <ul>
               <li>
-                <Link to="/" className="inline-block py-1.5 hover:text-orange">
+                <Link
+                  to="/tutorials"
+                  className="inline-block py-1.5 hover:text-orange"
+                >
                   Getting started
                 </Link>
               </li>

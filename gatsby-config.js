@@ -31,6 +31,20 @@ module.exports = {
     //   },
     // },
     {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `blog`,
+        path: `${__dirname}/blog/`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `tutorials`,
+        path: `${__dirname}/tutorials/`,
+      },
+    },
+    {
       resolve: 'gatsby-transformer-sharp',
     },
     {
@@ -54,9 +68,18 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-svgr',
       options: {
-        // Disable SVGO entirely, because `svgoConfig: { cleanupIDs: false }` doesn't work.
-        // It strips IDs anyway, making SVGs much harder to style and animate.
-        svgo: false,
+        svgo: {
+          plugins: [
+            {
+              removeViewBox: false,
+            },
+            {
+              removeAttrs: {
+                attrs: ['svg:height'],
+              },
+            },
+          ],
+        },
       },
     },
     {

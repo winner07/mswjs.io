@@ -54,7 +54,7 @@ export const MetaTags: React.FC<Props> = ({
 
   const metaTitle = socialTitle || title
   const metaDescription = description || siteMetadata.description
-  const template = titleTemplate || `%s | ${siteMetadata.title}`
+  const template = titleTemplate || `%s - ${siteMetadata.title}`
 
   const ogImageFullUrl =
     process.env.NODE_ENV === 'development'
