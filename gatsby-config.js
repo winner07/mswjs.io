@@ -102,12 +102,6 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-postcss',
     },
-    // {
-    //   resolve: 'gatsby-plugin-styled-components',
-    //   options: {
-    //     displayName: false,
-    //   },
-    // },
     {
       resolve: 'gatsby-plugin-google-analytics',
       options: {

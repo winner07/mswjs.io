@@ -1,13 +1,12 @@
 ---
 title: Cookies
-order: 71
 ---
 
 ## Limitations
 
-Fetch specification explicitly [forbids](https://developer.mozilla.org/en-US/docs/Glossary/Forbidden_header_name) setting `Set-Cookie` and `Set-Cookie2` headers when constructing a new `Response` instance for security reasons.
+Fetch specification explicitly [forbids](https://developer.mozilla.org/en-US/docs/Glossary/Forbidden_header_name) setting `Set-Cookie` and `Set-Cookie2` headers when constructing `Response` instances for security considerations.
 
-However, since Mock Service Worker executes on the client side, it can provide a functionality similar to receiving a mocked cookie from the response, without violating security. To achieve that, use the `ctx.cookie()` response transformer function that sets the given cookies on the `document.cookie` string directly.
+However, since Mock Service Worker executes on the client side, it can provide a functionality similar to receiving a mocked cookie from the response without violating any security rules. To achieve that, use the `ctx.cookie()` response transformer function that sets the given cookies on the `document.cookie` string directly.
 
 ## Examples
 
@@ -40,7 +39,7 @@ const worker = setupWorker(
 worker.start()
 ```
 
-<Hint mode="warning">
+<Hint>
   The value of <code>req.cookies</code> respects the{' '}
   <code>req.credentials</code>. Learn more about the{' '}
   <a href="https://developer.mozilla.org/en-US/docs/Web/API/Request/credentials">
@@ -68,3 +67,7 @@ worker.start()
 ```
 
 > Note that you still won't be able to access the `Set-Cookie` header on the response, as the cookie is set on the `document` directly, bypassing network.
+
+### Cookies persistency
+
+> Tell about how cookies set in one request handler persist for another handler based on the origin.

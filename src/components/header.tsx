@@ -21,8 +21,8 @@ export function Header() {
   return (
     <header className="sticky top-0 bg-white z-20">
       <div className="container py-3 flex items-center justify-between font-medium text-sm">
-        <Link to="/" className="flex items-center font-bold">
-          <MswLogo className="w-1/6 mr-2" />
+        <Link to="/" className="flex items-center font-bold space-x-2">
+          <MswLogo width={48} />
           <span>Mock Service Worker</span>
         </Link>
         <div className="flex align-middle space-x-4">
@@ -43,7 +43,7 @@ export function Header() {
                 <HeaderLink to="/docs">Docs</HeaderLink>
               </li>
               <li>
-                <HeaderLink to="/tutorials">Tutorials</HeaderLink>
+                <HeaderLink to="/tutorials">Learn</HeaderLink>
               </li>
               <li>
                 <HeaderLink to="/blog/mocking-authentication-with-auth0">

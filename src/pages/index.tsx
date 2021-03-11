@@ -1,6 +1,11 @@
 import * as React from 'react'
 import { Link } from 'gatsby'
-import { HiHand, HiCode, HiPuzzle } from 'react-icons/hi'
+import {
+  HiHand,
+  HiCode,
+  HiPuzzle,
+  HiOutlineArrowRight as ArrowRightIcon,
+} from 'react-icons/hi'
 import { Main } from '../layouts/Main'
 import { ReactComponent as GoogleIcon } from '../images/logos/google.svg'
 import { ReactComponent as SpotifyIcon } from '../images/logos/spotify-text.svg'
@@ -10,6 +15,7 @@ import { Features } from '../sections/Features'
 import { Badge } from '../components/Badge'
 import { UsagePreview } from '../sections/UsagePreview'
 import { MetaTags } from '../components/MetaTags'
+import { Feedback } from '../sections/Feedback'
 
 const FeatureItem: React.FC<{
   icon: JSX.Element
@@ -58,9 +64,10 @@ export default function Home() {
                 <section className="mt-14 space-x-5 font-medium text-lg">
                   <Link
                     to="/tutorials"
-                    className="inline-block py-3.5 px-10 bg-black text-white rounded-lg select-none hover:bg-gray-darkest focus:ring-4 focus:ring-gray focus:outline-none"
+                    className="group inline-flex items-center py-3.5 px-10 space-x-3 bg-black text-white rounded-lg select-none hover:bg-gray-darkest focus:ring-4 focus:ring-gray focus:outline-none"
                   >
-                    Getting started
+                    <span>Get started</span>
+                    <ArrowRightIcon className="transform transition-transform group-hover:translate-x-2" />
                   </Link>
                   <Link
                     to="/docs"
@@ -129,7 +136,9 @@ export default function Home() {
 
         <UsagePreview />
 
-        <div className="container px-20 lg:px-40 my-40">
+        <Feedback />
+
+        <div className="container px-20 lg:px-40 py-40">
           <div className="relative">
             <div className="absolute -top-10 -left-10 w-full h-full bg-gray-lightest rounded-2xl -z-10" />
             <div className="absolute top-10 left-10 w-full h-full bg-gray-light rounded-2xl -z-10" />
@@ -143,9 +152,12 @@ export default function Home() {
                 </p>
               </div>
               <div className="pl-2 lg:w-1/3 flex flex-shrink-0 justify-end">
-                <button className="bg-orange lg:text-xl px-20 py-3 rounded-xl font-bold hover:bg-white hover:text-black">
-                  Get started
-                </button>
+                <Link
+                  to="/tutorials"
+                  className="bg-orange lg:text-xl px-16 py-3 rounded-xl font-bold hover:bg-white hover:text-black"
+                >
+                  Take a tutorial
+                </Link>
               </div>
             </section>
           </div>

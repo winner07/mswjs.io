@@ -34,14 +34,17 @@ const GuideItem = ({
   )
 }
 
-const RecipeItem = ({ title }: { title: string }) => {
+const RecipeItem = ({ title, to }: { title: string; to: string }) => {
   return (
-    <article className="flex items-top justify-between pl-8 pr-4 py-4 border rounded-xl transition-colors hover:bg-gray-lightest">
+    <Link
+      to={to}
+      className="flex items-top justify-between pl-8 pr-4 py-4 border rounded-xl transition-colors hover:bg-gray-lightest"
+    >
       <p className="font-bold">{title}</p>
       <span className="p-1 mt-1/2 bg-gray-light rounded-md">
         <RightArrowIcon size={16} />
       </span>
-    </article>
+    </Link>
   )
 }
 
@@ -54,7 +57,7 @@ export default function TutorialsPage() {
         description=""
       />
       <PageHeader>
-        <h1 className="mb-0">Tutorials</h1>
+        <h1 className="mb-0">Learn</h1>
       </PageHeader>
       <main>
         <div className="container py-20 space-y-20">
@@ -62,40 +65,46 @@ export default function TutorialsPage() {
             <header className="mb-10">
               <h2 className="mb-2">Getting started</h2>
               <p className="text-gray-dark text-xl">
-                Comprehensive step-by-step instructions to mock different API
+                Comprehensive step-by-step tutorials on mocking different API
                 types.
               </p>
             </header>
             <main className="grid lg:grid-cols-2 gap-8">
               <Link
                 to="/tutorials/getting-started/rest-api"
-                className="relative overflow-hidden p-8 pr-48 bg-black text-gray rounded-xl hover:bg-gray-darkest transition-colors yell"
+                className="relative overflow-hidden p-8 sm:pr-48 bg-black text-gray rounded-xl hover:bg-gray-darkest transition-colors focus:ring-4 focus:outline-none focus:ring-gray"
               >
                 <h3 className="mb-2 text-2xl text-white font-bold">
                   Mocking REST API
+                  <span className="ml-3 px-2 align-middle py-1 text-sm bg-green-300 rounded-md text-green-900">
+                    10 lessons
+                  </span>
                 </h3>
-                <p>
-                  Build a simple CRUD application that communicates to a
-                  non-existing REST API server.
+                <p className="font-medium">
+                  Build and test a simple CRUD application that communicates to
+                  a non-existing REST API server.
                 </p>
                 <RestIcon
-                  className="absolute right-0 -top-10 opacity-50 text-green-500"
+                  className="absolute right-0 -top-10 opacity-50 text-green-500 hidden sm:block"
                   size={200}
                 />
               </Link>
               <Link
-                to="/tutorials/graphql-api"
-                className="relative overflow-hidden p-8 pr-48 bg-black text-gray rounded-xl hover:bg-gray-darkest transition-colors"
+                to="/tutorials/getting-started/graphql-api"
+                className="relative overflow-hidden p-8 sm:pr-48 bg-black text-gray rounded-xl hover:bg-gray-darkest transition-colors focus:ring-4 focus:outline-none focus:ring-gray"
               >
                 <h3 className="mb-2 text-2xl text-white font-bold">
                   Mocking GraphQL API
+                  <span className="ml-3 px-2 align-middle py-1 text-sm bg-pink-300 rounded-md text-pink-900">
+                    7 lessons
+                  </span>
                 </h3>
-                <p>
+                <p className="font-medium">
                   Integrate Mock Service Worker into a GraphQL project without
                   any mock providers or other hassle.
                 </p>
                 <GraphQLLogo
-                  className="absolute right-0 -top-10 opacity-50 text-pink-500"
+                  className="absolute right-0 -top-10 opacity-50 text-pink-500 hidden sm:block"
                   size={200}
                 />
               </Link>
@@ -111,7 +120,7 @@ export default function TutorialsPage() {
                 Integrate Mock Service Worker with your favorite tools.
               </p>
             </header>
-            <main className="grid grid-cols-3 gap-8 mt-10">
+            <main className="grid lg:grid-cols-3 gap-x-8 gap-y-4 mt-10">
               <GuideItem
                 icon={
                   <StorybookIcon
@@ -153,14 +162,29 @@ export default function TutorialsPage() {
               </p>
             </header>
             <main className="grid md:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-4 mt-10">
-              <RecipeItem title="Cookies" />
-              <RecipeItem title="Query parameters" />
-              <RecipeItem title="Response patching" />
-              <RecipeItem title="Error responses" />
-              <RecipeItem title="Binary response types" />
-              <RecipeItem title="Realistic response time" />
-              <RecipeItem title="Debugging uncaught requests" />
-              <RecipeItem title="Deferred mounting" />
+              <RecipeItem to="/tutorials/guides/cookies" title="Cookies" />
+              <RecipeItem
+                to="/tutorials/guides/query-parameters"
+                title="Query parameters"
+              />
+              <RecipeItem
+                to="/tutorials/guides/response-patching"
+                title="Response patching"
+              />
+              <RecipeItem
+                to="/tutorials/guides/error-responses"
+                title="Error responses"
+              />
+              <RecipeItem
+                to="/tutorials/guides/binary-response-type"
+                title="Binary response type"
+              />
+              <RecipeItem to="#" title="Realistic response time" />
+              <RecipeItem to="#" title="Debugging uncaught requests" />
+              <RecipeItem
+                to="/tutorials/guides/deferred-mounting"
+                title="Deferred mounting"
+              />
             </main>
           </section>
         </div>

@@ -55,24 +55,33 @@ export function Footer() {
             <ul>
               <li>
                 <Link
-                  to="/tutorials"
+                  to="/docs"
                   className="inline-block py-1.5 hover:text-orange"
                 >
-                  Getting started
+                  Fundamentals
                 </Link>
               </li>
               <li>
-                <Link to="/" className="inline-block py-1.5 hover:text-orange">
+                <Link
+                  to="/docs"
+                  className="inline-block py-1.5 hover:text-orange"
+                >
                   API
                 </Link>
               </li>
               <li>
-                <Link to="/" className="inline-block py-1.5 hover:text-orange">
+                <Link
+                  to="/docs"
+                  className="inline-block py-1.5 hover:text-orange"
+                >
                   Examples
                 </Link>
               </li>
               <li>
-                <Link to="/" className="inline-block py-1.5 hover:text-orange">
+                <Link
+                  to="/docs"
+                  className="inline-block py-1.5 hover:text-orange"
+                >
                   FAQ
                 </Link>
               </li>
@@ -84,22 +93,34 @@ export function Footer() {
             </h4>
             <ul>
               <li>
-                <Link to="/" className="inline-block py-1.5 hover:text-orange">
+                <Link
+                  to="/tutorials/guides/cookies"
+                  className="inline-block py-1.5 hover:text-orange"
+                >
                   Cookies
                 </Link>
               </li>
               <li>
-                <Link to="/" className="inline-block py-1.5 hover:text-orange">
+                <Link
+                  to="/tutorials/guides/query-parameters"
+                  className="inline-block py-1.5 hover:text-orange"
+                >
                   Query parameters
                 </Link>
               </li>
               <li>
-                <Link to="/" className="inline-block py-1.5 hover:text-orange">
+                <Link
+                  to="/tutorials/guides/error-responses"
+                  className="inline-block py-1.5 hover:text-orange"
+                >
                   Mocking error responses
                 </Link>
               </li>
               <li>
-                <Link to="/" className="inline-block py-1.5 hover:text-orange">
+                <Link
+                  to="/tutorials/guides/debugging-uncaught-requests"
+                  className="inline-block py-1.5 hover:text-orange"
+                >
                   Debugging uncaught requests
                 </Link>
               </li>
