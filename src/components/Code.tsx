@@ -109,13 +109,6 @@ export const Code = ({
                         ? `${tokenProps.className} interactive`
                         : tokenProps.className
 
-                      console.log(token.content, {
-                        lineNumber,
-                        token,
-                        interactiveTokens,
-                        interactiveToken,
-                      })
-
                       return (
                         <span
                           {...tokenProps}

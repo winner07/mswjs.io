@@ -31,6 +31,30 @@ function SectionHeading({
   )
 }
 
+function SubMenu({
+  items,
+  className,
+}: {
+  items: Array<{ url: string; title: string; items: any[] }>
+  className?: string
+}) {
+  return (
+    <ul className={['pl-4'].concat(className).filter(Boolean).join(' ')}>
+      {items.map(({ url, title, items }) => (
+        <li key={url}>
+          <Link
+            to={url}
+            className="inline-block py-1.5 text-gray transition-colors hover:text-black"
+          >
+            {title}
+          </Link>
+          {items ? <SubMenu items={items} /> : null}
+        </li>
+      ))}
+    </ul>
+  )
+}
+
 export default function LearnPage({ data, pageContext }) {
   const { guides, recipes } = data
   const { frontmatter } = pageContext
@@ -59,8 +83,8 @@ export default function LearnPage({ data, pageContext }) {
                     <li key={node.id}>
                       <Link
                         to={`/learn/${node.mdx.slug}`}
-                        className="inline-block py-1.5 pr-2 transition-colors hover:text-black"
-                        activeClassName="text-orange hover:text-orange"
+                        className="inline-block -ml-2 px-2 py-1.5 transition-colors hover:text-black"
+                        activeClassName="bg-green-100 text-green-900 rounded-lg hover:text-green-900"
                       >
                         {node.mdx.frontmatter.title}
                       </Link>
@@ -84,11 +108,18 @@ export default function LearnPage({ data, pageContext }) {
                     <li key={node.id}>
                       <Link
                         to={`/learn/${node.mdx.slug}`}
-                        className="inline-block py-1.5 pr-2 transition-colors hover:text-black"
-                        activeClassName="text-orange hover:text-orange"
+                        className="inline-block -ml-2 px-2 py-1.5 transition-colors hover:text-black"
+                        activeClassName="sibling-visible bg-purple-100 text-purple-900 rounded-lg hover:text-purple-900"
+                        partiallyActive
                       >
                         {node.mdx.frontmatter.title}
                       </Link>
+                      {node.mdx.tableOfContents?.items ? (
+                        <SubMenu
+                          items={node.mdx.tableOfContents?.items}
+                          className="sibling"
+                        />
+                      ) : null}
                     </li>
                   ))}
                 </ul>
@@ -144,6 +175,7 @@ export const query = graphql`
             frontmatter {
               title
             }
+            tableOfContents(maxDepth: 3)
           }
         }
       }

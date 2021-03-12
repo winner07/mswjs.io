@@ -41,17 +41,25 @@ button {
   user-select: none;
 }
 
+.sibling {
+  @apply hidden;
+}
+
+.sibling-visible + .sibling {
+  @apply block;
+}
+
 /* Code highlighting */
 code {
   @apply py-0.5;
   @apply px-1.5;
-  @apply text-sm;
   @apply text-blue-900;
   @apply font-medium;
   @apply bg-blue-50;
   @apply border;
   @apply border-blue-100;
   @apply rounded-md;
+  font-size: 0.9em;
 }
 
 pre {
