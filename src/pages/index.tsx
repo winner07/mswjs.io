@@ -153,7 +153,7 @@ export default function Home() {
               </div>
               <div className="mt-8 xl:mt-0 xl:w-1/3 flex flex-grow xl:flex-grow-0 flex-shrink-0 md:justify-end">
                 <Link
-                  to="/tutorials"
+                  to="/learn"
                   className="block bg-orange w-full xl:w-auto xl:text-xl px-16 py-3 rounded-xl text-center font-bold hover:bg-white hover:text-black"
                 >
                   Take the tutorial

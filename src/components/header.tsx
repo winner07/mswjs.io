@@ -26,12 +26,12 @@ const HeaderLink: React.FC<GatsbyLinkProps<any>> = (props) => {
 export function Header() {
   return (
     <header className="sticky top-0 bg-white z-20">
-      <div className="container py-3 flex items-center space-x-10 font-medium text-sm">
+      <div className="container py-3 grid grid-cols-4 items-center gap-10 font-medium text-sm">
         <Link to="/" className="flex items-center font-bold space-x-2">
           <MswLogo width={48} />
           <span className="hidden lg:block">Mock Service Worker</span>
         </Link>
-        <div className="flex flex-1 align-middle space-x-4">
+        <div className="flex col-span-2 align-middle space-x-4">
           <div className="relative self-center">
             <SearchIcon size={16} className="absolute top-2 left-2 text-gray" />
             <input
@@ -68,7 +68,7 @@ export function Header() {
             </ul>
           </nav>
         </div>
-        <ul className="flex items-center">
+        <ul className="flex items-center justify-end">
           <li>
             <a
               href="https://opencollective.com/mswjs"

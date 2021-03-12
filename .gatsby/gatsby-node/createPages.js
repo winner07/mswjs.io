@@ -8,6 +8,10 @@ const BLOG_PAGE_COMPONTENT = path.resolve(
 )
 const LEARN_PAGE_COMPONENT = path.resolve(
   __dirname,
+  '../../src/layouts/LearnPage.tsx',
+)
+const TUTORIAL_PAGE_COMPONENT = path.resolve(
+  __dirname,
   '../../src/layouts/TutorialPage.tsx',
 )
 
@@ -72,10 +76,13 @@ module.exports = async function createPages({ graphql, actions }) {
   // Create learn pages.
   data.learn.edges.forEach(({ node }) => {
     const pagePath = path.join(node.sourceInstanceName, node.mdx.slug)
+    const component = node.mdx.slug.startsWith('tutorials/')
+      ? TUTORIAL_PAGE_COMPONENT
+      : LEARN_PAGE_COMPONENT
 
     actions.createPage({
       path: pagePath,
-      component: LEARN_PAGE_COMPONENT,
+      component,
       context: {
         content: node.mdx.body,
         frontmatter: node.mdx.frontmatter,
