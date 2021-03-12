@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Link } from 'gatsby'
+import { graphql, Link } from 'gatsby'
 import {
   SiGraphql as GraphQLLogo,
   SiStorybook as StorybookIcon,
@@ -38,17 +38,17 @@ const RecipeItem = ({ title, to }: { title: string; to: string }) => {
   return (
     <Link
       to={to}
-      className="flex items-top justify-between pl-8 pr-4 py-4 border rounded-xl transition-colors hover:bg-gray-lightest"
+      className="group flex items-top justify-between pl-8 pr-4 py-4 border rounded-xl transition-colors hover:bg-gray-lightest"
     >
       <p className="font-bold">{title}</p>
-      <span className="p-1 mt-1/2 bg-gray-light rounded-md">
+      <span className="p-1 mt-1/2 bg-gray-light rounded-md transition-colors group-hover:bg-black group-hover:text-white">
         <RightArrowIcon size={16} />
       </span>
     </Link>
   )
 }
 
-export default function TutorialsPage() {
+export default function LearnPage({ data }) {
   return (
     <Main>
       <MetaTags
@@ -63,15 +63,15 @@ export default function TutorialsPage() {
         <div className="container py-20 space-y-20">
           <section>
             <header className="mb-10">
-              <h2 className="mb-2">Getting started</h2>
+              <h2 className="mb-2">Tutorials</h2>
               <p className="text-gray-dark text-xl">
-                Comprehensive step-by-step tutorials on mocking different API
+                Comprehensive step-by-step instructions on mocking different API
                 types.
               </p>
             </header>
             <main className="grid lg:grid-cols-2 gap-8">
               <Link
-                to="/tutorials/getting-started/rest-api"
+                to="/learn/tutorials/getting-started/rest-api"
                 className="relative overflow-hidden p-8 sm:pr-48 bg-black text-gray rounded-xl hover:bg-gray-darkest transition-colors focus:ring-4 focus:outline-none focus:ring-gray"
               >
                 <h3 className="mb-2 text-2xl text-white font-bold">
@@ -90,7 +90,7 @@ export default function TutorialsPage() {
                 />
               </Link>
               <Link
-                to="/tutorials/getting-started/graphql-api"
+                to="/learn/tutorials/getting-started/graphql-api"
                 className="relative overflow-hidden p-8 sm:pr-48 bg-black text-gray rounded-xl hover:bg-gray-darkest transition-colors focus:ring-4 focus:outline-none focus:ring-gray"
               >
                 <h3 className="mb-2 text-2xl text-white font-bold">
@@ -162,29 +162,13 @@ export default function TutorialsPage() {
               </p>
             </header>
             <main className="grid md:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-4 mt-10">
-              <RecipeItem to="/tutorials/guides/cookies" title="Cookies" />
-              <RecipeItem
-                to="/tutorials/guides/query-parameters"
-                title="Query parameters"
-              />
-              <RecipeItem
-                to="/tutorials/guides/response-patching"
-                title="Response patching"
-              />
-              <RecipeItem
-                to="/tutorials/guides/error-responses"
-                title="Error responses"
-              />
-              <RecipeItem
-                to="/tutorials/guides/binary-response-type"
-                title="Binary response type"
-              />
-              <RecipeItem to="#" title="Realistic response time" />
-              <RecipeItem to="#" title="Debugging uncaught requests" />
-              <RecipeItem
-                to="/tutorials/guides/deferred-mounting"
-                title="Deferred mounting"
-              />
+              {data.recipes.edges.map(({ node }) => (
+                <RecipeItem
+                  key={node.id}
+                  to={`/learn/${node.mdx.slug}`}
+                  title={node.mdx.frontmatter.title}
+                />
+              ))}
             </main>
           </section>
         </div>
@@ -192,3 +176,28 @@ export default function TutorialsPage() {
     </Main>
   )
 }
+
+export const query = graphql`
+  query GetRecipes {
+    recipes: allFile(
+      filter: {
+        sourceInstanceName: { eq: "learn" }
+        extension: { eq: "mdx" }
+        childMdx: { slug: { regex: "/^recipes/" } }
+      }
+      sort: { fields: childMdx___frontmatter___order }
+    ) {
+      edges {
+        node {
+          id
+          mdx: childMdx {
+            slug
+            frontmatter {
+              title
+            }
+          }
+        }
+      }
+    }
+  }
+`

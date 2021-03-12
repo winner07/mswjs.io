@@ -4,20 +4,49 @@ import Highlight, { Language, defaultProps } from 'prism-react-renderer'
 interface Props {
   code: string
   language: string
-  highlights?: LineToken[]
+  highlights?: RandgeDefinition[]
   showLineNumbers?: boolean
   startLineNumber?: number
   className?: string
+  tokens?: TokenDefinition[]
 }
 
-interface LineToken {
+interface PrismRendererToken {
+  content: string
+  types: string[]
+}
+
+export interface TokenDefinition {
+  line: number
+  token: Omit<PrismRendererToken, 'types'> & { type: string }
+  onClick(): void
+}
+
+export interface RandgeDefinition {
   start: number
   end: number
 }
 
-function isHighlightedLine(lineNumber: number, highlights: LineToken[]) {
+function isHighlightedLine(
+  lineNumber: number,
+  highlights: RandgeDefinition[],
+): boolean {
   return highlights.some((token) => {
     return lineNumber >= token.start && lineNumber <= token.end
+  })
+}
+
+function findInteractiveToken(
+  lineNumber: number,
+  token: PrismRendererToken,
+  tokens: TokenDefinition[] = [],
+) {
+  return tokens.find((tokenDefinition) => {
+    const sameLine = lineNumber === tokenDefinition.line
+    const sameToken =
+      tokenDefinition.token.content === token.content.trim() &&
+      token.types.includes(tokenDefinition.token.type)
+    return sameLine && sameToken
   })
 }
 
@@ -27,6 +56,7 @@ export const Code = ({
   highlights,
   showLineNumbers,
   startLineNumber,
+  tokens: interactiveTokens,
   className,
 }: Props) => {
   const parentClassName = React.useMemo(() => {
@@ -50,8 +80,8 @@ export const Code = ({
       >
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <pre className={className} style={style}>
-            {tokens.map((line, index) => {
-              const lineNumber = index + (startLineNumber || 1)
+            {tokens.map((line, lineIndex) => {
+              const lineNumber = lineIndex + (startLineNumber || 1)
               const isActive = isHighlightedLine(lineNumber, highlights || [])
               const lineClass = highlights?.length
                 ? isActive
@@ -61,16 +91,39 @@ export const Code = ({
 
               return (
                 <div
-                  {...getLineProps({ line, key: index })}
+                  {...getLineProps({ line, key: lineIndex })}
                   className={['line', lineClass].filter(Boolean).join(' ')}
                 >
                   {shouldShowLineNumbers && (
                     <span className="line-number">{lineNumber}</span>
                   )}
                   <span className="line-content">
-                    {line.map((token, key) => (
-                      <span {...getTokenProps({ token, key })} />
-                    ))}
+                    {line.map((token, key) => {
+                      const interactiveToken = findInteractiveToken(
+                        lineNumber,
+                        token,
+                        interactiveTokens,
+                      )
+                      const tokenProps = getTokenProps({ token, key })
+                      const className = interactiveToken
+                        ? `${tokenProps.className} interactive`
+                        : tokenProps.className
+
+                      console.log(token.content, {
+                        lineNumber,
+                        token,
+                        interactiveTokens,
+                        interactiveToken,
+                      })
+
+                      return (
+                        <span
+                          {...tokenProps}
+                          className={className}
+                          onClick={interactiveToken?.onClick}
+                        />
+                      )
+                    })}
                   </span>
                 </div>
               )

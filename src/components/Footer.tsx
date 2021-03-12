@@ -94,7 +94,7 @@ export function Footer() {
             <ul>
               <li>
                 <Link
-                  to="/tutorials/guides/cookies"
+                  to="/learn/recipes/cookies"
                   className="inline-block py-1.5 hover:text-orange"
                 >
                   Cookies
@@ -102,7 +102,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  to="/tutorials/guides/query-parameters"
+                  to="/learn/recipes/query-parameters"
                   className="inline-block py-1.5 hover:text-orange"
                 >
                   Query parameters
@@ -110,7 +110,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  to="/tutorials/guides/error-responses"
+                  to="/learn/recipes/error-responses"
                   className="inline-block py-1.5 hover:text-orange"
                 >
                   Mocking error responses
@@ -118,7 +118,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  to="/tutorials/guides/debugging-uncaught-requests"
+                  to="/learn/recipes/debugging-uncaught-requests"
                   className="inline-block py-1.5 hover:text-orange"
                 >
                   Debugging uncaught requests

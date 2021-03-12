@@ -1,14 +1,12 @@
 import * as React from 'react'
+import { RandgeDefinition, TokenDefinition } from '../components/Code'
 
 interface GuideFile {
   name: string
   language: string
   raw: string
-}
-
-interface LineToken {
-  start: number
-  end: number
+  tokens?: TokenDefinition[]
+  meta?: Record<string, any>
 }
 
 interface RootStep {
@@ -20,7 +18,7 @@ interface RootStep {
 interface Step {
   title: string
   file: string
-  lines: LineToken[]
+  lines: RandgeDefinition[]
   content?: JSX.Element
 }
 
@@ -34,10 +32,13 @@ export function useGuide({ files, steps }: UseGuideProps) {
     return Object.keys(files)[0]
   })
   const [lines, setLines] = React.useState(null)
-  const [activeStep, setActiveStep] = React.useState(null)
+  const [activeStepIndex, setActiveStepIndex] = React.useState(null)
+  const [activeParentStepIndex, activeChildStepIndex] =
+    activeStepIndex?.split(',') || []
 
   return {
     file: files[activeFile],
+    step: steps[activeParentStepIndex]?.steps[activeChildStepIndex],
     files: Object.keys(files).map((key) => {
       const file = files[key]
       const isActive = activeFile === key
@@ -50,7 +51,7 @@ export function useGuide({ files, steps }: UseGuideProps) {
             setActiveFile(key)
           }
 
-          setActiveStep(null)
+          setActiveStepIndex(null)
           setLines(null)
         },
       }
@@ -61,17 +62,18 @@ export function useGuide({ files, steps }: UseGuideProps) {
         title: step.title,
         content: step.content,
         steps: step.steps.map((step, stepIndex) => {
-          const index = `${parentIndex}${stepIndex}`
-          const isActive = activeStep === index
+          const index = `${parentIndex},${stepIndex}`
+          const isActive = activeStepIndex === index
 
           return {
             title: step.title,
             active: isActive,
+            file: files[step.file],
             content: step.content,
             goto() {
               if (isActive) {
                 setLines(null)
-                setActiveStep(null)
+                setActiveStepIndex(null)
                 return
               }
 
@@ -80,7 +82,7 @@ export function useGuide({ files, steps }: UseGuideProps) {
               }
 
               setLines(step.lines)
-              setActiveStep(index)
+              setActiveStepIndex(index)
             },
           }
         }),

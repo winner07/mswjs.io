@@ -40,8 +40,8 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `tutorials`,
-        path: `${__dirname}/tutorials/`,
+        name: `learn`,
+        path: `${__dirname}/learn/`,
       },
     },
     {

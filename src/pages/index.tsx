@@ -57,9 +57,9 @@ export default function Home() {
                   <span className="text-orange whitespace-nowrap">is now</span>.
                 </h1>
                 <p className="mt-8 text-2xl text-gray-dark leading-snug">
-                  Mock API by intercepting requests on the network level.
-                  Seamlessly reuse the same mock definition for testing,
-                  development, and debugging across multiple environments.
+                  Mock API by intercepting requests with a Service Worker.
+                  Seamlessly reuse the same mock definition for development,
+                  testing, and debugging across multiple environments.
                 </p>
                 <section className="mt-14 space-x-5 font-medium text-lg">
                   <Link
@@ -142,8 +142,8 @@ export default function Home() {
           <div className="relative">
             <div className="absolute -top-10 -left-10 w-full h-full bg-gray-lightest rounded-2xl -z-10" />
             <div className="absolute top-10 left-10 w-full h-full bg-gray-light rounded-2xl -z-10" />
-            <section className="relative flex items-center bg-black text-white p-12 rounded-2xl z-0">
-              <div className="grow-1 pr-2">
+            <section className="relative flex flex-wrap lg:flex-nowrap items-center lg:space-x-8 bg-black text-white p-12 rounded-2xl z-0">
+              <div className="grow-1">
                 <h2 className="text-2xl">Ready to get started?</h2>
                 <p className="text-gray lg:text-lg">
                   Follow a step-by-step tutorial to integrate Mock Service
@@ -151,12 +151,12 @@ export default function Home() {
                   tests starting today!
                 </p>
               </div>
-              <div className="pl-2 lg:w-1/3 flex flex-shrink-0 justify-end">
+              <div className="mt-8 xl:mt-0 xl:w-1/3 flex flex-grow xl:flex-grow-0 flex-shrink-0 md:justify-end">
                 <Link
                   to="/tutorials"
-                  className="bg-orange lg:text-xl px-16 py-3 rounded-xl font-bold hover:bg-white hover:text-black"
+                  className="block bg-orange w-full xl:w-auto xl:text-xl px-16 py-3 rounded-xl text-center font-bold hover:bg-white hover:text-black"
                 >
-                  Take a tutorial
+                  Take the tutorial
                 </Link>
               </div>
             </section>

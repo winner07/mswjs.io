@@ -6,7 +6,7 @@ const BLOG_PAGE_COMPONTENT = path.resolve(
   __dirname,
   '../../src/layouts/BlogPage.tsx',
 )
-const TUTORIALS_PAGE_COMPONENT = path.resolve(
+const LEARN_PAGE_COMPONENT = path.resolve(
   __dirname,
   '../../src/layouts/TutorialPage.tsx',
 )
@@ -32,10 +32,10 @@ module.exports = async function createPages({ graphql, actions }) {
         }
       }
 
-      # Tutorials.
-      tutorials: allFile(
+      # Learning materials.
+      learn: allFile(
         filter: {
-          sourceInstanceName: { eq: "tutorials" }
+          sourceInstanceName: { eq: "learn" }
           extension: { eq: "mdx" }
         }
       ) {
@@ -69,13 +69,13 @@ module.exports = async function createPages({ graphql, actions }) {
     })
   })
 
-  // Create tutorials pages.
-  data.tutorials.edges.forEach(({ node }) => {
+  // Create learn pages.
+  data.learn.edges.forEach(({ node }) => {
     const pagePath = path.join(node.sourceInstanceName, node.mdx.slug)
 
     actions.createPage({
       path: pagePath,
-      component: TUTORIALS_PAGE_COMPONENT,
+      component: LEARN_PAGE_COMPONENT,
       context: {
         content: node.mdx.body,
         frontmatter: node.mdx.frontmatter,

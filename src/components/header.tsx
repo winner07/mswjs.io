@@ -4,14 +4,20 @@ import {
   RiGithubFill as GitHubIcon,
   RiSearchLine as SearchIcon,
 } from 'react-icons/ri'
+import { HiHeart as HeartIcon } from 'react-icons/hi'
 import { ReactComponent as MswLogo } from '../images/logos/msw.svg'
 
 const HeaderLink: React.FC<GatsbyLinkProps<any>> = (props) => {
   return (
     <Link
       {...props}
-      className="inline-flex py-3 px-4 hover:text-orange"
-      activeClassName="text-orange"
+      className={[
+        'inline-flex py-3 px-4 text-gray-dark transition-colors hover:text-black',
+      ]
+        .concat(props.className)
+        .filter(Boolean)
+        .join(' ')}
+      activeClassName="text-orange hover:text-orange"
       partiallyActive
     />
   )
@@ -20,12 +26,12 @@ const HeaderLink: React.FC<GatsbyLinkProps<any>> = (props) => {
 export function Header() {
   return (
     <header className="sticky top-0 bg-white z-20">
-      <div className="container py-3 flex items-center justify-between font-medium text-sm">
+      <div className="container py-3 flex items-center space-x-10 font-medium text-sm">
         <Link to="/" className="flex items-center font-bold space-x-2">
           <MswLogo width={48} />
-          <span>Mock Service Worker</span>
+          <span className="hidden lg:block">Mock Service Worker</span>
         </Link>
-        <div className="flex align-middle space-x-4">
+        <div className="flex flex-1 align-middle space-x-4">
           <div className="relative self-center">
             <SearchIcon size={16} className="absolute top-2 left-2 text-gray" />
             <input
@@ -43,21 +49,47 @@ export function Header() {
                 <HeaderLink to="/docs">Docs</HeaderLink>
               </li>
               <li>
-                <HeaderLink to="/tutorials">Learn</HeaderLink>
+                <HeaderLink to="/learn">Learn</HeaderLink>
+              </li>
+              <li>
+                <HeaderLink
+                  to="https://github.com/mswjs/examples"
+                  target="_blank"
+                >
+                  Examples
+                </HeaderLink>
               </li>
               <li>
                 <HeaderLink to="/blog/mocking-authentication-with-auth0">
                   Blog
                 </HeaderLink>
               </li>
-              <li>
-                <HeaderLink to="https://github.com/mswjs/msw" target="_blank">
-                  <GitHubIcon size={24} />
-                </HeaderLink>
-              </li>
             </ul>
           </nav>
         </div>
+        <ul className="flex items-center">
+          <li>
+            <Link
+              to="https://opencollective.com/mswjs"
+              target="_blank"
+              className="group py-2.5 px-4 inline-flex items-center space-x-1 font-bold bg-gray-lightest rounded-md transition-colors hover:bg-black hover:text-white focus:outline-none focus:ring-2 focus:ring-gray"
+            >
+              <span className="relative">
+                <HeartIcon
+                  size={16}
+                  className="absolute text-orange group-hover:animate-ping"
+                />
+                <HeartIcon size={16} className="text-orange transform" />
+              </span>
+              <span>Sponsor</span>
+            </Link>
+          </li>
+          <li>
+            <HeaderLink to="https://github.com/mswjs/msw" target="_blank">
+              <GitHubIcon size={24} />
+            </HeaderLink>
+          </li>
+        </ul>
       </div>
     </header>
   )

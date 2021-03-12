@@ -37,7 +37,7 @@ const FeedbackItem = ({
             {occupation}
           </p>
         </div>
-        <img src={imageUrl} className="mx-4 w-14 h-14 rounded-xl" />
+        <img src={imageUrl} className="mx-4 w-14 h-14 rounded-full" />
       </figcaption>
     </figure>
   )

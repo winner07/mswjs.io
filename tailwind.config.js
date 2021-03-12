@@ -37,6 +37,7 @@ module.exports = {
   },
   variants: {
     extend: {
+      animation: ['group-hover'],
       scale: ['group-hover'],
       rotate: ['group-hover'],
       translate: ['group-hover'],
