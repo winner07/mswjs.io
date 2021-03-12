@@ -66,7 +66,7 @@ export function Footer() {
                   to="/docs"
                   className="inline-block py-1.5 hover:text-orange"
                 >
-                  API
+                  setupWorker
                 </Link>
               </li>
               <li>
@@ -74,7 +74,7 @@ export function Footer() {
                   to="/docs"
                   className="inline-block py-1.5 hover:text-orange"
                 >
-                  Examples
+                  setupServer
                 </Link>
               </li>
               <li>

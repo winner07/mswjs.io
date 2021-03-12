@@ -52,12 +52,13 @@ export function Header() {
                 <HeaderLink to="/learn">Learn</HeaderLink>
               </li>
               <li>
-                <HeaderLink
-                  to="https://github.com/mswjs/examples"
+                <a
+                  href="https://github.com/mswjs/examples"
                   target="_blank"
+                  className="inline-flex py-3 px-4 text-gray-dark transition-colors hover:text-black"
                 >
                   Examples
-                </HeaderLink>
+                </a>
               </li>
               <li>
                 <HeaderLink to="/blog/mocking-authentication-with-auth0">
@@ -69,8 +70,8 @@ export function Header() {
         </div>
         <ul className="flex items-center">
           <li>
-            <Link
-              to="https://opencollective.com/mswjs"
+            <a
+              href="https://opencollective.com/mswjs"
               target="_blank"
               className="group py-2.5 px-4 inline-flex items-center space-x-1 font-bold bg-gray-lightest rounded-md transition-colors hover:bg-black hover:text-white focus:outline-none focus:ring-2 focus:ring-gray"
             >
@@ -82,12 +83,16 @@ export function Header() {
                 <HeartIcon size={16} className="text-orange transform" />
               </span>
               <span>Sponsor</span>
-            </Link>
+            </a>
           </li>
           <li>
-            <HeaderLink to="https://github.com/mswjs/msw" target="_blank">
+            <a
+              href="https://github.com/mswjs/msw"
+              target="_blank"
+              className="inline-flex py-3 px-4 text-gray-dark transition-colors hover:text-black"
+            >
               <GitHubIcon size={24} />
-            </HeaderLink>
+            </a>
           </li>
         </ul>
       </div>

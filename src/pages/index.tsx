@@ -63,7 +63,7 @@ export default function Home() {
                 </p>
                 <section className="mt-14 space-x-5 font-medium text-lg">
                   <Link
-                    to="/tutorials"
+                    to="/learn"
                     className="group inline-flex items-center py-3.5 px-10 space-x-3 bg-black text-white rounded-lg select-none hover:bg-gray-darkest focus:ring-4 focus:ring-gray focus:outline-none"
                   >
                     <span>Get started</span>
