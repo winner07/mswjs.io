@@ -3,16 +3,15 @@ title: Query parameters
 order: 2
 ---
 
+Mock Service Worker stores request URL as a `URL` instance that exposes the `URLSearchParams` to manage query parameters.
+
 Use the `req.url.searchParams` property of the intercepted request to access its query parameters. The value of that property is a [`URLSearchParams`](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams) instance that contains all query parameters.
 
-## Example
+---
 
-### Single parameter
+## Single parameter
 
-```js highlights=5
-import { setupWorker, rest } from 'msw'
-
-const worker = setupWorker(
+```js highlights=2
   rest.get('/products', (req, res, ctx) => {
     const productId = req.url.searchParams.get('id')
 
@@ -23,8 +22,6 @@ const worker = setupWorker(
     )
   }),
 )
-
-worker.start()
 ```
 
 <ResponsePreview
@@ -43,26 +40,20 @@ worker.start()
   }}
 />
 
-### Multiple parameters
+## Multiple parameters
 
 Call `req.url.searchParams.getAll()` method to access all values assigned to a parameter.
 
-```js highlights=5
-import { setupWorker, rest } from 'msw'
+```js highlights=2
+rest.get('/products', (req, res, ctx) => {
+  const productIds = req.url.searchParams.getAll('id')
 
-const worker = setupWorker(
-  rest.get('/products', (req, res, ctx) => {
-    const productIds = req.url.searchParams.getAll('id')
-
-    return res(
-      ctx.json({
-        productIds,
-      }),
-    )
-  }),
-)
-
-worker.start()
+  return res(
+    ctx.json({
+      productIds,
+    }),
+  )
+})
 ```
 
 > Read more in the [`URLSearchParams.getAll()`](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams/getAll) specification.

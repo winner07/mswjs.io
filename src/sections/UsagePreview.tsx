@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Code } from '../components/Code'
 import { HiInformationCircle as InfoIcon } from 'react-icons/hi'
 
 interface TokenProps {
@@ -19,7 +20,7 @@ const Token: React.FC<TokenProps> = ({ type, hover, children }) => {
             'border-orange',
             'cursor-pointer',
             'hover:text-black hover:bg-orange',
-          ]
+          ],
         )
         .filter(Boolean)
         .join(' ')}
@@ -46,55 +47,52 @@ export const UsagePreview: React.FC = () => {
           <h2 className="mb-5">Workflow</h2>
         </header>
 
-        <div className="mt-14 p-8 bg-black rounded-2xl text-gray-light font-mono text-xl max-w-2xl mx-auto shadow-xl leading-8">
-          <p>
-            <Token type="keyword">import</Token>
-            <Space />
-            <Token type="delimiter">{`{`}</Token>
-            <Space />
-            <Token type="delimiter">rest</Token>
-            <Space />
-            <Token type="delimiter">{`}`}</Token>
-            <Space />
-            <Token type="keyword">from</Token>
-            <Space />
-            <Token type="string">'msw'</Token>
-          </p>
-          <br />
-          <p>
-            <Token type="delimiter" hover>
-              rest
-            </Token>
-            <Token type="delimiter">.</Token>
-            <Token type="method">get</Token>
-            <Token type="delimiter">(</Token>
-            <Token type="string" hover>
-              '/user'
-            </Token>
-            <Token type="delimiter">,</Token>
-            <Space />
-            <Token type="delimiter">(</Token>
-            <Token type="delimiter">req, res, ctx</Token>
-            <Token type="delimiter">{') => {'}</Token>
-          </p>
-          <p style={{ textIndent: '2ch' }}>
-            <Token type="keyword">return</Token>
-            <Space />
-            <Token type="method" hover>
-              res
-            </Token>
-            <Token type="delimiter">(</Token>
-            <Token type="delimiter">ctx.</Token>
-            <Token type="method">json</Token>
-            <Token type="delimiter">{`({ firstName: `}</Token>
-            <Token type="string">'John'</Token>
-            <Token type="delimiter">{` })`}</Token>
-            <Token type="delimiter">)</Token>
-          </p>
-          <p>
-            <Token type="delimiter">{`})`}</Token>
-          </p>
-        </div>
+        <Code
+          className="mt-20 text-xl leading-8 max-w-2xl mx-auto shadow-xl rounded-2xl"
+          language="javascript"
+          code={`
+import { rest } from 'msw'
+
+rest.get('/user', (req, res, ctx) => {
+  return res(ctx.json({ firstName: 'John' }))
+})
+        `}
+          tokens={[
+            {
+              token: {
+                type: 'imports',
+                content: 'rest',
+              },
+              line: 1,
+              onClick() {},
+            },
+            {
+              token: {
+                type: 'plain',
+                content: 'rest',
+              },
+              line: 3,
+              onClick() {},
+            },
+            {
+              token: {
+                type: 'string',
+                content: `'/user'`,
+              },
+              line: 3,
+              onClick() {},
+            },
+            {
+              token: {
+                type: 'function',
+                content: 'res',
+              },
+              line: 4,
+              onClick() {},
+            },
+          ]}
+        />
+
         <aside className="mt-5 flex items-center justify-center text-gray-dark">
           <InfoIcon className="mr-1.5 text-gray-darkest" />
           <p>

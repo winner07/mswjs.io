@@ -8,6 +8,7 @@ import {
 } from 'react-icons/hi'
 import { Main } from '../layouts/Main'
 import { ReactComponent as GoogleIcon } from '../images/logos/google.svg'
+import { ReactComponent as MicrosoftIcon } from '../images/logos/microsoft.svg'
 import { ReactComponent as SpotifyIcon } from '../images/logos/spotify-text.svg'
 import { ReactComponent as GatsbyIcon } from '../images/logos/gatsby.svg'
 import { ReactComponent as RedwoodIcon } from '../images/logos/redwoodjs.svg'
@@ -53,10 +54,9 @@ export default function Home() {
             <div className="flex items-center my-60">
               <div className="w-1/2">
                 <h1 className="text-6xl font-black">
-                  API mocking of the next generation{' '}
-                  <span className="text-orange whitespace-nowrap">is now</span>.
+                  A single API mocking solution you'll ever need.
                 </h1>
-                <p className="mt-8 text-2xl text-gray-dark leading-snug">
+                <p className="mt-8 text-2xl text-gray-dark leading-9">
                   Mock API by intercepting requests with a Service Worker.
                   Seamlessly reuse the same mock definition for development,
                   testing, and debugging across multiple environments.
@@ -87,6 +87,7 @@ export default function Home() {
               </p>
               <div className="mt-8 flex items-center justify-center space-x-10">
                 <GoogleIcon width={100} fill="currentColor" />
+                <MicrosoftIcon width={40} fill="currentColor" />
                 <SpotifyIcon width={140} fill="currentColor" />
                 <GatsbyIcon width={40} fill="currentColor" />
                 <RedwoodIcon width={40} fill="currentColor" />
@@ -146,9 +147,9 @@ export default function Home() {
               <div className="grow-1">
                 <h2 className="text-2xl">Ready to get started?</h2>
                 <p className="text-gray lg:text-lg">
-                  Follow a step-by-step tutorial to integrate Mock Service
-                  Worker into your project and get more confidence from your
-                  tests starting today!
+                  We've got a step-by-step tutorial that will teach you
+                  everything you need to know to get up and running with Mock
+                  Service Worker.
                 </p>
               </div>
               <div className="mt-8 xl:mt-0 xl:w-1/3 flex flex-grow xl:flex-grow-0 flex-shrink-0 md:justify-end">

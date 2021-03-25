@@ -5,6 +5,7 @@ interface Props {
   code: string
   language: string
   highlights?: RandgeDefinition[]
+  formatLineNumber?(number: number): React.ReactNode
   showLineNumbers?: boolean
   startLineNumber?: number
   className?: string
@@ -54,6 +55,7 @@ export const Code = ({
   code,
   language,
   highlights,
+  formatLineNumber,
   showLineNumbers,
   startLineNumber,
   tokens: interactiveTokens,
@@ -95,7 +97,11 @@ export const Code = ({
                   className={['line', lineClass].filter(Boolean).join(' ')}
                 >
                   {shouldShowLineNumbers && (
-                    <span className="line-number">{lineNumber}</span>
+                    <span className="line-number">
+                      {formatLineNumber
+                        ? formatLineNumber(lineNumber)
+                        : lineNumber}
+                    </span>
                   )}
                   <span className="line-content">
                     {line.map((token, key) => {

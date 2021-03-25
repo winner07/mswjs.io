@@ -47,12 +47,12 @@ export const Features: React.FC = () => {
         <FeatureItems
           icon={<SeamlessIcon size={18} />}
           title="Seamless"
-          description="With its award-winning concept, Mock Service Worker requires no changes to your application or tests to get the mocking in place."
+          description="With its award-winning concept, Mock Service Worker requires no changes to your application or tests to get the API mocking in place."
         />
         <FeatureItems
           icon={<VueIcon size={18} />}
           title="Framework-agnostic"
-          description="Each application is unique and different. Mock Service Worker doesn't let that variativity to stand in the way of superb API mocking experience."
+          description="React, Angular, Svelte, Vue—this is your decision. Mock Service Worker is not bound to a framework, and works with any of your preferences."
         />
         <FeatureItems
           icon={<GraphQLIcon size={18} />}

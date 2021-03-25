@@ -4,4 +4,107 @@ description: Declare, compose, and override API mocks in your stories.
 order: 1
 ---
 
-Guide content.
+## Pre-requisites
+
+- I have a Storybook project.
+- I have read the [Fundamentals](#) of Mock Service Worker.
+
+---
+
+## Install
+
+The recommended way to integrate Mock Service Worker into a Storybook project is to use [`msw-storybook-addon`](https://github.com/mswjs/msw-storybook-addon).
+
+```sh
+npm install msw msw-storybook-addon
+```
+
+Once the packages are installed, initialize the Service Worker:
+
+```sh
+npx msw init ./public
+```
+
+## Add-on
+
+```js
+// .storybook/preview.js
+import { addDecorator } from '@storybook/react'
+import { initializeWorker, mswDecorator } from 'msw-storybook-addon'
+
+initializeWorker()
+addDecorator(mswDecorator)
+```
+
+## Create a component
+
+In this guide we are going to create a React component, but ...
+
+```jsx highlights=8-10
+// src/GitHubUser.jsx
+import React, { useState, useEffect } from 'react'
+
+export default function GitHubUser({ login }) {
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    fetch(`https://api.github.com/users/${login}`)
+      .then((res) => res.json())
+      .then(setUser)
+  }, [])
+
+  if (!data) {
+    return null
+  }
+
+  return <p>Hello, {user.full_name}</p>
+}
+```
+
+## Mock an API in a story
+
+```jsx highlights=7-13
+// stories/GitHubUser.stories.jsx
+import React from 'react'
+import GitHubUser from '../src/GitHubUser'
+
+export default {
+  title: 'GitHubUser',
+  parameters: {
+    api: [
+      rest.get('https://api.github.com/users/:username', (req, res, ctx) => {
+        return res(ctx.json({ full_name: 'John Maverick' }))
+      }),
+    ],
+  },
+}
+
+export const DefaultScenario = () => <GitHubUser login="octocat" />
+```
+
+> Tip: You can use the same request handlers for the stories in the integration tests. Abstract them into their own module and import wherever you need. Request handlers are just functions.
+
+## Per-story handlers
+
+```jsx startLineNumber=17 highlights=19-29
+export const NotFoundScenario = () => <GitHubUser login="octocat" />
+NotFoundScenario.story = {
+  parameters: {
+    api: [
+      rest.get('https://api.github.com/users/:username', (req, res, ctx) => {
+        const { username } = req.params
+        return res(
+          ctx.status(404),
+          ctx.json({ message: `User "${username}" not found.` }),
+        )
+      }),
+    ],
+  },
+}
+```
+
+## Run Storybook
+
+```sh
+npx start-storybook -p 6006 -s public
+```

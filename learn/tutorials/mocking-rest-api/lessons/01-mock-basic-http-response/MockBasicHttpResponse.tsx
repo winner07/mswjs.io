@@ -1,15 +1,15 @@
 import * as React from 'react'
 import { IoIosDocument as FileIcon } from 'react-icons/io'
 import { SiReact as ReactIcon } from 'react-icons/si'
-import { useGuide } from '../../../../src/hooks/useGuide'
-import { Code } from '../../../../src/components/Code'
+import { useGuide } from '../../../../../src/hooks/useGuide'
+import { Code } from '../../../../../src/components/Code'
 
 import handlersFile from '!!raw-loader!./files/handlers.js'
 import browserFile from '!!raw-loader!./files/browser.js'
 import appFile from '!!raw-loader!./files/App.js'
 import indexFile from '!!raw-loader!./files/index.js'
 
-const RestTutorial = () => {
+const MockBasicHttpResponse = () => {
   const { files, file, steps, step, lines } = useGuide({
     files: {
       handlers: {
@@ -84,8 +84,10 @@ const RestTutorial = () => {
                 </p>
                 <Code
                   className="mt-3 text-sm"
-                  code="$ npm install msw --save-dev"
+                  code="npm install msw --save-dev"
                   language="bash"
+                  showLineNumbers
+                  formatLineNumber={() => '$'}
                 />
               </div>
             ),
@@ -115,10 +117,10 @@ const RestTutorial = () => {
           {
             title: 'Mock the response',
             file: 'handlers',
-            lines: [{ start: 5, end: 11 }],
+            lines: [{ start: 5, end: 20 }],
             content: (
               <div>
-                <p>Compose mocked response from context utilities.</p>
+                <p>Compose the mocked response using context utilities.</p>
                 <p>
                   Response resolver <i>may</i> return a mocked response by
                   returning the <code>res()</code> function call.
@@ -178,61 +180,52 @@ const RestTutorial = () => {
 
   return (
     <div className="relative grid grid-cols-2 gap-10">
-      <div>
-        <header>
-          <h1>Mocking REST API</h1>
-          <p>Learn how to mock REST API with Mock Service Worker.</p>
-        </header>
-        <div className="space-y-5">
-          {steps.map((step, index) => {
-            return (
-              <div key={index}>
-                <p className="mt-10 mb-4 text-lg font-bold">
-                  <span className="inline-flex items-center justify-center mr-2 bg-gray text-white text-xs w-5 h-5 align-middle rounded-full">
-                    {index + 1}
-                  </span>
-                  {step.title}
-                </p>
+      <div className="space-y-5">
+        {steps.map((step, index) => {
+          return (
+            <div key={index}>
+              <p className="mt-10 mb-4 text-lg font-bold">
+                <span className="inline-flex items-center justify-center mr-2 bg-gray text-white text-xs w-5 h-5 align-middle rounded-full">
+                  {index + 1}
+                </span>
+                {step.title}
+              </p>
 
-                {step.steps?.map((step, index, allSteps) => {
-                  return (
-                    <div
-                      key={index}
-                      className={[
-                        'p-6 px-7 border border-t-0 border-gray-light cursor-pointer transition-colors transition-shadow',
-                      ]
-                        .concat(index === 0 && 'border-t rounded-t-md')
-                        .concat(index === allSteps.length - 1 && 'rounded-b-md')
-                        .concat(
-                          step.active &&
-                            'border-t border-gray bg-gray-lightest shadow-lg',
-                        )
-                        .concat(step.active && index !== 0 && '-mt-px')
-                        .filter(Boolean)
-                        .join(' ')}
-                      onClick={step.goto}
+              {step.steps?.map((step, index, allSteps) => {
+                return (
+                  <div
+                    key={index}
+                    className={[
+                      'p-6 px-7 border border-t-0 border-gray-light cursor-pointer transition-shadow',
+                    ]
+                      .concat(index === 0 && 'border-t rounded-t-md')
+                      .concat(index === allSteps.length - 1 && 'rounded-b-md')
+                      .concat(
+                        step.active &&
+                          'border-t border-gray bg-gray-lightest shadow-lg',
+                      )
+                      .concat(step.active && index !== 0 && '-mt-px')
+                      .filter(Boolean)
+                      .join(' ')}
+                    onClick={step.goto}
+                  >
+                    <p className="font-bold">{step.title}</p>
+                    {step.content && (
+                      <div className="mt-2 text-gray-dark">{step.content}</div>
+                    )}
+                    <footer
+                      className={`inline-block mt-6 px-2 py-1 ${
+                        step.active ? 'bg-gray-light' : 'bg-gray-lightest'
+                      }  text-sm text-gray-dark font-medium rounded-md`}
                     >
-                      <p className="font-bold">{step.title}</p>
-                      {step.content && (
-                        <div className="mt-2 text-gray-dark">
-                          {step.content}
-                        </div>
-                      )}
-                      {console.log({ files, step })}
-                      <footer
-                        className={`inline-block mt-6 px-2 py-1 ${
-                          step.active ? 'bg-gray-light' : 'bg-gray-lightest'
-                        }  text-sm text-gray-dark font-medium rounded-md`}
-                      >
-                        {step.file.name}
-                      </footer>
-                    </div>
-                  )
-                })}
-              </div>
-            )
-          })}
-        </div>
+                      {step.file.name}
+                    </footer>
+                  </div>
+                )
+              })}
+            </div>
+          )
+        })}
       </div>
       <div className="">
         <div className="sticky top-20">
@@ -269,4 +262,4 @@ const RestTutorial = () => {
   )
 }
 
-export default RestTutorial
+export default MockBasicHttpResponse

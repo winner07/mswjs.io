@@ -5,39 +5,30 @@ order: 1
 
 ## Limitations
 
-Fetch specification explicitly [forbids](https://developer.mozilla.org/en-US/docs/Glossary/Forbidden_header_name) setting `Set-Cookie` and `Set-Cookie2` headers when constructing `Response` instances for security considerations.
+The fetch specification [explicitly forbids](https://developer.mozilla.org/en-US/docs/Glossary/Forbidden_header_name) setting `Set-Cookie` and `Set-Cookie2` headers when constructing `Response` instances for security considerations.
 
-However, since Mock Service Worker executes on the client side, it can provide a functionality similar to receiving a mocked cookie from the response without violating any security rules. To achieve that, use the `ctx.cookie()` response transformer function that sets the given cookies on the `document.cookie` string directly.
+However, since Mock Service Worker executes on the client side, it can provide a functionality similar to receiving a mocked cookie from the response without violating security. To achieve that, use the `ctx.cookie()` utility function to set the given cookies on the `document.cookie` directly.
 
-## Examples
+---
 
-### Access request cookies
+## Get request cookies
 
-```js showLineNumbers focusedLines=6
-import { setupWorker, rest } from 'msw'
+```js highlights=2-3
+rest.post('/login', (req, res, ctx) => {
+  // Access request cookies.
+  const { authToken } = req.cookies
 
-const worker = setupWorker(
-  rest.post('/login', (req, res, ctx) => {
-    // Access the request's cookies.
-    const { authToken } = req.cookies
-
-    if (isValidToken(authToken)) {
-      return res(
-        ctx.json({
-          id: 'abc-123',
-          firstName: 'John',
-        }),
-      )
-    }
-
+  if (isValidToken(authToken)) {
     return res(
-      ctx.status(403),
-      ctx.json({ message: 'Failed to authenticate!' }),
+      ctx.json({
+        id: 'abc-123',
+        firstName: 'John',
+      }),
     )
-  }),
-)
+  }
 
-worker.start()
+  return res(ctx.status(403), ctx.json({ message: 'Failed to authenticate!' }))
+})
 ```
 
 <Hint>
@@ -49,26 +40,24 @@ worker.start()
   .
 </Hint>
 
-### Mock response cookies
+---
 
-```js showLineNumbers focusedLines=8
-import { setupWorker, rest } from 'msw'
+## Mock response cookies
 
-const worker = setupWorker(
-  rest.post('/login', (req, res, ctx) => {
-    return res(
-      // Calling `ctx.cookie()` sets given cookies
-      // on `document.cookie` directly.
-      ctx.cookie('auth-token', 'abc-123'),
-    )
-  }),
-)
-
-worker.start()
+```js highlights=3-5
+rest.post('/login', (req, res, ctx) => {
+  return res(
+    // Set the response cookie.
+    // This sets the cookie in `document.cookie` on the client.
+    ctx.cookie('auth-token', 'abc-123'),
+  )
+})
 ```
 
 > Note that you still won't be able to access the `Set-Cookie` header on the response, as the cookie is set on the `document` directly, bypassing network.
 
-### Cookies persistency
+---
+
+## Cookies persistency
 
 > Tell about how cookies set in one request handler persist for another handler based on the origin.

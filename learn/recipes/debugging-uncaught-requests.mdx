@@ -3,7 +3,9 @@ title: Debugging uncaught requests
 order: 7
 ---
 
-Whenever you are faced with a request that is not being intercepted, follow the suggestions on this page to debug the issue.
+Whenever you experience an issue that a request isn't intercepted when you think it should be, refer to the debugging steps listed on this page to resolve it.
+
+---
 
 ## Enable `onUnhandledRequest` option
 
@@ -23,6 +25,8 @@ Learn more about how to configure this option for your worker or server:
   url="/docs/api/setup-server/listen#onunhandledrequest"
 />
 
+---
+
 ## Examine the handlers
 
 - Applicable to: `setupWorker`/`setupServer`
@@ -38,6 +42,8 @@ You can print out the list of current request handlers at any point of your appl
   title="printHandlers (setupServer)"
   url="/docs/api/setup-server/print-handlers"
 />
+
+---
 
 ## Verify the worker's scope
 
@@ -90,16 +96,18 @@ app.use((req, res, next) => {
 })
 ```
 
+---
+
 ## Run in debug mode
 
 - Applicable to: `setupServer`
 
-Mock Service Worker supports [`debug`](https://github.com/visionmedia/debug) when run in NodeJS. You can leverage this to look into the internals of how requests are intercepted, as well as provide the output logs to the library maintainers for more details.
+Mock Service Worker supports [`debug`](https://github.com/visionmedia/debug) when run in Node.js. You can leverage this to look into the internals of how requests are intercepted, as well as provide the output logs to the library maintainers for more details.
 
 Append the `DEBUG` environmental variable to the command that runs your tests:
 
 ```bash
-$ DEBUG=* npm test
+DEBUG=* npm test
 ```
 
 With that variable set, you will see many messages in your terminal indicating various stages of request interception that can give you useful hints as to what may have gone wrong.

@@ -3,38 +3,31 @@ title: Response patching
 order: 5
 ---
 
-**Response patching** is a technique when a mocked response is based on the actual response. This technique may be useful when working with an existing API with an intention to augment it for various purposes (i.e., experimenting or debugging).
+_Response patching_ is a technique that allows you to create a mocked response based on the actual response.
 
-Pass the intercepted `request` object to the `ctx.fetch()` call to get the original response. Using `ctx.fetch()` performs a request that **bypasses any request handlers**, as any `window.fetch()` calls, even those inside response resolvers, are subjected to interception.
+This technique can be used to extend an existing API for the purpose of incremental development or debugging. For response patching to work, your response resolver should perform an actual request. To do that, use the designated `ctx.fetch` utility and provide it with the intercepted request instance exposed to your request handler as the first (`req`) argument.
 
-## Example
+Here's an example of patching a response from the user detail endpoint in [GitHub API v3](https://developer.github.com/v3/).
 
-Below is an example of patching a response from a user detail endpoint of [GitHub API v3](https://developer.github.com/v3/).
+```js highlights=2-3
+rest.get('https://api.github.com/users/:username', async (req, res, ctx) => {
+  // Perform an original request using the intercepted `req` instance.
+  const originalResponse = await ctx.fetch(req)
+  const originalJson = await originalResponse.json()
 
-```js showLineNumbers focusedLines=5,6
-import { setupWorker, rest } from 'msw'
-
-const worker = setupWorker(
-  rest.get('https://api.github.com/users/:username', async (req, res, ctx) => {
-    // Perform an original request to the intercepted request URL
-    const originalResponse = await ctx.fetch(req)
-    const originalResponseData = await originalResponse.json()
-
-    return res(
-      ctx.json({
-        location: originalResponseData.location,
-        firstName: 'Not the real first name',
-      }),
-    )
-  }),
-)
-
-worker.start()
+  return res(
+    ctx.json({
+      ...originalResponse,
+      full_name: 'John Maverick',
+    }),
+  )
+})
 ```
 
-> It is highly recommended to use `ctx.fetch()` instead of a regular `window.fetch()` within response resolvers, because it prevents actual requests **from being matched against the MSW mocks definition**.
->
-> You may use `window.fetch()` intentionally, for example, when you need to perform a request that is later mocked as a part of another response resolver. Requests issued by regular `window.fetch()` are subjected to mocking.
+The `ctx.fetch` utility is a wrapper around `window.fetch` that does the following:
+
+- Derives the correct request `init` and `input` based on the intercepted request instance.
+- Ensures that any request made via `ctx.fetch` bypasses any existing request handlers, even if they would otherwise capture such request.
 
 <ResponsePreview
   request={{

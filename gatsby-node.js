@@ -112,6 +112,7 @@ async function getContributors(pages) {
 }
 
 exports.createPages = require('./.gatsby/gatsby-node/createPages')
+exports.createResolvers = require('./.gatsby/gatsby-node/createResolvers')
 
 // exports.createPages = async ({ actions, graphql }) => {
 // const { errors, data } = await graphql(`

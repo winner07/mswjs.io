@@ -1,0 +1,34 @@
+---
+title: Redirect responses
+---
+
+Redirecting a request is a matter of:
+
+- Setting the right response status code;
+- Setting the `Location` response header.
+
+```js
+rest.get('/users/*', (req, res, ctx) => {
+  return res(
+    /* Set the redirect status code (3xx) */
+    ctx.status(301),
+    /* ...and provide the location to redirect to. */
+    ctx.set('Location', 'https://api.github.com/users'),
+  )
+})
+```
+
+You can also redirect to another request handler:
+
+```js
+export const handlers = [
+  rest.get('/api/v1/user', (req, res, ctx) => {
+    return res(ctx.status(308), ctx.set('Location', '/api/v2/user'))
+  }),
+  rest.get('/api/v2/user', (req, res, ctx) => {
+    return res(ctx.json({ firstName: 'John' }))
+  }),
+]
+```
+
+Requesting the user at `GET /api/v1/user` will redirect the request to the `/api/v2/user` handler and return the `{ "firstName": "John" }` JSON in the response.

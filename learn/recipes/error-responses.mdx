@@ -16,8 +16,6 @@ When it comes to mocking an error response, it's recommended to compose a valid 
 
 By treating an error response as an actual response, and not an exception, you respect the standards and ensure your client code receives and handles a valid error response.
 
-## Example
-
 Let's respond to a `GET /user` request with a 403 error in case there's no `Authorization` header set:
 
 ```js highlights=3-11

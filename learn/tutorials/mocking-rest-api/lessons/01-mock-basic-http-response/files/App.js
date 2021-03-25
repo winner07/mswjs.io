@@ -9,10 +9,15 @@ export default function App() {
       .then(setTodos)
   }, [])
 
+  if (!todos) {
+    return null
+  }
+
   return (
-    <form onSubmit={null}>
-      <input type="email" name="email" />
-      <input type="password" name="password" />
-    </form>
+    <ul>
+      {todos.map((todo) => (
+        <li key={todo.id}>{todo.title}</li>
+      ))}
+    </ul>
   )
 }

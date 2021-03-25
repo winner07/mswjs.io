@@ -2,23 +2,20 @@ const path = require('path')
 
 const gql = (str) => str.join('')
 
-const BLOG_PAGE_COMPONTENT = path.resolve(
-  __dirname,
-  '../../src/layouts/BlogPage.tsx',
-)
-const LEARN_PAGE_COMPONENT = path.resolve(
-  __dirname,
-  '../../src/layouts/LearnPage.tsx',
-)
-const TUTORIAL_PAGE_COMPONENT = path.resolve(
-  __dirname,
-  '../../src/layouts/TutorialPage.tsx',
-)
+const components = {
+  blogPage: path.resolve(__dirname, '../../src/layouts/BlogPage.tsx'),
+  tutorialPage: path.resolve(__dirname, '../../src/layouts/TutorialPage.tsx'),
+  tutorialLessonPage: path.resolve(
+    __dirname,
+    '../../src/layouts/TutorialLessonPage.tsx',
+  ),
+  learnPage: path.resolve(__dirname, '../../src/layouts/LearnPage.tsx'),
+}
 
 module.exports = async function createPages({ graphql, actions }) {
   const { data } = await graphql(gql`
     {
-      # Blog articles.
+      # Blog articles
       articles: allFile(
         filter: { sourceInstanceName: { eq: "blog" }, extension: { eq: "mdx" } }
       ) {
@@ -36,11 +33,35 @@ module.exports = async function createPages({ graphql, actions }) {
         }
       }
 
-      # Learning materials.
-      learn: allFile(
+      # Tutorials
+      tutorials: allFile(
         filter: {
           sourceInstanceName: { eq: "learn" }
           extension: { eq: "mdx" }
+          childMdx: { slug: { regex: "/^tutorials/" } }
+        }
+      ) {
+        edges {
+          node {
+            id
+            sourceInstanceName
+            mdx: childMdx {
+              slug
+              body
+              frontmatter {
+                title
+                description
+              }
+            }
+          }
+        }
+      }
+
+      otherLearningPages: allFile(
+        filter: {
+          sourceInstanceName: { eq: "learn" }
+          extension: { eq: "mdx" }
+          childMdx: { slug: { regex: "/^(?!tutorials)/" } }
         }
       ) {
         edges {
@@ -51,6 +72,7 @@ module.exports = async function createPages({ graphql, actions }) {
               body
               frontmatter {
                 title
+                description
               }
             }
           }
@@ -65,7 +87,7 @@ module.exports = async function createPages({ graphql, actions }) {
 
     actions.createPage({
       path: pagePath,
-      component: BLOG_PAGE_COMPONTENT,
+      component: components.blogPage,
       context: {
         content: node.mdx.body,
         frontmatter: node.mdx.frontmatter,
@@ -73,17 +95,38 @@ module.exports = async function createPages({ graphql, actions }) {
     })
   })
 
-  // Create learn pages.
-  data.learn.edges.forEach(({ node }) => {
-    const pagePath = path.join(node.sourceInstanceName, node.mdx.slug)
-    const component = node.mdx.slug.startsWith('tutorials/')
-      ? TUTORIAL_PAGE_COMPONENT
-      : LEARN_PAGE_COMPONENT
+  // Create tutorial pages.
+  data.tutorials.edges.forEach(({ node }) => {
+    const { slug } = node.mdx
+    const pagePath = path.join(node.sourceInstanceName, slug)
+    const component = slug.includes('/lessons/')
+      ? components.tutorialLessonPage
+      : components.tutorialPage
+
+    const parentTutorialSlug = slug.split('/lessons/')[0].replace(/\/$/g, '')
 
     actions.createPage({
       path: pagePath,
       component,
       context: {
+        pageId: node.id,
+        slug,
+        parentTutorialRegex: `/^${parentTutorialSlug}/.+/`,
+        content: node.mdx.body,
+        frontmatter: node.mdx.frontmatter,
+      },
+    })
+  })
+
+  // Create other learning pages (guides/recipes).
+  data.otherLearningPages.edges.forEach(({ node }) => {
+    const pagePath = path.join(node.sourceInstanceName, node.mdx.slug)
+
+    actions.createPage({
+      path: pagePath,
+      component: components.learnPage,
+      context: {
+        slug: node.mdx.slug,
         content: node.mdx.body,
         frontmatter: node.mdx.frontmatter,
       },

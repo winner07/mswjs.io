@@ -4,6 +4,7 @@ import {
   HiChevronLeft as BackIcon,
   HiPuzzle as GuidesIcon,
   HiBeaker as RecipesIcon,
+  HiHashtag as HashIcon,
 } from 'react-icons/hi'
 import { Main } from './Main'
 import { MetaTags } from '../components/MetaTags'
@@ -34,21 +35,31 @@ function SectionHeading({
 function SubMenu({
   items,
   className,
+  isDeeplyNested,
 }: {
   items: Array<{ url: string; title: string; items: any[] }>
   className?: string
+  isDeeplyNested?: boolean
 }) {
   return (
-    <ul className={['pl-4'].concat(className).filter(Boolean).join(' ')}>
+    <ul
+      className={[isDeeplyNested ? 'pl-4' : 'pl-2 mb-1.5']
+        .concat(className)
+        .filter(Boolean)
+        .join(' ')}
+    >
       {items.map(({ url, title, items }) => (
         <li key={url}>
           <Link
             to={url}
-            className="inline-block py-1.5 text-gray transition-colors hover:text-black"
+            className="inline-flex py-1.5 space-x-2 text-gray transition-colors hover:text-black"
           >
-            {title}
+            <span className="inline-flex flex-shrink-0 mt-1 items-center justify-center w-4 h-4 bg-gray-light rounded-sm">
+              <HashIcon size={10} />
+            </span>
+            <span>{title}</span>
           </Link>
-          {items ? <SubMenu items={items} /> : null}
+          {items ? <SubMenu items={items} isDeeplyNested /> : null}
         </li>
       ))}
     </ul>
@@ -83,7 +94,7 @@ export default function LearnPage({ data, pageContext }) {
                     <li key={node.id}>
                       <Link
                         to={`/learn/${node.mdx.slug}`}
-                        className="inline-block -ml-2 px-2 py-1.5 transition-colors hover:text-black"
+                        className="inline-block -ml-3 px-3 py-1.5 transition-colors hover:text-black"
                         activeClassName="bg-green-100 text-green-900 rounded-lg hover:text-green-900"
                       >
                         {node.mdx.frontmatter.title}
@@ -108,7 +119,7 @@ export default function LearnPage({ data, pageContext }) {
                     <li key={node.id}>
                       <Link
                         to={`/learn/${node.mdx.slug}`}
-                        className="inline-block -ml-2 px-2 py-1.5 transition-colors hover:text-black"
+                        className="inline-block -ml-3 px-3 py-1.5 transition-colors hover:text-black"
                         activeClassName="sibling-visible bg-purple-100 text-purple-900 rounded-lg hover:text-purple-900"
                         partiallyActive
                       >
@@ -127,7 +138,7 @@ export default function LearnPage({ data, pageContext }) {
             </section>
           </div>
         </aside>
-        <main className="col-span-3">
+        <main className="prose prose-lg col-span-3 max-w-none">
           <h1>{frontmatter.title}</h1>
           <Mdx>{pageContext.content}</Mdx>
         </main>

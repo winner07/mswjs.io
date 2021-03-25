@@ -10,6 +10,7 @@ module.exports = {
       center: true,
       padding: '2rem',
     },
+
     extend: {
       colors: {
         black: '#172126',
@@ -21,7 +22,10 @@ module.exports = {
           dark: '#566B76',
           darkest: '#253239',
         },
-        orange: '#FF6A33',
+        orange: {
+          DEFAULT: '#FF6A33',
+          dark: '#C34E22',
+        },
         token: {
           keyword: '#FF25AC',
           string: '#00B78E',
@@ -33,15 +37,28 @@ module.exports = {
         orange: '0 4px 16px hsla(350, 100%, 64%, 0.32)',
         'orange-sm': '0 1px 2px 0 hsla(350, 100%, 64%, 0.32)',
       },
+      typography: {
+        lg: {
+          css: {
+            pre: {
+              margin: 0,
+              padding: 0,
+              fontSize: '1rem',
+            },
+            'blockquote p:first-of-type::before': false,
+            'blockquote p:last-of-type::after': false,
+          },
+        },
+      },
     },
   },
   variants: {
     extend: {
       animation: ['group-hover'],
-      scale: ['group-hover'],
       rotate: ['group-hover'],
+      scale: ['group-hover'],
       translate: ['group-hover'],
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
 }

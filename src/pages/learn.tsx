@@ -18,6 +18,21 @@ import { MetaTags } from '../components/MetaTags'
 import { PageHeader } from '../components/PageHeader'
 import { ReactComponent as CypressIcon } from '../images/logos/cypress.svg'
 
+const tutorialIcons = {
+  'tutorials/mocking-rest-api/': (
+    <RestIcon
+      className="absolute right-0 -top-10 opacity-50 text-green-500 hidden sm:block"
+      size={200}
+    />
+  ),
+  'tutorials/mocking-graphql-api/': (
+    <GraphQLLogo
+      className="absolute right-0 -top-10 opacity-50 text-pink-500 hidden sm:block"
+      size={200}
+    />
+  ),
+}
+
 function SectionHeading({
   title,
   icon: Icon,
@@ -97,7 +112,7 @@ function getGuideIcon(title: string): JSX.Element {
 }
 
 export default function LearnPage({ data }) {
-  const { guides, recipes } = data
+  const { tutorials, guides, recipes } = data
 
   return (
     <Main>
@@ -123,46 +138,27 @@ export default function LearnPage({ data }) {
                 types.
               </p>
             </header>
-            <main className="grid lg:grid-cols-2 gap-8">
-              <Link
-                to="/learn/tutorials/getting-started/rest-api"
-                className="relative group overflow-hidden p-8 sm:pr-48 bg-black text-gray rounded-xl hover:bg-gray-darkest transition-colors focus:ring-4 focus:outline-none focus:ring-gray"
-              >
-                <h3 className="mb-2 text-2xl text-white font-bold">
-                  Mocking REST API
-                  <span className="ml-3 px-2 align-middle py-1 text-sm bg-gray-darkest text-gray-light rounded-md transition-colors group-hover:bg-gray-dark">
-                    10 lessons
-                  </span>
-                </h3>
-                <p className="font-medium">
-                  Build and test a simple CRUD application that communicates to
-                  a non-existing REST API server.
-                </p>
-                <RestIcon
-                  className="absolute right-0 -top-10 opacity-50 text-green-500 hidden sm:block"
-                  size={200}
-                />
-              </Link>
-              <Link
-                to="/learn/tutorials/getting-started/graphql-api"
-                className="relative group overflow-hidden p-8 sm:pr-48 bg-black text-gray rounded-xl hover:bg-gray-darkest transition-colors focus:ring-4 focus:outline-none focus:ring-gray"
-              >
-                <h3 className="mb-2 text-2xl text-white font-bold">
-                  Mocking GraphQL API
-                  <span className="ml-3 px-2 align-middle py-1 text-sm bg-gray-darkest text-gray-light rounded-md transition-colors group-hover:bg-gray-dark">
-                    7 lessons
-                  </span>
-                </h3>
-                <p className="font-medium">
-                  Integrate Mock Service Worker into a GraphQL project without
-                  any mock providers or other hassle.
-                </p>
-                <GraphQLLogo
-                  className="absolute right-0 -top-10 opacity-50 text-pink-500 hidden sm:block"
-                  size={200}
-                />
-              </Link>
-            </main>
+            <div className="grid lg:grid-cols-2 gap-8">
+              {tutorials.nodes.map((tutorial) => (
+                <Link
+                  key={tutorial.id}
+                  to={`/learn/${tutorial.slug}`}
+                  className="relative group overflow-hidden p-8 sm:pr-48 bg-black text-gray rounded-xl hover:bg-gray-darkest transition-colors focus:ring-4 focus:outline-none focus:ring-gray"
+                >
+                  <h3 className="mb-2 text-2xl text-white font-bold">
+                    {tutorial.frontmatter.title}
+                    <span className="ml-3 px-2 align-middle py-1 text-sm bg-gray-darkest text-gray-light rounded-md transition-colors group-hover:bg-gray-dark">
+                      {tutorial.childPagesCount} lesson
+                      {tutorial.childPagesCount > 1 ? 's' : ''}
+                    </span>
+                  </h3>
+                  <p className="font-medium">
+                    {tutorial.frontmatter.description}
+                  </p>
+                  {tutorialIcons[tutorial.slug]}
+                </Link>
+              ))}
+            </div>
           </section>
 
           <hr />
@@ -175,13 +171,13 @@ export default function LearnPage({ data }) {
               </p>
             </header>
             <main className="grid lg:grid-cols-3 gap-x-8 gap-y-4 mt-10">
-              {guides.edges.map(({ node }) => (
+              {guides.nodes.map((guide) => (
                 <GuideItem
-                  key={node.id}
-                  to={node.mdx.slug}
-                  icon={getGuideIcon(node.mdx.frontmatter.title)}
-                  title={node.mdx.frontmatter.title}
-                  description={node.mdx.frontmatter.description}
+                  key={guide.id}
+                  to={guide.slug}
+                  icon={getGuideIcon(guide.frontmatter.title)}
+                  title={guide.frontmatter.title}
+                  description={guide.frontmatter.description}
                 />
               ))}
             </main>
@@ -201,11 +197,11 @@ export default function LearnPage({ data }) {
               </p>
             </header>
             <main className="grid md:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-4 mt-10">
-              {recipes.edges.map(({ node }) => (
+              {recipes.nodes.map((recipe) => (
                 <RecipeItem
-                  key={node.id}
-                  to={node.mdx.slug}
-                  title={node.mdx.frontmatter.title}
+                  key={recipe.id}
+                  to={recipe.slug}
+                  title={recipe.frontmatter.title}
                 />
               ))}
             </main>
@@ -218,44 +214,41 @@ export default function LearnPage({ data }) {
 
 export const query = graphql`
   query GetRecipes {
-    recipes: allFile(
-      filter: {
-        sourceInstanceName: { eq: "learn" }
-        extension: { eq: "mdx" }
-        childMdx: { slug: { regex: "/^recipes/" } }
+    tutorials: allMdx(filter: { slug: { glob: "tutorials/*" } }) {
+      nodes {
+        id
+        slug
+        frontmatter {
+          title
+          description
+        }
+        childPagesCount
       }
-      sort: { fields: childMdx___frontmatter___order }
+    }
+
+    recipes: allMdx(
+      filter: { slug: { glob: "recipes/**/*" } }
+      sort: { fields: frontmatter___order }
     ) {
-      edges {
-        node {
-          id
-          mdx: childMdx {
-            slug
-            frontmatter {
-              title
-            }
-          }
+      nodes {
+        id
+        slug
+        frontmatter {
+          title
         }
       }
     }
-    guides: allFile(
-      filter: {
-        sourceInstanceName: { eq: "learn" }
-        extension: { eq: "mdx" }
-        childMdx: { slug: { regex: "/^guides/" } }
-      }
-      sort: { fields: childMdx___frontmatter___order }
+
+    guides: allMdx(
+      filter: { slug: { glob: "guides/**/*" } }
+      sort: { fields: frontmatter___order }
     ) {
-      edges {
-        node {
-          id
-          mdx: childMdx {
-            slug
-            frontmatter {
-              title
-              description
-            }
-          }
+      nodes {
+        id
+        slug
+        frontmatter {
+          title
+          description
         }
       }
     }

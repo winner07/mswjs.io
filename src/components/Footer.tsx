@@ -12,7 +12,7 @@ export function Footer() {
     <footer className="bg-black py-20 text-gray text-sm font-medium">
       <div className="container">
         <div className="grid grid-cols-4 gap-20">
-          <div className="col-span-2">
+          <div>
             <MswLogo width={48} className="mb-2" />
             <p className="text-base">
               Seamless REST and GraphQL API mocking library for browser and
@@ -83,6 +83,37 @@ export function Footer() {
                   className="inline-block py-1.5 hover:text-orange"
                 >
                   FAQ
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="mb-3 text-white uppercase font-bold tracking-widest">
+              Guides
+            </h4>
+            <ul>
+              <li>
+                <Link
+                  to="/learn/guides/storybook"
+                  className="inline-block py-1.5 hover:text-orange"
+                >
+                  Storybook
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/learn/guides/cypress"
+                  className="inline-block py-1.5 hover:text-orange"
+                >
+                  Cypress
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/learn/guides/nextjs"
+                  className="inline-block py-1.5 hover:text-orange"
+                >
+                  Next.js
                 </Link>
               </li>
             </ul>
