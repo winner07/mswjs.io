@@ -11,7 +11,7 @@ Providing the `ctx.body()` utility function with a [`BufferSource`](https://deve
 
 Here is an example of a mocked response that sends a local image:
 
-```js showLineNumbers focusedLines=6-9,12-15
+```js
 import { setupWorker, rest } from 'msw'
 import base64Image from 'url-loader!../fixtures/image.jpg'
 
@@ -43,11 +43,11 @@ worker.start()
 
 Here is an example of a mocked response that reads an image from the file system and sends it in the mocked response:
 
-```js showLineNumbers focusedLines=8-11,14-17
-import * as path from 'path'
+```js
 import * as fs from 'fs'
-import { setupServer } from 'msw/node'
+import * as path from 'path'
 import { rest } from 'msw'
+import { setupServer } from 'msw/node'
 
 const server = setupServer(
   rest.get('/images/:imageId', (_, res, ctx) => {
@@ -59,7 +59,6 @@ const server = setupServer(
     return res(
       ctx.set('Content-Length', imageBuffer.byteLength.toString()),
       ctx.set('Content-Type', 'image/jpeg'),
-      // Respond with the "ArrayBuffer".
       ctx.body(imageBuffer),
     )
   }),

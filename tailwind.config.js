@@ -37,7 +37,41 @@ module.exports = {
         orange: '0 4px 16px hsla(350, 100%, 64%, 0.32)',
         'orange-sm': '0 1px 2px 0 hsla(350, 100%, 64%, 0.32)',
       },
+      zIndex: {
+        '-10': '-10',
+      },
       typography: {
+        DEFAULT: {
+          css: {
+            h2: {
+              marginBottom: 24,
+            },
+            code: {
+              border: 0,
+            },
+            'code::before': {
+              content: '""',
+            },
+            'code::after': {
+              content: '""',
+            },
+            pre: {
+              margin: 0,
+              padding: 0,
+              fontSize: '1rem',
+            },
+            blockquote: {
+              color: 'colors.gray.700',
+              fontStyle: 'normal',
+            },
+            'blockquote p:first-of-type::before': {
+              content: '""',
+            },
+            'blockquote p:last-of-type::after': {
+              content: '""',
+            },
+          },
+        },
         lg: {
           css: {
             pre: {
@@ -45,8 +79,6 @@ module.exports = {
               padding: 0,
               fontSize: '1rem',
             },
-            'blockquote p:first-of-type::before': false,
-            'blockquote p:last-of-type::after': false,
           },
         },
       },

@@ -9,9 +9,11 @@ export default function BlogPage({ pageContext }) {
   return (
     <Main>
       <MetaTags title={frontmatter.title} />
-      <div className="container py-20">
+      <div className="container px-60 py-20">
         <h1>{frontmatter.title}</h1>
-        <Mdx>{pageContext.content}</Mdx>
+        <div className="prose prose-lg">
+          <Mdx>{pageContext.content}</Mdx>
+        </div>
       </div>
     </Main>
   )

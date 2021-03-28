@@ -10,6 +10,7 @@ import { Main } from './Main'
 import { MetaTags } from '../components/MetaTags'
 import { Mdx } from '../mdx/Mdx'
 import { IconType } from 'react-icons'
+import { BackLink } from '../components/BackLink'
 
 function SectionHeading({
   title,
@@ -75,15 +76,9 @@ export default function LearnPage({ data, pageContext }) {
       <MetaTags title={frontmatter.title} />
       <div className="container relative py-10 grid grid-cols-4 gap-20">
         <aside className="text-gray-dark font-medium">
-          <div className="sticky top-20 space-y-6">
+          <div className="sticky top-28 space-y-6">
             <section>
-              <Link
-                to="/learn"
-                className="inline-flex items-center space-x-2 py-1.5 pr-2 transition-colors hover:text-black"
-              >
-                <BackIcon size={20} className="w-6" />
-                <span>Back to learning</span>
-              </Link>
+              <BackLink to="/learn">Back to learning</BackLink>
             </section>
             <hr />
             <section>
@@ -138,7 +133,7 @@ export default function LearnPage({ data, pageContext }) {
             </section>
           </div>
         </aside>
-        <main className="prose prose-lg col-span-3 max-w-none">
+        <main className="prose prose-lg pt-5 pb-10 col-span-3 max-w-none">
           <h1>{frontmatter.title}</h1>
           <Mdx>{pageContext.content}</Mdx>
         </main>

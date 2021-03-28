@@ -12,13 +12,13 @@ order: 4
   , and use this recipe only when the default setup doesn't cover your needs.
 </Hint>
 
-Service Worker registration is an asynchronous process, which means that any requests that happen between calling `worker.start()` and the worker registration cannot be intercepted by the library.
+Service Worker registration is an asynchronous process, which means that any requests that happen between calling `worker.start` and the worker registration cannot be intercepted by the library.
 
 To tackle this, Mock Service Worker captures all outgoing requests in that pending period and defers their execution until the worker registration has finished, and the worker is ready to handle requests.
 
 > Learn more about the [`waitUntilReady`](/docs/api/setup-worker/start#waituntilready) option.
 
-However, in case when such default behavior is insufficient or undesired, you may defer your application's mount manually. Since `worker.start()` returns a `Promise`, you can execute your application bootstrapping logic once that promise resolves.
+However, in case when such default behavior is insufficient or undesired, you may defer your application's mount manually. Since `worker.start` returns a `Promise`, you can execute your application bootstrapping logic once that promise resolves.
 
 Here's an example on how to defer application's mount in a React application:
 

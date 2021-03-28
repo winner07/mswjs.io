@@ -7,6 +7,7 @@ import {
 import { MetaTags } from '../components/MetaTags'
 import { Mdx } from '../mdx/Mdx'
 import { Main } from './Main'
+import { BackLink } from '../components/BackLink'
 
 function LessonLink({
   slug,
@@ -65,8 +66,11 @@ export default function TutorialLessonPage({ data, pageContext }) {
         description={frontmatter.description}
       />
       <div className="container py-20">
-        <header>
-          <h1>{frontmatter.title}</h1>
+        <header className="mb-10">
+          <h1 className="mb-2">{frontmatter.title}</h1>
+          <BackLink to="/" className="text-gray-600">
+            Back to <strong>Tutorial name</strong>
+          </BackLink>
         </header>
         <Mdx>{content}</Mdx>
         <hr className="my-20" />

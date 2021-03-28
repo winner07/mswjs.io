@@ -7,9 +7,8 @@ export default function Docs() {
   return (
     <Main>
       <MetaTags title="Documentation" />
-      <PageHeader>
-        <h1 className="mb-0">Documentation</h1>
-      </PageHeader>
+      <PageHeader title="Documentation" text="Explore the API." />
+      <main className="container py-20">Content.</main>
     </Main>
   )
 }

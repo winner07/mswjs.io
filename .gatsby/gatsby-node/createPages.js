@@ -19,15 +19,14 @@ module.exports = async function createPages({ graphql, actions }) {
       articles: allFile(
         filter: { sourceInstanceName: { eq: "blog" }, extension: { eq: "mdx" } }
       ) {
-        edges {
-          node {
-            sourceInstanceName
-            mdx: childMdx {
-              slug
-              body
-              frontmatter {
-                title
-              }
+        nodes {
+          sourceInstanceName
+          mdx: childMdx {
+            slug
+            body
+            frontmatter {
+              title
+              keywords
             }
           }
         }
@@ -41,22 +40,22 @@ module.exports = async function createPages({ graphql, actions }) {
           childMdx: { slug: { regex: "/^tutorials/" } }
         }
       ) {
-        edges {
-          node {
-            id
-            sourceInstanceName
-            mdx: childMdx {
-              slug
-              body
-              frontmatter {
-                title
-                description
-              }
+        nodes {
+          id
+          sourceInstanceName
+          mdx: childMdx {
+            slug
+            body
+            frontmatter {
+              title
+              description
+              keywords
             }
           }
         }
       }
 
+      # Learning pages (guides, recipes).
       otherLearningPages: allFile(
         filter: {
           sourceInstanceName: { eq: "learn" }
@@ -64,16 +63,15 @@ module.exports = async function createPages({ graphql, actions }) {
           childMdx: { slug: { regex: "/^(?!tutorials)/" } }
         }
       ) {
-        edges {
-          node {
-            sourceInstanceName
-            mdx: childMdx {
-              slug
-              body
-              frontmatter {
-                title
-                description
-              }
+        nodes {
+          sourceInstanceName
+          mdx: childMdx {
+            slug
+            body
+            frontmatter {
+              title
+              description
+              keywords
             }
           }
         }
@@ -82,7 +80,7 @@ module.exports = async function createPages({ graphql, actions }) {
   `)
 
   // Create blog pages.
-  data.articles.edges.forEach(({ node }) => {
+  data.articles.nodes.forEach((node) => {
     const pagePath = path.join(node.sourceInstanceName, node.mdx.slug)
 
     actions.createPage({
@@ -96,7 +94,7 @@ module.exports = async function createPages({ graphql, actions }) {
   })
 
   // Create tutorial pages.
-  data.tutorials.edges.forEach(({ node }) => {
+  data.tutorials.nodes.forEach((node) => {
     const { slug } = node.mdx
     const pagePath = path.join(node.sourceInstanceName, slug)
     const component = slug.includes('/lessons/')
@@ -119,7 +117,7 @@ module.exports = async function createPages({ graphql, actions }) {
   })
 
   // Create other learning pages (guides/recipes).
-  data.otherLearningPages.edges.forEach(({ node }) => {
+  data.otherLearningPages.nodes.forEach((node) => {
     const pagePath = path.join(node.sourceInstanceName, node.mdx.slug)
 
     actions.createPage({

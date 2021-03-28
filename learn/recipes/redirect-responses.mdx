@@ -8,12 +8,12 @@ Redirecting a request is a matter of:
 - Setting the `Location` response header.
 
 ```js
-rest.get('/users/*', (req, res, ctx) => {
+rest.get('/users/:username', (req, res, ctx) => {
+  const { username } = req.params
+
   return res(
-    /* Set the redirect status code (3xx) */
     ctx.status(301),
-    /* ...and provide the location to redirect to. */
-    ctx.set('Location', 'https://api.github.com/users'),
+    ctx.set('Location', `https://api.github.com/users/${username}`),
   )
 })
 ```

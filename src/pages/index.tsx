@@ -17,6 +17,13 @@ import { Badge } from '../components/Badge'
 import { UsagePreview } from '../sections/UsagePreview'
 import { MetaTags } from '../components/MetaTags'
 import { Feedback } from '../sections/Feedback'
+import { LeadQuote } from '../components/LeadQuote'
+
+// import { ReactComponent as HeaderBanner } from '../images/header-banner.svg'
+import bannerUrl from '../images/header-banner.png'
+import patternUrl from '../images/footer-pattern.png'
+import tobiasAvatarUrl from '../images/avatars/tobias.jpg'
+import { HeroBanner } from '../components/HeroBanner'
 
 const FeatureItem: React.FC<{
   icon: JSX.Element
@@ -49,36 +56,54 @@ export default function Home() {
         description="API mocking library for browser and NodeJS."
       />
       <main>
-        <section>
+        <section className="relative overflow-hidden">
+          <HeroBanner className="absolute top-0 pb-20 right-0 h:auto lg:h-3/4 2xl:h-full max-w-full -z-10" />
+          <HeroBanner className="absolute -bottom-80 left-0  h:auto lg:h-3/4 max-w-full transform rotate-180 -z-10" />
+          {/* <div
+            className="absolute top-0 right-0 inline-block animate-spin"
+            style={{
+              top: -200,
+              right: -200,
+              transformOrigin: '500px 500px',
+              animationDuration: '250s',
+              animationDirection: 'reverse',
+            }}
+          >
+            <img src={bannerUrl} className="transform" />
+          </div> */}
           <div className="container px-4">
-            <div className="flex items-center my-60">
-              <div className="w-1/2">
-                <h1 className="text-6xl font-black">
-                  A single API mocking solution you'll ever need.
-                </h1>
-                <p className="mt-8 text-2xl text-gray-dark leading-9">
-                  Mock API by intercepting requests with a Service Worker.
-                  Seamlessly reuse the same mock definition for development,
-                  testing, and debugging across multiple environments.
-                </p>
-                <section className="mt-14 space-x-5 font-medium text-lg">
-                  <Link
-                    to="/learn"
-                    className="group inline-flex items-center py-3.5 px-10 space-x-3 bg-black text-white rounded-lg select-none hover:bg-gray-darkest focus:ring-4 focus:ring-gray focus:outline-none"
-                  >
-                    <span>Get started</span>
-                    <ArrowRightIcon className="transform transition-transform group-hover:translate-x-2" />
-                  </Link>
-                  <Link
-                    to="/docs"
-                    className="inline-block py-3.5 px-10 bg-gray-light rounded-lg select-none focus:outline-none focus:ring-4 focus:ring-gray-lightest focus:border-black"
-                  >
-                    Explore the API
-                  </Link>
-                </section>
-              </div>
-              <div className="px-4 w-1/2 flex justify-center">
-                <p>MEDIA</p>
+            <div className="relative">
+              <div className="py-60 lg:flex items-center space-x-5 z-0">
+                <div className="lg:w-1/2">
+                  <h1 className="text-6xl font-black">
+                    A single API mocking solution you'll ever need.
+                  </h1>
+                  <p className="mt-8 text-2xl text-gray-dark leading-9">
+                    Mock API by intercepting requests via Service Worker.
+                    Seamlessly reuse the same mock definitions for development,
+                    testing, and debugging across multiple environments.
+                  </p>
+                  <section className="mt-14 space-x-5 font-medium text-lg">
+                    <Link
+                      to="/learn"
+                      className="group inline-flex items-center py-3.5 px-10 space-x-3 bg-black text-white rounded-lg select-none hover:bg-gray-darkest focus:ring-4 focus:ring-gray focus:outline-none"
+                    >
+                      <span>Get started</span>
+                      <ArrowRightIcon className="transform transition-transform group-hover:translate-x-2" />
+                    </Link>
+                    <Link
+                      to="/docs"
+                      className="inline-block py-3.5 px-5 select-none transition-colors hover:text-orange focus:outline-none focus:ring-4 focus:ring-gray-light"
+                    >
+                      Read the docs
+                    </Link>
+                  </section>
+                </div>
+                <div className="w-1/2 px-20 flex justify-center">
+                  {/* <div className="p-5 w-full bg-white rounded-2xl shadow-2xl text-center">
+                    Something
+                  </div> */}
+                </div>
               </div>
             </div>
             <div className="py-20">
@@ -96,7 +121,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="py-40 bg-gray-lightest dark:bg-gray-darkest">
+        <section className="pt-40 bg-gray-lightest dark:bg-gray-darkest">
           <div className="container px-4 flex">
             <div className="w-1/2 h-100 flex items-center justify-center">
               <p>MEDIA</p>
@@ -131,11 +156,47 @@ export default function Home() {
               </section>
             </div>
           </div>
+
+          <LeadQuote
+            className="mt-40"
+            author="Kent C. Dodds"
+            description="Teacher, Google Developer Expert"
+            avatarUrl="https://mswjs.io/static/kentcdodds-58d3178a89b5ffa6d29a993c21762c5c.png"
+          >
+            I found MSW and was thrilled that not only could I still see the
+            mocked responses in my DevTools, but that the mocks didn't have to
+            be written in a Service Worker and could instead live alongside the
+            rest of my app. This made it silly easy to adopt. The fact that I
+            can use it for testing as well makes MSW a huge productivity
+            booster.
+          </LeadQuote>
         </section>
 
         <Features />
 
+        <LeadQuote
+          author="Ward Peeters"
+          description="Tech Lead at Gatsby"
+          avatarUrl="https://pbs.twimg.com/profile_images/1083279065396715520/J0WXNm4l_400x400.jpg"
+        >
+          Testing and working with network requests on a large scale and
+          different network conditions is very difficult. With MSW, it was super
+          easy to mock real-world scenarios to keep Gatsby’s stability
+          top-notch. Working with network requests was a pain before I got to
+          know MSW.
+        </LeadQuote>
+
         <UsagePreview />
+
+        <LeadQuote
+          author="Tobias Pickel"
+          description="Frontend developer at MOIA"
+          avatarUrl={tobiasAvatarUrl}
+        >
+          Mock Service Worker is the best thing that ever happened to the
+          JavaScript community: sharing API mocks between dev-server, unit, and
+          E2E tests has never been that easy.
+        </LeadQuote>
 
         <Feedback />
 
@@ -155,7 +216,7 @@ export default function Home() {
               <div className="mt-8 xl:mt-0 xl:w-1/3 flex flex-grow xl:flex-grow-0 flex-shrink-0 md:justify-end">
                 <Link
                   to="/learn"
-                  className="block bg-orange w-full xl:w-auto xl:text-xl px-16 py-3 rounded-xl text-center font-bold hover:bg-white hover:text-black"
+                  className="block bg-orange w-full xl:w-auto xl:text-xl px-16 py-3 rounded-lg text-center font-bold hover:bg-white hover:text-black"
                 >
                   Take the tutorial
                 </Link>

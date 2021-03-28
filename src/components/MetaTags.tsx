@@ -32,6 +32,7 @@ interface Props {
   socialTitle?: string
   titleTemplate?: string
   description?: string
+  keywords?: string[]
   socialDescription?: string
   twitter?: TwitterSEO
   og?: OpenGraphSEO
@@ -39,15 +40,16 @@ interface Props {
 }
 
 export const MetaTags: React.FC<Props> = ({
-  children,
-  description,
   lang = 'en',
   title,
   titleTemplate,
   socialTitle,
+  description,
   socialDescription,
+  keywords,
   og,
   twitter,
+  children,
 }) => {
   const { site } = useStaticQuery(GET_METADATA)
   const { siteMetadata } = site
@@ -96,6 +98,9 @@ export const MetaTags: React.FC<Props> = ({
 
       {/* Description */}
       <meta name="description" content={metaDescription} />
+
+      {/* Keywords */}
+      {keywords ? <meta name="keywords" content={keywords.join(',')} /> : null}
 
       {/* OpenGraph */}
       <meta property="og:type" content={ogSeo.type} />

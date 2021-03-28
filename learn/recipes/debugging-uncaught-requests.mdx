@@ -83,7 +83,7 @@ By registering the worker at the root, it can intercept all requests that your a
 
 If you are in control over the configuration of your development server, you can configure it to set the `Service-Worker-Allow` header on all responses of your application. Doing that will permit the worker to capture requests that lie outside of its scope.
 
-Here's an example of how to set the `Service-Worker-Allow` header on an Express server:
+Here's an example of how to set the `Service-Worker-Allow` header on an Express server using a custom middleware function:
 
 ```js focusedLines=6
 const express = require('express')
@@ -102,11 +102,11 @@ app.use((req, res, next) => {
 
 - Applicable to: `setupServer`
 
-Mock Service Worker supports [`debug`](https://github.com/visionmedia/debug) when run in Node.js. You can leverage this to look into the internals of how requests are intercepted, as well as provide the output logs to the library maintainers for more details.
+Mock Service Worker supports [`debug`](https://github.com/visionmedia/debug) when running in Node.js. You can leverage this to look into the internals of how requests are intercepted, as well as provide the output logs to the library maintainers for more details.
 
 Append the `DEBUG` environmental variable to the command that runs your tests:
 
-```bash
+```sh
 DEBUG=* npm test
 ```
 

@@ -28,7 +28,7 @@ export function Hint({
   const color = getBackgroundColor(mode)
   return (
     <div
-      className={`my-4 px-6 py-4 rounded-lg bg-${color}-50 text-${color}-900 text-base`}
+      className={`my-4 px-6 py-4 rounded-lg bg-${color}-50 text-gray-700 text-base`}
     >
       {children}
     </div>

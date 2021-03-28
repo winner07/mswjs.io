@@ -5,27 +5,29 @@ import {
   RiDiscordFill as DiscordIcon,
   RiTwitterFill as TwitterIcon,
 } from 'react-icons/ri'
+import { SiOpencollective as OpenCollectiveIcon } from 'react-icons/si'
 import { ReactComponent as MswLogo } from '../images/logos/msw.svg'
+import { ReactComponent as VercelLogo } from '../images/logos/vercel.svg'
 
 export function Footer() {
   return (
     <footer className="bg-black py-20 text-gray text-sm font-medium">
       <div className="container">
-        <div className="grid grid-cols-4 gap-20">
-          <div>
+        <div className="grid grid-cols-12 gap-10">
+          <div className="col-span-3">
             <MswLogo width={48} className="mb-2" />
             <p className="text-base">
               Seamless REST and GraphQL API mocking library for browser and
               Node.js.
             </p>
-            <ul className="mt-8 -ml-2 flex spacing-md text-2xl text-gray-dark">
+            <ul className="mt-8 -ml-2 flex items-center spacing-md text-2xl text-gray-dark">
               <li>
                 <a
                   href="https://github.com/mswjs/msw"
                   className="inline-flex hover:text-white p-2"
                   target="_blank"
                 >
-                  <GitHubIcon />
+                  <GitHubIcon size={24} />
                 </a>
               </li>
               <li>
@@ -34,7 +36,7 @@ export function Footer() {
                   className="inline-flex hover:text-white p-2"
                   target="_blank"
                 >
-                  <TwitterIcon />
+                  <TwitterIcon size={24} />
                 </a>
               </li>
               <li>
@@ -43,12 +45,21 @@ export function Footer() {
                   className="inline-flex hover:text-white p-2"
                   target="_blank"
                 >
-                  <DiscordIcon />
+                  <DiscordIcon size={24} />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://opencollective.com/mswjs"
+                  className="inline-flex hover:text-white p-2"
+                  target="_blank"
+                >
+                  <OpenCollectiveIcon size={18} />
                 </a>
               </li>
             </ul>
           </div>
-          <div>
+          <div className="col-start-7 col-span-2">
             <h4 className="mb-3 text-white uppercase font-bold tracking-widest">
               Documentation
             </h4>
@@ -87,7 +98,7 @@ export function Footer() {
               </li>
             </ul>
           </div>
-          <div>
+          <div className="col-span-2">
             <h4 className="mb-3 text-white uppercase font-bold tracking-widest">
               Guides
             </h4>
@@ -118,7 +129,7 @@ export function Footer() {
               </li>
             </ul>
           </div>
-          <div>
+          <div className="col-span-2">
             <h4 className="mb-3 text-white uppercase font-bold tracking-widest">
               Recipes
             </h4>
@@ -159,17 +170,29 @@ export function Footer() {
           </div>
         </div>
         <hr className="mt-20 mb-10 border-gray-dark opacity-25" />
-        <p className="text-center">
-          © {new Date().getFullYear()} Artem Zakharchenko and{' '}
-          <a
-            href="https://github.com/mswjs/msw/graphs/contributors"
-            target="_blank"
-            className="text-white hover:underline"
-          >
-            contributors
-          </a>
-          .
-        </p>
+        <section className="text-center">
+          <p>
+            © {new Date().getFullYear()} Artem Zakharchenko and{' '}
+            <a
+              href="https://github.com/mswjs/msw/graphs/contributors"
+              target="_blank"
+              className="text-white hover:underline"
+            >
+              contributors
+            </a>
+            .
+          </p>
+          <p className="inline-flex mt-1">
+            Hosted by{' '}
+            <a
+              href="https://vercel.com/?utm_source=artemz"
+              target="_blank"
+              className="hover:text-white"
+            >
+              <VercelLogo className="ml-1" height={18} fill="currentColor" />
+            </a>
+          </p>
+        </section>
       </div>
     </footer>
   )

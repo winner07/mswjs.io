@@ -7,7 +7,7 @@ order: 1
 
 The fetch specification [explicitly forbids](https://developer.mozilla.org/en-US/docs/Glossary/Forbidden_header_name) setting `Set-Cookie` and `Set-Cookie2` headers when constructing `Response` instances for security considerations.
 
-However, since Mock Service Worker executes on the client side, it can provide a functionality similar to receiving a mocked cookie from the response without violating security. To achieve that, use the `ctx.cookie()` utility function to set the given cookies on the `document.cookie` directly.
+However, since Mock Service Worker executes on the client side, it can provide a functionality similar to receiving a mocked cookie from the response without violating security. To achieve that, use the `ctx.cookie` utility function to set the given cookies on the `document.cookie` directly.
 
 ---
 

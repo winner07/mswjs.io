@@ -19,13 +19,13 @@ import { PageHeader } from '../components/PageHeader'
 import { ReactComponent as CypressIcon } from '../images/logos/cypress.svg'
 
 const tutorialIcons = {
-  'tutorials/mocking-rest-api/': (
+  'rest-api': (
     <RestIcon
       className="absolute right-0 -top-10 opacity-50 text-green-500 hidden sm:block"
       size={200}
     />
   ),
-  'tutorials/mocking-graphql-api/': (
+  'graphql-api': (
     <GraphQLLogo
       className="absolute right-0 -top-10 opacity-50 text-pink-500 hidden sm:block"
       size={200}
@@ -121,12 +121,18 @@ export default function LearnPage({ data }) {
         titleTemplate="%s - Mock Service Worker"
         description=""
       />
-      <PageHeader>
+      {/* <PageHeader>
         <h1 className="mb-0">Learn</h1>
-      </PageHeader>
+      </PageHeader> */}
+      <header className="py-20 text-center">
+        <h1 className="mb-4 text-5xl font-extrabold">Learn</h1>
+        <p className="text-xl text-gray-500">
+          Browse interactive tutorials, guides and recipes.
+        </p>
+      </header>
       <main>
-        <div className="container py-20 space-y-20">
-          <section>
+        <section className="py-20 border-t border-b bg-gray-50">
+          <div className="container">
             <header className="mb-10">
               <SectionHeading
                 title="Tutorials"
@@ -155,14 +161,14 @@ export default function LearnPage({ data }) {
                   <p className="font-medium">
                     {tutorial.frontmatter.description}
                   </p>
-                  {tutorialIcons[tutorial.slug]}
+                  {tutorialIcons[tutorial.frontmatter.id]}
                 </Link>
               ))}
             </div>
-          </section>
+          </div>
+        </section>
 
-          <hr />
-
+        <div className="container py-20 space-y-20">
           <section>
             <header>
               <SectionHeading title="Guides" icon={GuidesIcon} color="green" />
@@ -214,11 +220,15 @@ export default function LearnPage({ data }) {
 
 export const query = graphql`
   query GetRecipes {
-    tutorials: allMdx(filter: { slug: { glob: "tutorials/*" } }) {
+    tutorials: allMdx(
+      filter: { slug: { glob: "tutorials/*" } }
+      sort: { fields: fileAbsolutePath }
+    ) {
       nodes {
         id
         slug
         frontmatter {
+          id
           title
           description
         }

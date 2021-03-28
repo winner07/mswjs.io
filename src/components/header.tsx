@@ -25,13 +25,16 @@ const HeaderLink: React.FC<GatsbyLinkProps<any>> = (props) => {
 
 export function Header() {
   return (
-    <header className="sticky top-0 bg-white z-20">
-      <div className="container py-3 grid grid-cols-4 items-center gap-10 font-medium text-sm">
-        <Link to="/" className="flex items-center font-bold space-x-2">
+    <header className="sticky top-0 bg-white border-b border-gray-200 z-20">
+      <div className="container py-3 grid grid-cols-12 items-center gap-10 font-medium text-sm">
+        <Link
+          to="/"
+          className="col-span-3 flex items-center font-bold space-x-2"
+        >
           <MswLogo width={48} />
           <span className="hidden lg:block">Mock Service Worker</span>
         </Link>
-        <div className="flex col-span-2 align-middle space-x-4">
+        <div className="flex col-span-8 align-middle space-x-4">
           <div className="relative self-center">
             <SearchIcon size={16} className="absolute top-2 left-2 text-gray" />
             <input
@@ -61,9 +64,7 @@ export function Header() {
                 </a>
               </li>
               <li>
-                <HeaderLink to="/blog/mocking-authentication-with-auth0">
-                  Blog
-                </HeaderLink>
+                <HeaderLink to="/blog">Blog</HeaderLink>
               </li>
             </ul>
           </nav>
