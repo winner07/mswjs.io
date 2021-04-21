@@ -5,20 +5,21 @@ import {
   HiTerminal as TerminalIcon,
 } from 'react-icons/hi'
 import { useGuide } from '../../../../../src/hooks/useGuide'
-import { Code } from '../../../../../src/components/Code'
+import { Code } from 'react-cdx'
+import { Language } from 'prism-react-renderer'
 
 import handlersFile from '!!raw-loader!./files/handlers.js'
 import browserFile from '!!raw-loader!./files/browser.js'
 import appFile from '!!raw-loader!./files/App.js'
 import indexFile from '!!raw-loader!./files/index.js'
 
-function CodeSnippet({ language, code }: { language: string; code: string }) {
+function CodeSnippet({ language, code }: { language: Language; code: string }) {
   return (
     <Code
       className="my-3 text-sm"
       language={language}
       code={code}
-      showLineNumbers
+      showNumbers
     />
   )
 }
@@ -95,6 +96,16 @@ npx msw init ./public --save
         meta: {
           icon: ReactIcon,
         },
+        tokens: [
+          {
+            line: 7,
+            token: {
+              content: `'/todos'`,
+              type: 'string',
+            },
+            onClick: console.log,
+          },
+        ],
       },
     },
     steps: [
@@ -300,7 +311,7 @@ npx msw init ./public --save
           <Code
             code={file.raw}
             language={file.language}
-            highlights={lines}
+            focusedLines={lines}
             tokens={file.tokens}
             formatLineNumber={file.meta?.codeProps?.formatLineNumber}
           />

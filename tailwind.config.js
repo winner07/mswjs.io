@@ -74,6 +74,9 @@ module.exports = {
         },
         lg: {
           css: {
+            h2: {
+              marginBottom: 24,
+            },
             pre: {
               margin: 0,
               padding: 0,

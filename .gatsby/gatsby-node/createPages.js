@@ -12,6 +12,10 @@ const components = {
   learnPage: path.resolve(__dirname, '../../src/layouts/LearnPage.tsx'),
 }
 
+function normalizeSlug(slug) {
+  return slug.replace(/\d+-/g, '')
+}
+
 module.exports = async function createPages({ graphql, actions }) {
   const { data } = await graphql(gql`
     {
@@ -81,7 +85,10 @@ module.exports = async function createPages({ graphql, actions }) {
 
   // Create blog pages.
   data.articles.nodes.forEach((node) => {
-    const pagePath = path.join(node.sourceInstanceName, node.mdx.slug)
+    const pagePath = path.join(
+      node.sourceInstanceName,
+      normalizeSlug(node.mdx.slug),
+    )
 
     actions.createPage({
       path: pagePath,
@@ -96,12 +103,12 @@ module.exports = async function createPages({ graphql, actions }) {
   // Create tutorial pages.
   data.tutorials.nodes.forEach((node) => {
     const { slug } = node.mdx
-    const pagePath = path.join(node.sourceInstanceName, slug)
+    const pagePath = path.join(node.sourceInstanceName, normalizeSlug(slug))
     const component = slug.includes('/lessons/')
       ? components.tutorialLessonPage
       : components.tutorialPage
 
-    const parentTutorialSlug = slug.split('/lessons/')[0].replace(/\/$/g, '')
+    const parentTutorialSlug = slug.split('/lessons/')[0]
 
     actions.createPage({
       path: pagePath,
@@ -109,7 +116,11 @@ module.exports = async function createPages({ graphql, actions }) {
       context: {
         pageId: node.id,
         slug,
-        parentTutorialRegex: `/^${parentTutorialSlug}/.+/`,
+        /**
+         * @note Trailing slash is mandatory to query a tutorial.
+         */
+        parentTutorialSlug: `${parentTutorialSlug}/`,
+        parentTutorialRegex: `/^${parentTutorialSlug}.+/`,
         content: node.mdx.body,
         frontmatter: node.mdx.frontmatter,
       },
@@ -118,7 +129,10 @@ module.exports = async function createPages({ graphql, actions }) {
 
   // Create other learning pages (guides/recipes).
   data.otherLearningPages.nodes.forEach((node) => {
-    const pagePath = path.join(node.sourceInstanceName, node.mdx.slug)
+    const pagePath = path.join(
+      node.sourceInstanceName,
+      normalizeSlug(node.mdx.slug),
+    )
 
     actions.createPage({
       path: pagePath,

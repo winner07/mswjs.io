@@ -10,12 +10,12 @@ import { Main } from './Main'
 import { BackLink } from '../components/BackLink'
 
 function LessonLink({
-  slug,
+  to,
   title,
   description,
   isNext,
 }: {
-  slug: string
+  to: string
   title: string
   description: string
   isNext?: boolean
@@ -23,7 +23,7 @@ function LessonLink({
   const Icon = isNext ? NextIcon : PrevIcon
   return (
     <Link
-      to={`/learn/${slug}`}
+      to={to}
       className={[
         'group flex py-6 max-w-lg bg-gray-lightest text-gray-dark rounded-lg transition-colors hover:bg-gray-darkest hover:text-gray',
       ]
@@ -50,8 +50,10 @@ function LessonLink({
 }
 
 export default function TutorialLessonPage({ data, pageContext }) {
-  const { lessons } = data
+  const { tutorial, lessons } = data
   const { content, frontmatter } = pageContext
+
+  console.log({ tutorial })
 
   const currentLesson = lessons.edges.find(({ node }) => {
     return node.id === pageContext.pageId
@@ -68,17 +70,17 @@ export default function TutorialLessonPage({ data, pageContext }) {
       <div className="container py-20">
         <header className="mb-10">
           <h1 className="mb-2">{frontmatter.title}</h1>
-          <BackLink to="/" className="text-gray-600">
-            Back to <strong>Tutorial name</strong>
+          <BackLink to={tutorial.fields.url} className="text-gray-600">
+            Back to <strong>{tutorial.frontmatter.title}</strong>
           </BackLink>
         </header>
         <Mdx>{content}</Mdx>
-        <hr className="my-20" />
+        <hr className="my-16" />
         <footer className="flex justify-between">
           <div>
             {prevLesson && (
               <LessonLink
-                slug={prevLesson.mdx.slug}
+                to={prevLesson.mdx.fields.url}
                 title={prevLesson.mdx.frontmatter.title}
                 description={prevLesson.mdx.frontmatter.description}
               />
@@ -88,7 +90,7 @@ export default function TutorialLessonPage({ data, pageContext }) {
             {nextLesson && (
               <LessonLink
                 isNext
-                slug={nextLesson.mdx.slug}
+                to={nextLesson.mdx.fields.url}
                 title={nextLesson.mdx.frontmatter.title}
                 description={nextLesson.mdx.frontmatter.description}
               />
@@ -101,7 +103,19 @@ export default function TutorialLessonPage({ data, pageContext }) {
 }
 
 export const query = graphql`
-  query GetLessonNavigation($parentTutorialRegex: String!) {
+  query GetLessonNavigation(
+    $parentTutorialSlug: String!
+    $parentTutorialRegex: String!
+  ) {
+    tutorial: mdx(slug: { eq: $parentTutorialSlug }) {
+      fields {
+        url
+      }
+      frontmatter {
+        title
+      }
+    }
+
     lessons: allFile(
       filter: {
         sourceInstanceName: { eq: "learn" }
@@ -114,7 +128,9 @@ export const query = graphql`
         node {
           id
           mdx: childMdx {
-            slug
+            fields {
+              url
+            }
             frontmatter {
               title
             }
@@ -132,7 +148,9 @@ export const query = graphql`
 
   fragment FileFragment on File {
     mdx: childMdx {
-      slug
+      fields {
+        url
+      }
       frontmatter {
         title
         description

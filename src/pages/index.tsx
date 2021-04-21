@@ -19,9 +19,6 @@ import { MetaTags } from '../components/MetaTags'
 import { Feedback } from '../sections/Feedback'
 import { LeadQuote } from '../components/LeadQuote'
 
-// import { ReactComponent as HeaderBanner } from '../images/header-banner.svg'
-import bannerUrl from '../images/header-banner.png'
-import patternUrl from '../images/footer-pattern.png'
 import tobiasAvatarUrl from '../images/avatars/tobias.jpg'
 import { HeroBanner } from '../components/HeroBanner'
 
@@ -59,18 +56,6 @@ export default function Home() {
         <section className="relative overflow-hidden">
           <HeroBanner className="absolute top-0 pb-20 right-0 h:auto lg:h-3/4 2xl:h-full max-w-full -z-10" />
           <HeroBanner className="absolute -bottom-80 left-0  h:auto lg:h-3/4 max-w-full transform rotate-180 -z-10" />
-          {/* <div
-            className="absolute top-0 right-0 inline-block animate-spin"
-            style={{
-              top: -200,
-              right: -200,
-              transformOrigin: '500px 500px',
-              animationDuration: '250s',
-              animationDirection: 'reverse',
-            }}
-          >
-            <img src={bannerUrl} className="transform" />
-          </div> */}
           <div className="container px-4">
             <div className="relative">
               <div className="py-60 lg:flex items-center space-x-5 z-0">
@@ -81,7 +66,7 @@ export default function Home() {
                   <p className="mt-8 text-2xl text-gray-dark leading-9">
                     Mock API by intercepting requests via Service Worker.
                     Seamlessly reuse the same mock definitions for development,
-                    testing, and debugging across multiple environments.
+                    testing, and debugging across different environments.
                   </p>
                   <section className="mt-14 space-x-5 font-medium text-lg">
                     <Link

@@ -1,0 +1,67 @@
+code {
+  @apply py-0.5;
+  @apply px-1.5;
+  @apply text-blue-900;
+  @apply font-medium;
+  @apply bg-blue-50;
+  @apply border;
+  @apply border-blue-100;
+  @apply rounded-md;
+  font-size: 0.9em;
+}
+
+pre {
+  @apply py-4;
+  @apply rounded-lg;
+  line-height: 1.1;
+  font-size: inherit;
+  overflow: auto;
+}
+
+.line {
+  @apply px-4;
+  transition: background-color 0.2s, opacity 0.2s;
+}
+
+.line-number {
+  @apply opacity-40;
+  @apply select-none;
+  display: inline-block;
+  padding-right: 2ch;
+  text-align: right;
+  width: 4ch;
+
+  transition: opacity 0.2s;
+}
+
+pre:hover .line {
+  opacity: 1;
+  filter: grayscale(0);
+}
+
+pre .focused {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+pre .focused .line-number {
+  opacity: 1;
+}
+
+pre .unfocused {
+  @apply opacity-50;
+  filter: grayscale(100%);
+}
+
+pre .interactive {
+  @apply px-1;
+  @apply -mx-1;
+  @apply rounded-full;
+  @apply bg-white;
+  @apply bg-opacity-10;
+  @apply cursor-pointer;
+  @apply transition-colors;
+}
+
+pre .interactive:hover {
+  @apply bg-opacity-20;
+}

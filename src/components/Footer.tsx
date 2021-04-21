@@ -189,7 +189,11 @@ export function Footer() {
               target="_blank"
               className="hover:text-white"
             >
-              <VercelLogo className="ml-1" height={18} fill="currentColor" />
+              <VercelLogo
+                className="mt-0.5 ml-1"
+                height={16}
+                fill="currentColor"
+              />
             </a>
           </p>
         </section>

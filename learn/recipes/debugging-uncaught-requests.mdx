@@ -49,7 +49,7 @@ You can print out the list of current request handlers at any point of your appl
 
 - Applicable to: `setupWorker`
 
-A Service Worker can only intercept the requests under its scope. The maximum scope of the worker is its file location.
+A Service Worker cannot intercept requests that happen outside of its scope. This means that the location of the worker script on your website determines the scope of requests MSW can intercept.
 
 For example, if you are registering the MSW Service Worker at a custom path:
 
@@ -63,7 +63,7 @@ worker.start({
 
 Then MSW will only intercept the requests under `/assets/*` path. A request to `/user` or `/posts` will not be intercepted as they lie **outside of the worker's scope** (`/assets`).
 
-> The Service Worker distributed by MSW is a regular Service Worker like any other. While not mandatory, the more familiar you are with how Service Workers function, the fewer issues you will experience. Learn more about [Using Service Worker (MDN)](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers).
+> The Service Worker distributed by MSW is a regular Service Worker scripe. While not mandatory, the more familiar you are with how Service Workers function, the fewer issues you will experience. Learn more about [Using Service Worker (MDN)](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers).
 
 If you've confirmed that the worker's scope cannot capture the requests your application is making, there are a few ways to address that.
 
@@ -79,7 +79,7 @@ By registering the worker at the root, it can intercept all requests that your a
 
 ### Set the `Service-Worker-Allow` response header
 
-> This option is the last resort and is not generally recommended.
+> This option is the last resort and is **not generally recommended**.
 
 If you are in control over the configuration of your development server, you can configure it to set the `Service-Worker-Allow` header on all responses of your application. Doing that will permit the worker to capture requests that lie outside of its scope.
 

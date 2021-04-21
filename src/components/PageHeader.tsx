@@ -11,9 +11,11 @@ export const PageHeader = ({
 }) => {
   return (
     <header className="py-20 border-b text-center">
-      {prefix}
-      <h1 className="mb-0 text-5xl font-extrabold">{title}</h1>
-      {text && <p className="mt-4 text-xl text-gray-500">{text}</p>}
+      <div className="container">
+        {prefix}
+        <h1 className="mb-0 text-5xl font-extrabold">{title}</h1>
+        {text && <p className="mt-4 text-xl text-gray-500">{text}</p>}
+      </div>
     </header>
   )
 }

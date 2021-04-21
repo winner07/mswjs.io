@@ -40,7 +40,7 @@ export function Header() {
             <input
               type="search"
               name="search"
-              className="inline py-1.5 px-4 pl-7 border bg-white border-gray-light rounded-lg self-center shadow-sm placeholder-gray-dark focus:border-orange focus:outline-none focus:ring-2 focus:ring-orange focus:ring-opacity-40 dark:border-gray-dark dark:bg-black dark:placeholder-gray"
+              className="inline py-1.5 px-4 pl-7 border bg-gray-50 border-gray-light rounded-lg self-center placeholder-gray-dark focus:border-orange focus:outline-none focus:ring-2 focus:ring-orange focus:ring-opacity-40 dark:border-gray-dark dark:bg-black dark:placeholder-gray"
               placeholder="Search"
               autoComplete="off"
               aria-labelledby="Search"

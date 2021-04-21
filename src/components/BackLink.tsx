@@ -14,7 +14,7 @@ export function BackLink({ children, ...linkProps }: GatsbyLinkProps<any>) {
         .filter(Boolean)
         .join(' ')}
     >
-      <span className="inline-flex items-center justify-center h-6 w-6 border border-gray-300 rounded-md group-hover:bg-black group-hover:border-black group-hover:text-white">
+      <span className="inline-flex items-center justify-center h-6 w-6 border border-gray-300 rounded-md transition-colors group-hover:bg-black group-hover:border-black group-hover:text-white">
         <BackIcon size={16} />
       </span>
       <span>{children}</span>

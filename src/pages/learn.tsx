@@ -67,7 +67,7 @@ const GuideItem = ({
 }) => {
   return (
     <Link
-      to={`/learn/${to}`}
+      to={to}
       className="p-8 flex bg-gray-lightest rounded-xl space-x-3 border border-transparent transition-colors hover:bg-gray-light focus:outline-none focus:ring-4 focus:ring-orange focus:ring-opacity-20  focus:border-orange"
     >
       {icon}
@@ -82,7 +82,7 @@ const GuideItem = ({
 const RecipeItem = ({ title, to }: { title: string; to: string }) => {
   return (
     <Link
-      to={`/learn/${to}`}
+      to={to}
       className="group flex items-top justify-between pl-8 pr-4 py-4 border rounded-xl transition-colors hover:bg-gray-lightest focus:outline-none focus:ring-4 focus:ring-orange focus:ring-opacity-20 focus:border-orange"
     >
       <p className="font-bold">{title}</p>
@@ -121,17 +121,13 @@ export default function LearnPage({ data }) {
         titleTemplate="%s - Mock Service Worker"
         description=""
       />
-      {/* <PageHeader>
-        <h1 className="mb-0">Learn</h1>
-      </PageHeader> */}
-      <header className="py-20 text-center">
-        <h1 className="mb-4 text-5xl font-extrabold">Learn</h1>
-        <p className="text-xl text-gray-500">
-          Browse interactive tutorials, guides and recipes.
-        </p>
-      </header>
+      <PageHeader
+        title="Learn"
+        text=" Browse interactive tutorials, guides and recipes."
+      />
+
       <main>
-        <section className="py-20 border-t border-b bg-gray-50">
+        <section className="py-20 border-b bg-gray-50">
           <div className="container">
             <header className="mb-10">
               <SectionHeading
@@ -148,16 +144,16 @@ export default function LearnPage({ data }) {
               {tutorials.nodes.map((tutorial) => (
                 <Link
                   key={tutorial.id}
-                  to={`/learn/${tutorial.slug}`}
+                  to={tutorial.fields.url}
                   className="relative group overflow-hidden p-8 sm:pr-48 bg-black text-gray rounded-xl hover:bg-gray-darkest transition-colors focus:ring-4 focus:outline-none focus:ring-gray"
                 >
-                  <h3 className="mb-2 text-2xl text-white font-bold">
+                  <h3 className="mb-1 text-2xl text-white font-bold">
                     {tutorial.frontmatter.title}
-                    <span className="ml-3 px-2 align-middle py-1 text-sm bg-gray-darkest text-gray-light rounded-md transition-colors group-hover:bg-gray-dark">
-                      {tutorial.childPagesCount} lesson
-                      {tutorial.childPagesCount > 1 ? 's' : ''}
-                    </span>
                   </h3>
+                  <span className="inline-block mt-1 mb-4 px-2 py-1 text-sm bg-gray-darkest text-gray-light font-bold rounded-md transition-colors group-hover:bg-gray-dark">
+                    {tutorial.childPagesCount} lesson
+                    {tutorial.childPagesCount > 1 ? 's' : ''}
+                  </span>
                   <p className="font-medium">
                     {tutorial.frontmatter.description}
                   </p>
@@ -180,7 +176,7 @@ export default function LearnPage({ data }) {
               {guides.nodes.map((guide) => (
                 <GuideItem
                   key={guide.id}
-                  to={guide.slug}
+                  to={guide.fields.url}
                   icon={getGuideIcon(guide.frontmatter.title)}
                   title={guide.frontmatter.title}
                   description={guide.frontmatter.description}
@@ -206,7 +202,7 @@ export default function LearnPage({ data }) {
               {recipes.nodes.map((recipe) => (
                 <RecipeItem
                   key={recipe.id}
-                  to={recipe.slug}
+                  to={recipe.fields.url}
                   title={recipe.frontmatter.title}
                 />
               ))}
@@ -226,7 +222,9 @@ export const query = graphql`
     ) {
       nodes {
         id
-        slug
+        fields {
+          url
+        }
         frontmatter {
           id
           title
@@ -242,7 +240,9 @@ export const query = graphql`
     ) {
       nodes {
         id
-        slug
+        fields {
+          url
+        }
         frontmatter {
           title
         }
@@ -255,7 +255,9 @@ export const query = graphql`
     ) {
       nodes {
         id
-        slug
+        fields {
+          url
+        }
         frontmatter {
           title
           description

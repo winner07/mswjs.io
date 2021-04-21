@@ -111,8 +111,10 @@ async function getContributors(pages) {
   return contributors
 }
 
+exports.onCreateNode = require('./.gatsby/gatsby-node/onCreateNode')
 exports.createPages = require('./.gatsby/gatsby-node/createPages')
 exports.createResolvers = require('./.gatsby/gatsby-node/createResolvers')
+exports.createSchemaCustomization = require('./.gatsby/gatsby-node/createSchemaCustomization')
 
 // exports.createPages = async ({ actions, graphql }) => {
 // const { errors, data } = await graphql(`
@@ -227,42 +229,42 @@ exports.createResolvers = require('./.gatsby/gatsby-node/createResolvers')
 // })
 // }
 
-exports.onCreateNode = async ({ node, getNode, actions }) => {
-  // const { createNodeField } = actions
-  // if (['mdx'].includes(node.internal.type.toLowerCase())) {
-  //   const postSlug = createFilePath({
-  //     node,
-  //     getNode,
-  //     basePath: DOCS_BASE_PATH,
-  //     trailingSlash: false,
-  //   })
-  //   const relativeFilePath = path.relative(__dirname, node.fileAbsolutePath)
-  //   createNodeField({
-  //     node,
-  //     name: 'relativeFilePath',
-  //     value: relativeFilePath,
-  //   })
-  //   // Reference the raw file on GitHub to allow edits
-  //   createNodeField({
-  //     node,
-  //     name: 'editUrl',
-  //     value: `${REPO_URL}/tree/master/${relativeFilePath}`,
-  //   })
-  //   createNodeField({
-  //     node,
-  //     name: 'url',
-  //     value: ['/', DOCS_BASE_PATH, '/', postSlug]
-  //       .filter(Boolean)
-  //       .join('')
-  //       .replace(/\/+/g, '/'),
-  //   })
-  //   createNodeField({
-  //     node,
-  //     name: 'isHomepage',
-  //     value: postSlug === '/',
-  //   })
-  // }
-}
+// exports.onCreateNode = async ({ node, getNode, actions }) => {
+// const { createNodeField } = actions
+// if (['mdx'].includes(node.internal.type.toLowerCase())) {
+//   const postSlug = createFilePath({
+//     node,
+//     getNode,
+//     basePath: DOCS_BASE_PATH,
+//     trailingSlash: false,
+//   })
+//   const relativeFilePath = path.relative(__dirname, node.fileAbsolutePath)
+//   createNodeField({
+//     node,
+//     name: 'relativeFilePath',
+//     value: relativeFilePath,
+//   })
+//   // Reference the raw file on GitHub to allow edits
+//   createNodeField({
+//     node,
+//     name: 'editUrl',
+//     value: `${REPO_URL}/tree/master/${relativeFilePath}`,
+//   })
+//   createNodeField({
+//     node,
+//     name: 'url',
+//     value: ['/', DOCS_BASE_PATH, '/', postSlug]
+//       .filter(Boolean)
+//       .join('')
+//       .replace(/\/+/g, '/'),
+//   })
+//   createNodeField({
+//     node,
+//     name: 'isHomepage',
+//     value: postSlug === '/',
+//   })
+// }
+// }
 
 //
 // Utils

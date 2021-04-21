@@ -1,9 +1,10 @@
 import * as React from 'react'
-import { RandgeDefinition, TokenDefinition } from '../components/Code'
+import { Language } from 'prism-react-renderer'
+import { LineRange, TokenDefinition } from 'react-cdx'
 
 interface GuideFile {
   name: string
-  language: string
+  language: Language
   raw: string
   tokens?: TokenDefinition[]
   meta?: Record<string, any>
@@ -18,7 +19,7 @@ interface RootStep {
 interface Step {
   title: string
   file: string
-  lines: RandgeDefinition[]
+  lines: LineRange[]
   content?: JSX.Element
 }
 
@@ -31,7 +32,7 @@ export function useGuide({ files, steps }: UseGuideProps) {
   const [activeFile, setActiveFile] = React.useState(() => {
     return Object.keys(files)[0]
   })
-  const [lines, setLines] = React.useState(null)
+  const [lines, setLines] = React.useState<LineRange[]>(null)
   const [activeStepIndex, setActiveStepIndex] = React.useState(null)
   const [activeParentStepIndex, activeChildStepIndex] =
     activeStepIndex?.split(',') || []
