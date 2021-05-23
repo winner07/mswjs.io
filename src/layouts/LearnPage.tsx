@@ -53,7 +53,7 @@ function SubMenu({
         <li key={url}>
           <Link
             to={url}
-            className="inline-flex py-1.5 space-x-2 text-gray transition-colors hover:text-black"
+            className="inline-flex py-1.5 space-x-2 text-gray-600 transition-colors hover:text-black"
           >
             <span className="inline-flex flex-shrink-0 mt-1 items-center justify-center w-4 h-4 bg-gray-light rounded-sm">
               <HashIcon size={10} />
@@ -133,7 +133,7 @@ export default function LearnPage({ data, pageContext }) {
             </section>
           </div>
         </aside>
-        <main className="prose prose-lg pt-5 pb-10 col-span-3 max-w-none">
+        <main className="prose prose pt-6 pb-10 col-span-3 max-w-none">
           <h1>{frontmatter.title}</h1>
           <Mdx>{pageContext.content}</Mdx>
         </main>

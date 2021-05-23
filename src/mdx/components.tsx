@@ -27,7 +27,6 @@ export default {
 
     return (
       <Code
-        className="my-5"
         code={children}
         language={language}
         highlights={highlights}

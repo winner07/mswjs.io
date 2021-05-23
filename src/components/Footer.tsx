@@ -13,8 +13,8 @@ export function Footer() {
   return (
     <footer className="bg-black py-20 text-gray text-sm font-medium">
       <div className="container">
-        <div className="grid grid-cols-12 gap-10">
-          <div className="col-span-3">
+        <div className="grid gap-y-12 md:grid-cols-12 md:gap-x-10">
+          <div className="md:col-span-6 lg:col-span-5 xl:col-span-4">
             <MswLogo width={48} className="mb-2" />
             <p className="text-base">
               Seamless REST and GraphQL API mocking library for browser and
@@ -59,7 +59,7 @@ export function Footer() {
               </li>
             </ul>
           </div>
-          <div className="col-start-7 col-span-2">
+          <div className="md:col-span-6 lg:col-start-7 lg:col-span-2">
             <h4 className="mb-3 text-white uppercase font-bold tracking-widest">
               Documentation
             </h4>
@@ -98,7 +98,7 @@ export function Footer() {
               </li>
             </ul>
           </div>
-          <div className="col-span-2">
+          <div className="md:col-span-6 lg:col-span-2">
             <h4 className="mb-3 text-white uppercase font-bold tracking-widest">
               Guides
             </h4>
@@ -129,7 +129,7 @@ export function Footer() {
               </li>
             </ul>
           </div>
-          <div className="col-span-2">
+          <div className="md:col-span-6 lg:col-span-2">
             <h4 className="mb-3 text-white uppercase font-bold tracking-widest">
               Recipes
             </h4>

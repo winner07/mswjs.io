@@ -18,19 +18,25 @@ import { MetaTags } from '../components/MetaTags'
 import { PageHeader } from '../components/PageHeader'
 import { ReactComponent as CypressIcon } from '../images/logos/cypress.svg'
 
-const tutorialIcons = {
-  'rest-api': (
-    <RestIcon
-      className="absolute right-0 -top-10 opacity-50 text-green-500 hidden sm:block"
-      size={200}
-    />
-  ),
-  'graphql-api': (
-    <GraphQLLogo
-      className="absolute right-0 -top-10 opacity-50 text-pink-500 hidden sm:block"
-      size={200}
-    />
-  ),
+const turoials = {
+  'rest-api': {
+    color: 'green',
+    icon: (
+      <RestIcon
+        className="absolute right-0 -top-10 opacity-40 text-white hidden sm:block"
+        size={200}
+      />
+    ),
+  },
+  'graphql-api': {
+    color: 'graphql',
+    icon: (
+      <GraphQLLogo
+        className="absolute right-0 -top-10 opacity-40 text-white hidden sm:block"
+        size={200}
+      />
+    ),
+  },
 }
 
 function SectionHeading({
@@ -68,7 +74,7 @@ const GuideItem = ({
   return (
     <Link
       to={to}
-      className="p-8 flex bg-gray-lightest rounded-xl space-x-3 border border-transparent transition-colors hover:bg-gray-light focus:outline-none focus:ring-4 focus:ring-orange focus:ring-opacity-20  focus:border-orange"
+      className="p-8 flex bg-gray-lightest rounded-xl space-x-3 border border-transparent transition-colors hover:bg-gray-light focus:outline-none focus:ring-4 focus:ring-orange focus:ring-opacity-20 focus:border-orange"
     >
       {icon}
       <div>
@@ -117,13 +123,13 @@ export default function LearnPage({ data }) {
   return (
     <Main>
       <MetaTags
-        title="Tutorials"
+        title="Learn"
         titleTemplate="%s - Mock Service Worker"
         description=""
       />
       <PageHeader
         title="Learn"
-        text=" Browse interactive tutorials, guides and recipes."
+        text="Interactive tutorials, guides and recipes."
       />
 
       <main>
@@ -141,25 +147,28 @@ export default function LearnPage({ data }) {
               </p>
             </header>
             <div className="grid lg:grid-cols-2 gap-8">
-              {tutorials.nodes.map((tutorial) => (
-                <Link
-                  key={tutorial.id}
-                  to={tutorial.fields.url}
-                  className="relative group overflow-hidden p-8 sm:pr-48 bg-black text-gray rounded-xl hover:bg-gray-darkest transition-colors focus:ring-4 focus:outline-none focus:ring-gray"
-                >
-                  <h3 className="mb-1 text-2xl text-white font-bold">
-                    {tutorial.frontmatter.title}
-                  </h3>
-                  <span className="inline-block mt-1 mb-4 px-2 py-1 text-sm bg-gray-darkest text-gray-light font-bold rounded-md transition-colors group-hover:bg-gray-dark">
-                    {tutorial.childPagesCount} lesson
-                    {tutorial.childPagesCount > 1 ? 's' : ''}
-                  </span>
-                  <p className="font-medium">
-                    {tutorial.frontmatter.description}
-                  </p>
-                  {tutorialIcons[tutorial.frontmatter.id]}
-                </Link>
-              ))}
+              {tutorials.nodes.map((tutorial) => {
+                const { icon, color } = turoials[tutorial.frontmatter.id]
+                return (
+                  <Link
+                    key={tutorial.id}
+                    to={tutorial.fields.url}
+                    className={`relative group overflow-hidden p-8 sm:pr-48 bg-gradient-to-tl from-${color}-600 to-${color}-400 text-white shadow-lg rounded-xl focus:ring-opacity-30 focus:ring-4 focus:outline-none focus:ring-${color}-500 hover:to-${color}-300`}
+                  >
+                    <h3 className="mb-1 text-2xl text-white font-bold filter drop-shadow">
+                      {tutorial.frontmatter.title}
+                    </h3>
+                    <span className="inline-block mt-1 mb-4 px-2 py-1 text-sm bg-black bg-opacity-20 font-bold rounded-md group-hover:bg-opacity-30">
+                      {tutorial.childPagesCount} lesson
+                      {tutorial.childPagesCount > 1 ? 's' : ''}
+                    </span>
+                    <p className="font-medium text-white text-opacity-90 filter drop-shadow">
+                      {tutorial.frontmatter.description}
+                    </p>
+                    {icon}
+                  </Link>
+                )
+              })}
             </div>
           </div>
         </section>
@@ -195,7 +204,7 @@ export default function LearnPage({ data }) {
                 color="purple"
               />
               <p className="text-gray-dark text-xl">
-                Quick advice on cooking that very use-case.
+                Quick advice on achieving that very use-case.
               </p>
             </header>
             <main className="grid md:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-4 mt-10">

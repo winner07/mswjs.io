@@ -47,12 +47,17 @@ export const Features: React.FC = () => {
         <FeatureItems
           icon={<SeamlessIcon size={18} />}
           title="Seamless"
-          description="With its award-winning concept, Mock Service Worker requires no changes to your application or tests to get the API mocking in place."
+          description="With its award-winning concept, Mock Service Worker requires no changes to your application or tests to enable API mocking."
         />
         <FeatureItems
           icon={<VueIcon size={18} />}
           title="Framework-agnostic"
-          description="React, Angular, Svelte, Vue—this is your decision. Mock Service Worker is not bound to a framework, and works with any of your preferences."
+          description="React, Angular, Svelte, Vue—this is your decision. Mock Service Worker works with any frameworks and tools of your preference."
+        />
+        <FeatureItems
+          icon={<DocumentIcon size={18} />}
+          title="Specification-driven"
+          description="Learn while you're mocking your API: handle requests and compose responses according to their specification."
         />
         <FeatureItems
           icon={<GraphQLIcon size={18} />}
@@ -67,12 +72,7 @@ export const Features: React.FC = () => {
         <FeatureItems
           icon={<TypeScriptIcon size={18} />}
           title="TypeScript support"
-          description="Mock Service Worker is natively written in TypeScript, giving you a superb developer experience and the necessary tools to have type-safe API mocking."
-        />
-        <FeatureItems
-          icon={<DocumentIcon size={18} />}
-          title="Specification-driven"
-          description="Learn while you're mocking your API: handle requests and compose responses according to their specification."
+          description="Mock Service Worker is written in TypeScript, giving you a superb developer experience of type-safe API mocking."
         />
       </section>
     </div>

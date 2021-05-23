@@ -13,7 +13,7 @@ const FeedbackItem = ({
   children: React.ReactNode
   imageUrl: string
   author: string
-  occupation: string
+  occupation: React.ReactNode
   alignLeft?: boolean
 }) => {
   const containerMargin = alignLeft ? 'mr-auto' : 'ml-auto md:ml-0'
@@ -56,7 +56,11 @@ export function Feedback() {
         <FeedbackItem
           imageUrl={bradyAvatarUrl}
           author="Brady Pascoe"
-          occupation="Maintainer of react-bootstrap"
+          occupation={
+            <>
+              Maintainer of <strong>react-bootstrap</strong>
+            </>
+          }
         >
           I don’t think I can use anything other than MSW after picking it up
           for a project at my previous workplace, to be honest.
@@ -64,7 +68,11 @@ export function Feedback() {
         <FeedbackItem
           imageUrl={tobiasAvatarUrl}
           author="Tobias Pickel"
-          occupation="Frontend developer, MOIA"
+          occupation={
+            <>
+              Frontend developer, <strong>MOIA</strong>
+            </>
+          }
           alignLeft
         >
           Mock Service Worker is the best thing that ever happened to the JS
@@ -74,7 +82,11 @@ export function Feedback() {
         <FeedbackItem
           imageUrl={michaelAvatarUrl}
           author="Michael Haglund"
-          occupation="Software engineer, Life.Church"
+          occupation={
+            <>
+              Software engineer, <strong>Life.Church</strong>
+            </>
+          }
         >
           We've switched our tests over to use Mock Service Worker and we
           haven’t looked back ever since.

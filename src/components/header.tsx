@@ -25,7 +25,7 @@ const HeaderLink: React.FC<GatsbyLinkProps<any>> = (props) => {
 
 export function Header() {
   return (
-    <header className="sticky top-0 bg-white border-b border-gray-200 z-20">
+    <header className="sticky top-0 bg-white bg-opacity-90 backdrop-filter backdrop-blur-lg border-b border-gray-200 z-20">
       <div className="container py-3 grid grid-cols-12 items-center gap-10 font-medium text-sm">
         <Link
           to="/"
@@ -40,7 +40,7 @@ export function Header() {
             <input
               type="search"
               name="search"
-              className="inline py-1.5 px-4 pl-7 border bg-gray-50 border-gray-light rounded-lg self-center placeholder-gray-dark focus:border-orange focus:outline-none focus:ring-2 focus:ring-orange focus:ring-opacity-40 dark:border-gray-dark dark:bg-black dark:placeholder-gray"
+              className="inline py-1.5 px-4 pl-7 border bg-gray-50 border-gray-light rounded-lg self-center placeholder-gray-dark focus:border-orange focus:outline-none focus:ring-2 focus:ring-orange-200 dark:border-gray-dark dark:bg-black dark:placeholder-gray"
               placeholder="Search"
               autoComplete="off"
               aria-labelledby="Search"

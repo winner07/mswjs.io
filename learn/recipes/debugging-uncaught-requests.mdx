@@ -63,7 +63,7 @@ worker.start({
 
 Then MSW will only intercept the requests under `/assets/*` path. A request to `/user` or `/posts` will not be intercepted as they lie **outside of the worker's scope** (`/assets`).
 
-> The Service Worker distributed by MSW is a regular Service Worker scripe. While not mandatory, the more familiar you are with how Service Workers function, the fewer issues you will experience. Learn more about [Using Service Worker (MDN)](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers).
+> The Service Worker distributed by MSW is a regular Service Worker script. While not mandatory, the more familiar you are with how Service Workers function, the fewer issues you will experience. Learn more about [Using Service Worker (MDN)](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers).
 
 If you've confirmed that the worker's scope cannot capture the requests your application is making, there are a few ways to address that.
 

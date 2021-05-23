@@ -63,7 +63,7 @@ export default function TutorialPage({ data, pageContext }) {
                               to={lesson.fields.url}
                               className="group flex items-start px-3 py-3 transition-colors hover:bg-gray-100 rounded-lg"
                             >
-                              <span className="flex flex-shrink-0 items-center justify-center mt-0.5 -ml-1.5 w-6 h-6 z-10 border border-gray-100 bg-white rounded-full text-xs text-gray-600 font-extrabold">
+                              <span className="flex flex-shrink-0 items-center justify-center -ml-1.5 w-6 h-6 z-10 border border-gray-100 bg-white rounded-full text-xs text-gray-600 font-extrabold">
                                 {index + 1}
                               </span>
                               {/* <span className="flex items-center justify-center mt-0.5 -ml-1.5 z-10 w-6 h-6 bg-white rounded-full transition-colors group-hover:bg-gray-100">
@@ -87,7 +87,7 @@ export default function TutorialPage({ data, pageContext }) {
                     </div>
                     <Link
                       to={firstLessonUrl}
-                      className="block mt-10 py-4 w-full bg-orange text-white text-center uppercase tracking-wider font-bold rounded-lg shadow-orange transition-colors hover:bg-orange-dark"
+                      className="block mt-10 py-4 w-full bg-orange-500 text-white text-sm text-center uppercase tracking-widest font-bold rounded-lg shadow-orange transition-colors hover:bg-orange-700 focus:ring-4 focus:ring-orange-200 focus:ring-opacity-40"
                     >
                       Begin the tutorial
                     </Link>

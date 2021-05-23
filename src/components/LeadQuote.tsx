@@ -14,7 +14,7 @@ export function LeadQuote({
   author: string
   className?: string
   avatarUrl: string
-  description: string
+  description: React.ReactNode
   children: React.ReactNode
 }) {
   return (
@@ -33,7 +33,10 @@ export function LeadQuote({
         </blockquote>
         <figcaption className="mt-10 md:grid grid-cols-11 text-left">
           <div className="flex items-center col-start-6 col-span-5">
-            <img src={avatarUrl} className="mx-3 w-14 h-14 rounded-full" />
+            <img
+              src={avatarUrl}
+              className="mx-3 w-14 h-14 rounded-full border-4 border-gray-200"
+            />
             <div>
               <p className="font-bold tracking-tight">{author}</p>
               <p className="-mt-0.5 font-medium text-base text-gray-500">

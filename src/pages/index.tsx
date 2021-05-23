@@ -11,7 +11,9 @@ import { ReactComponent as GoogleIcon } from '../images/logos/google.svg'
 import { ReactComponent as MicrosoftIcon } from '../images/logos/microsoft.svg'
 import { ReactComponent as SpotifyIcon } from '../images/logos/spotify-text.svg'
 import { ReactComponent as GatsbyIcon } from '../images/logos/gatsby.svg'
+import { ReactComponent as NetflixIcon } from '../images/logos/netflix.svg'
 import { ReactComponent as RedwoodIcon } from '../images/logos/redwoodjs.svg'
+import { ReactComponent as Auth0Icon } from '../images/logos/auth0.svg'
 import { Features } from '../sections/Features'
 import { Badge } from '../components/Badge'
 import { UsagePreview } from '../sections/UsagePreview'
@@ -21,6 +23,7 @@ import { LeadQuote } from '../components/LeadQuote'
 
 import tobiasAvatarUrl from '../images/avatars/tobias.jpg'
 import { HeroBanner } from '../components/HeroBanner'
+import { Install } from '../sections/Install'
 
 const FeatureItem: React.FC<{
   icon: JSX.Element
@@ -54,11 +57,11 @@ export default function Home() {
       />
       <main>
         <section className="relative overflow-hidden">
-          <HeroBanner className="absolute top-0 pb-20 right-0 h:auto lg:h-3/4 2xl:h-full max-w-full -z-10" />
-          <HeroBanner className="absolute -bottom-80 left-0  h:auto lg:h-3/4 max-w-full transform rotate-180 -z-10" />
+          {/* <HeroBanner className="hidden lg:block absolute top-0 pb-20 right-0 h:auto xl:h-3/4 2xl:h-full max-w-full -z-10" />
+          <HeroBanner className="hidden lg:block absolute -bottom-80 left-0  h:auto lg:h-3/4 max-w-full transform rotate-180 -z-10" /> */}
           <div className="container px-4">
             <div className="relative">
-              <div className="py-60 lg:flex items-center space-x-5 z-0">
+              <div className="py-40 lg:py-60 lg:flex items-center space-x-5 z-0">
                 <div className="lg:w-1/2">
                   <h1 className="text-6xl font-black">
                     A single API mocking solution you'll ever need.
@@ -98,8 +101,10 @@ export default function Home() {
               <div className="mt-8 flex items-center justify-center space-x-10">
                 <GoogleIcon width={100} fill="currentColor" />
                 <MicrosoftIcon width={40} fill="currentColor" />
+                <NetflixIcon width={80} fill="currentColor" />
                 <SpotifyIcon width={140} fill="currentColor" />
                 <GatsbyIcon width={40} fill="currentColor" />
+                <Auth0Icon width={100} fill="currentColor" />
                 <RedwoodIcon width={40} fill="currentColor" />
               </div>
             </div>
@@ -161,7 +166,11 @@ export default function Home() {
 
         <LeadQuote
           author="Ward Peeters"
-          description="Tech Lead at Gatsby"
+          description={
+            <>
+              Tech Lead at <strong>Gatsby</strong>
+            </>
+          }
           avatarUrl="https://pbs.twimg.com/profile_images/1083279065396715520/J0WXNm4l_400x400.jpg"
         >
           Testing and working with network requests on a large scale and
@@ -170,6 +179,8 @@ export default function Home() {
           top-notch. Working with network requests was a pain before I got to
           know MSW.
         </LeadQuote>
+
+        <Install />
 
         <UsagePreview />
 
@@ -184,31 +195,6 @@ export default function Home() {
         </LeadQuote>
 
         <Feedback />
-
-        <div className="container px-20 lg:px-40 py-40">
-          <div className="relative">
-            <div className="absolute -top-10 -left-10 w-full h-full bg-gray-lightest rounded-2xl -z-10" />
-            <div className="absolute top-10 left-10 w-full h-full bg-gray-light rounded-2xl -z-10" />
-            <section className="relative flex flex-wrap lg:flex-nowrap items-center lg:space-x-8 bg-black text-white p-12 rounded-2xl z-0">
-              <div className="grow-1">
-                <h2 className="text-2xl">Ready to get started?</h2>
-                <p className="text-gray lg:text-lg">
-                  We've got a step-by-step tutorial that will teach you
-                  everything you need to know to get up and running with Mock
-                  Service Worker.
-                </p>
-              </div>
-              <div className="mt-8 xl:mt-0 xl:w-1/3 flex flex-grow xl:flex-grow-0 flex-shrink-0 md:justify-end">
-                <Link
-                  to="/learn"
-                  className="block bg-orange w-full xl:w-auto xl:text-xl px-16 py-3 rounded-lg text-center font-bold hover:bg-white hover:text-black"
-                >
-                  Take the tutorial
-                </Link>
-              </div>
-            </section>
-          </div>
-        </div>
       </main>
     </Main>
   )
