@@ -5,17 +5,17 @@ export function Install() {
   const [latestVersion, setLatestVersion] = React.useState('latest')
 
   React.useEffect(() => {
-    fetch('')
+    fetch('https://registry.npmjs.org/msw/latest')
       .then((res) => res.json())
       .then((data) => {
-        setLatestVersion('1.2.3')
+        setLatestVersion(data.version)
       })
       .catch(() => null)
   }, [])
 
   return (
     <div className="py-40 bg-gray-800 text-gray-50">
-      <div className="container grid lg:grid-cols-12 gap-16 items-center">
+      <div className="container grid lg:grid-cols-12 gap-16 items-top">
         <div className="col-span-6 text-lg">
           <p className="mb-2 text-orange text-sm uppercase font-bold tracking-widest">
             Don't hesitate

@@ -11,27 +11,30 @@ import { MetaTags } from '../components/MetaTags'
 import { Mdx } from '../mdx/Mdx'
 import { IconType } from 'react-icons'
 import { BackLink } from '../components/BackLink'
+import { Prose } from '../components/Prose'
+import { SidebarGroup } from '../components/SidebarGroup'
+import { SidebarLink } from '../components/SidebarLink'
 
-function SectionHeading({
-  title,
-  icon: Icon,
-  color,
-}: {
-  title: string
-  icon: IconType
-  color: string
-}) {
-  return (
-    <h4 className="mb-2 flex items-center space-x-2 text-black text-sm font-extrabold uppercase">
-      <span
-        className={`flex items-center justify-center w-6 h-6 bg-${color}-500 text-white rounded-md`}
-      >
-        <Icon size={14} />
-      </span>
-      <span>{title}</span>
-    </h4>
-  )
-}
+// function SectionHeading({
+//   title,
+//   icon: Icon,
+//   color,
+// }: {
+//   title: string
+//   icon: IconType
+//   color: string
+// }) {
+//   return (
+//     <h4 className="mb-2 flex items-center space-x-2 text-black text-sm font-extrabold uppercase">
+//       <span
+//         className={`flex items-center justify-center w-6 h-6 bg-${color}-500 text-white rounded-md`}
+//       >
+//         <Icon size={14} />
+//       </span>
+//       <span>{title}</span>
+//     </h4>
+//   )
+// }
 
 function SubMenu({
   items,
@@ -74,26 +77,27 @@ export default function LearnPage({ data, pageContext }) {
   return (
     <Main>
       <MetaTags title={frontmatter.title} />
-      <div className="container relative py-10 grid grid-cols-4 gap-20">
-        <aside className="text-gray-dark font-medium">
+      <div className="container relative py-10 grid grid-cols-12 gap-10">
+        <aside className="col-span-3 text-gray-dark font-medium">
           <div className="sticky top-28 space-y-6">
             <section>
               <BackLink to="/learn">Back to learning</BackLink>
             </section>
             <hr />
             <section>
-              <SectionHeading title="Guides" icon={GuidesIcon} color="green" />
+              <SidebarGroup icon={GuidesIcon} color="green">
+                Guides
+              </SidebarGroup>
               <nav>
                 <ul>
                   {guides.edges.map(({ node }) => (
                     <li key={node.id}>
-                      <Link
+                      <SidebarLink
                         to={`/learn/${node.mdx.slug}`}
-                        className="inline-block -ml-3 px-3 py-1.5 transition-colors hover:text-black"
                         activeClassName="bg-green-100 text-green-900 rounded-lg hover:text-green-900"
                       >
                         {node.mdx.frontmatter.title}
-                      </Link>
+                      </SidebarLink>
                     </li>
                   ))}
                 </ul>
@@ -102,24 +106,21 @@ export default function LearnPage({ data, pageContext }) {
             <hr />
             <section>
               <header>
-                <SectionHeading
-                  title="Recipes"
-                  icon={RecipesIcon}
-                  color="purple"
-                />
+                <SidebarGroup icon={RecipesIcon} color="purple">
+                  Recipes
+                </SidebarGroup>
               </header>
               <nav>
                 <ul>
                   {recipes.edges.map(({ node }) => (
                     <li key={node.id}>
-                      <Link
+                      <SidebarLink
                         to={`/learn/${node.mdx.slug}`}
-                        className="inline-block -ml-3 px-3 py-1.5 transition-colors hover:text-black"
                         activeClassName="sibling-visible bg-purple-100 text-purple-900 rounded-lg hover:text-purple-900"
                         partiallyActive
                       >
                         {node.mdx.frontmatter.title}
-                      </Link>
+                      </SidebarLink>
                       {node.mdx.tableOfContents?.items ? (
                         <SubMenu
                           items={node.mdx.tableOfContents?.items}
@@ -133,10 +134,10 @@ export default function LearnPage({ data, pageContext }) {
             </section>
           </div>
         </aside>
-        <main className="prose prose pt-6 pb-10 col-span-3 max-w-none">
+        <Prose className="col-span-9 pt-6 pb-10">
           <h1>{frontmatter.title}</h1>
           <Mdx>{pageContext.content}</Mdx>
-        </main>
+        </Prose>
       </div>
     </Main>
   )

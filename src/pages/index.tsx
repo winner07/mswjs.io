@@ -52,8 +52,8 @@ export default function Home() {
     <Main>
       <MetaTags
         title="Mock Service Worker"
-        titleTemplate="%s - API mocking library of the next generation."
-        description="API mocking library for browser and NodeJS."
+        titleTemplate="%s - API mocking library for browser and Node.js."
+        description="API mocking library for browser and Node.js."
       />
       <main>
         <section className="relative overflow-hidden">

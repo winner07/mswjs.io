@@ -51,11 +51,14 @@ export const UsagePreview: React.FC = () => {
           className="mt-20 text-xl leading-8 max-w-2xl mx-auto shadow-xl rounded-2xl"
           language="javascript"
           code={`
+// src/mocks/handlers.js
 import { rest } from 'msw'
 
-rest.get('/user', (req, res, ctx) => {
-  return res(ctx.json({ firstName: 'John' }))
-})
+export const handlers = [
+  rest.get('/user', (req, res, ctx) => {
+    return res(ctx.json({ firstName: 'John' }))
+  })
+]
         `}
           tokens={[
             {
@@ -63,7 +66,7 @@ rest.get('/user', (req, res, ctx) => {
                 type: 'imports',
                 content: 'rest',
               },
-              line: 1,
+              line: 2,
               onClick() {},
             },
             {
@@ -71,7 +74,7 @@ rest.get('/user', (req, res, ctx) => {
                 type: 'plain',
                 content: 'rest',
               },
-              line: 3,
+              line: 5,
               onClick() {},
             },
             {
@@ -79,7 +82,7 @@ rest.get('/user', (req, res, ctx) => {
                 type: 'string',
                 content: `'/user'`,
               },
-              line: 3,
+              line: 5,
               onClick() {},
             },
             {
@@ -87,7 +90,7 @@ rest.get('/user', (req, res, ctx) => {
                 type: 'function',
                 content: 'res',
               },
-              line: 4,
+              line: 6,
               onClick() {},
             },
           ]}

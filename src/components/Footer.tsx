@@ -14,7 +14,7 @@ export function Footer() {
     <footer className="bg-black py-20 text-gray text-sm font-medium">
       <div className="container">
         <div className="grid gap-y-12 md:grid-cols-12 md:gap-x-10">
-          <div className="md:col-span-6 lg:col-span-5 xl:col-span-4">
+          <div className="md:col-span-6 lg:col-span-5 xl:col-span-3">
             <MswLogo width={48} className="mb-2" />
             <p className="text-base">
               Seamless REST and GraphQL API mocking library for browser and
