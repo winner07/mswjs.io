@@ -14,6 +14,7 @@ import { ReactComponent as GatsbyIcon } from '../images/logos/gatsby.svg'
 import { ReactComponent as NetflixIcon } from '../images/logos/netflix.svg'
 import { ReactComponent as RedwoodIcon } from '../images/logos/redwoodjs.svg'
 import { ReactComponent as Auth0Icon } from '../images/logos/auth0.svg'
+import { ReactComponent as HasuraLogo } from '../images/logos/hasura.svg'
 import { Features } from '../sections/Features'
 import { Badge } from '../components/Badge'
 import { UsagePreview } from '../sections/UsagePreview'
@@ -105,6 +106,7 @@ export default function Home() {
                 <SpotifyIcon width={140} fill="currentColor" />
                 <GatsbyIcon width={40} fill="currentColor" />
                 <Auth0Icon width={100} fill="currentColor" />
+                <HasuraLogo width={40} fill="currentColor" />
                 <RedwoodIcon width={40} fill="currentColor" />
               </div>
             </div>
