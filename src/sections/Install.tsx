@@ -51,31 +51,24 @@ export function Install() {
           </p>
           <br />
           <p>
-            <span className="text-blue-500">info</span> ready to take a
-            tutorial?
+            <span className="text-blue-500">info</span> choose a tutorial to
+            continue:
           </p>
           <p>
             &gt;{' '}
             <Link
-              to="/learn"
+              to="/learn/tutorials/mocking-rest-api"
               className="border-b border-dotted border-gray-500 hover:text-gray-50 hover:border-gray-50"
             >
-              Yes
+              REST API
             </Link>{' '}
             /{' '}
             <Link
-              to="/learn"
+              to="/learn/tutorials/mocking-graphql-api"
               className="border-b border-dotted border-gray-500 hover:text-gray-50 hover:border-gray-50"
             >
-              Definitely
+              GraphQL API
             </Link>{' '}
-            /{' '}
-            <Link
-              to="/learn"
-              className="border-b border-dotted border-gray-500 hover:text-gray-50 hover:border-gray-50"
-            >
-              Absolutely
-            </Link>
           </p>
         </div>
       </div>
