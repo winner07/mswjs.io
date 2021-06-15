@@ -3,49 +3,39 @@ title: Query parameters
 order: 2
 ---
 
-Mock Service Worker stores request URL as a `URL` instance that exposes the `URLSearchParams` to manage query parameters.
-
-Use the `req.url.searchParams` property of the intercepted request to access its query parameters. The value of that property is a [`URLSearchParams`](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams) instance that contains all query parameters.
+Request query parameters are stored in the `req.url` object, which is an instance of the `URL` class, and can be accessed under the `req.url.searchParams` property. The value of that property is a [`URLSearchParams`](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams) instance that contains all query parameters. Storing the query parameters in a `URL` delegates the parameters parsing and normalization to the standard browser API, instead of being a part of the library.
 
 ---
 
 ## Single parameter
 
 ```js highlights=2
-  rest.get('/products', (req, res, ctx) => {
-    const productId = req.url.searchParams.get('id')
+// Given a "GET /products?id=1" request...
+rest.get('/products', (req, res, ctx) => {
+  // ...the value of the "id" parameter is "1".
+  const productId = req.url.searchParams.get('id')
 
-    return res(
-      ctx.json({
-        productId,
-      }),
-    )
-  }),
-)
+  return res(
+    ctx.json({
+      productId,
+    }),
+  )
+})
 ```
 
-<ResponsePreview
-  request={{
-    method: 'GET',
-    url: '/products**?id=123**',
-  }}
-  response={{
-    body: `
-{
-  // Where '123' is the value of \`req.url.searchParams.get('id')\`
-  // parsed from the request URL.
-  "productId": "123"
-}
-    `,
-  }}
-/>
+> Learn more about the [`URLSearchParams.get()`](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams/get) method.
 
 ## Multiple parameters
+
+The values of multiple query parameters under
 
 Call `req.url.searchParams.getAll()` method to access all values assigned to a parameter.
 
 ```js highlights=2
+// Given a "GET /products&id=1&id=2&id=3" request...
 rest.get('/products', (req, res, ctx) => {
+  // ...the values of the "id" parameter is a list
+  // of all provided values: ['1', '2', '3'].
   const productIds = req.url.searchParams.getAll('id')
 
   return res(
@@ -56,18 +46,4 @@ rest.get('/products', (req, res, ctx) => {
 })
 ```
 
-> Read more in the [`URLSearchParams.getAll()`](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams/getAll) specification.
-
-<ResponsePreview
-  request={{
-    method: 'GET',
-    url: '/products**?id=1&id=2&id=3**',
-  }}
-  response={{
-    body: `
-{
-  "productIds": ["1", "2", "3"]
-}
-    `,
-  }}
-/>
+> Learn more about the [`URLSearchParams.getAll()`](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams/getAll) method.

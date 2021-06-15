@@ -2,10 +2,12 @@
 title: Redirect responses
 ---
 
-Redirecting a request is a matter of:
+Mocking a redirect response is the same as constructing it in an actual server, and consists of the following steps:
 
-- Setting the right response status code;
-- Setting the `Location` response header.
+- Setting the correct redirect response status code (`3xx`);
+- Setting the `Location` response header specifying the redirect destination.
+
+## External redirect
 
 ```js
 rest.get('/users/:username', (req, res, ctx) => {
@@ -18,7 +20,9 @@ rest.get('/users/:username', (req, res, ctx) => {
 })
 ```
 
-You can also redirect to another request handler:
+## Relative redirect
+
+You can redirect from one request handler to another by specifying the other handler's URL as the redirect's destination:
 
 ```js
 export const handlers = [
@@ -31,4 +35,4 @@ export const handlers = [
 ]
 ```
 
-Requesting the user at `GET /api/v1/user` will redirect the request to the `/api/v2/user` handler and return the `{ "firstName": "John" }` JSON in the response.
+Whenever your code makes a `GET /api/v1/user` request, it will be redirected to the `/api/v2/user` URL. Since there is a request handler for that URL, the mocked response will be returned.

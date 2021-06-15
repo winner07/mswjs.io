@@ -5,19 +5,25 @@ order: 1
 
 ## Limitations
 
-The fetch specification [explicitly forbids](https://developer.mozilla.org/en-US/docs/Glossary/Forbidden_header_name) setting `Set-Cookie` and `Set-Cookie2` headers when constructing `Response` instances for security considerations.
+The fetch specification [explicitly forbids](https://developer.mozilla.org/en-US/docs/Glossary/Forbidden_header_name) setting `Set-Cookie` and `Set-Cookie2` response headers when constructing a `Response` instance due to security considerations. However, since Mock Service Worker executes on the client, it can provide a functionality similar to receiving a mocked cookie from the response without violating security. To achieve that, use the `ctx.cookie` utility function to set the given cookies on the `document.cookie` directly.
 
-However, since Mock Service Worker executes on the client side, it can provide a functionality similar to receiving a mocked cookie from the response without violating security. To achieve that, use the `ctx.cookie` utility function to set the given cookies on the `document.cookie` directly.
+There are some limitations when mocking response cookies:
+
+- Response cookies cannot be accessed in the client code under the `Set-Cookie`/`Set-Cookie2` response headers, because none of these headers are actually set.
 
 ---
 
 ## Get request cookies
 
+Parsed request cookies can be accessed under the `req.cookies` object in a response resolver.
+
 ```js highlights=2-3
 rest.post('/login', (req, res, ctx) => {
-  // Access request cookies.
+  // Access parsed request cookies.
   const { authToken } = req.cookies
 
+  // Utilize the request cookies as your logic demands.
+  // For example, implement a cookie-based authentication.
   if (isValidToken(authToken)) {
     return res(
       ctx.json({
@@ -27,7 +33,12 @@ rest.post('/login', (req, res, ctx) => {
     )
   }
 
-  return res(ctx.status(403), ctx.json({ message: 'Failed to authenticate!' }))
+  return res(
+    ctx.status(403),
+    ctx.json({
+      error: 'Unauthorized',
+    }),
+  )
 })
 ```
 
@@ -40,9 +51,17 @@ rest.post('/login', (req, res, ctx) => {
   .
 </Hint>
 
+Alternatively, you can get the raw (unparsed) request cookies in the `Cookie` request header.
+
+```js showLineNumbers=false
+req.headers.get('cookie')
+```
+
 ---
 
 ## Set response cookies
+
+Use the `ctx.cookie` utility to set a response cookie.
 
 ```js highlights=3-5
 rest.post('/login', (req, res, ctx) => {
@@ -54,10 +73,28 @@ rest.post('/login', (req, res, ctx) => {
 })
 ```
 
-> Note that you still won't be able to access the `Set-Cookie` header on the response, as the cookie is set on the `document` directly, bypassing network.
+> Note that you still won't be able to access the `Set-Cookie` header on the response in your client code, as the cookie is set on the `document` directly, bypassing the network.
+
+You can set multiple response cookies by providing multiple `ctx.cookie` calls:
+
+```js
+return res(ctx.cookie('sessionId', ''), ctx.cookie('authToken', 'abc-123'))
+```
 
 ---
 
 ## Cookies persistency
 
-> Tell about how cookies set in one request handler persist for another handler based on the origin.
+### Client-side persistency
+
+Cookies persist on the client as usual, being stored in the browser and abiding their expiration date. Cookies are included in the matching requests according to the `credentials` option you provide in your request client:
+
+```js
+fetch('/user', {
+  credentials: 'include',
+})
+```
+
+### Server-side persistency
+
+On the "server" side, cookies are handled by the library to ensure that they are sent to any request made within your response resolver. The library respects a cookie's domain and expiration date when doing so.
