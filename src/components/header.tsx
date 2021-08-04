@@ -63,9 +63,6 @@ export function Header() {
                   Examples
                 </a>
               </li>
-              <li>
-                <HeaderLink to="/blog">Blog</HeaderLink>
-              </li>
             </ul>
           </nav>
         </div>

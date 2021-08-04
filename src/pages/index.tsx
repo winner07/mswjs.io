@@ -15,6 +15,7 @@ import { ReactComponent as NetflixIcon } from '../images/logos/netflix.svg'
 import { ReactComponent as RedwoodIcon } from '../images/logos/redwoodjs.svg'
 import { ReactComponent as Auth0Icon } from '../images/logos/auth0.svg'
 import { ReactComponent as HasuraLogo } from '../images/logos/hasura.svg'
+import { ReactComponent as ToyotaLogo } from '../images/logos/toyota.svg'
 import { Features } from '../sections/Features'
 import { Badge } from '../components/Badge'
 import { UsagePreview } from '../sections/UsagePreview'
@@ -22,9 +23,8 @@ import { MetaTags } from '../components/MetaTags'
 import { Feedback } from '../sections/Feedback'
 import { LeadQuote } from '../components/LeadQuote'
 
-import tobiasAvatarUrl from '../images/avatars/tobias.jpg'
-import { HeroBanner } from '../components/HeroBanner'
 import { Install } from '../sections/Install'
+import { Difference } from '../sections/Difference'
 
 const FeatureItem: React.FC<{
   icon: JSX.Element
@@ -58,8 +58,6 @@ export default function Home() {
       />
       <main>
         <section className="relative overflow-hidden">
-          {/* <HeroBanner className="hidden lg:block absolute top-0 pb-20 right-0 h:auto xl:h-3/4 2xl:h-full max-w-full -z-10" />
-          <HeroBanner className="hidden lg:block absolute -bottom-80 left-0  h:auto lg:h-3/4 max-w-full transform rotate-180 -z-10" /> */}
           <div className="container px-4">
             <div className="relative">
               <div className="py-40 lg:py-60 lg:flex items-center space-x-5 z-0">
@@ -69,7 +67,7 @@ export default function Home() {
                   </h1>
                   <p className="mt-8 text-2xl text-gray-dark leading-9">
                     Mock API by intercepting requests via Service Worker.
-                    Seamlessly reuse the same mock definitions for development,
+                    Seamlessly reuse the same mock definitions in development,
                     testing, and debugging across different environments.
                   </p>
                   <section className="mt-14 space-x-5 font-medium text-lg">
@@ -104,6 +102,7 @@ export default function Home() {
                 <MicrosoftIcon width={40} fill="currentColor" />
                 <NetflixIcon width={80} fill="currentColor" />
                 <SpotifyIcon width={140} fill="currentColor" />
+                <ToyotaLogo width={64} fill="currentColor" />
                 <GatsbyIcon width={40} fill="currentColor" />
                 <Auth0Icon width={100} fill="currentColor" />
                 <HasuraLogo width={40} fill="currentColor" />
@@ -152,7 +151,11 @@ export default function Home() {
           <LeadQuote
             className="mt-40"
             author="Kent C. Dodds"
-            description="Teacher, Google Developer Expert"
+            description={
+              <>
+                Teacher, the author of <strong>React Testing Library</strong>
+              </>
+            }
             avatarUrl="https://mswjs.io/static/kentcdodds-58d3178a89b5ffa6d29a993c21762c5c.png"
           >
             I found MSW and was thrilled that not only could I still see the
@@ -182,20 +185,9 @@ export default function Home() {
           know MSW.
         </LeadQuote>
 
+        <Difference />
         <Install />
-
         <UsagePreview />
-
-        <LeadQuote
-          author="Tobias Pickel"
-          description="Frontend developer at MOIA"
-          avatarUrl={tobiasAvatarUrl}
-        >
-          Mock Service Worker is the best thing that ever happened to the
-          JavaScript community: sharing API mocks between dev-server, unit, and
-          E2E tests has never been that easy.
-        </LeadQuote>
-
         <Feedback />
       </main>
     </Main>

@@ -1,8 +1,4 @@
 import * as React from 'react'
-import {
-  HiChevronDoubleLeft as QuoteLeftIcon,
-  HiChevronDoubleRight as QuoteRightIcon,
-} from 'react-icons/hi'
 
 export function LeadQuote({
   author,
@@ -25,11 +21,9 @@ export function LeadQuote({
         .join(' ')}
     >
       <hr className="w-4/12 mx-auto mb-40" />
-      <figure className="group lg:w-9/12 mx-auto">
+      <figure className="lg:w-9/12 mx-auto">
         <blockquote className="relative flex items-center md:space-x-8 text-2xl leading-9 tracking-tight font-medium">
-          <QuoteLeftIcon className="hidden md:block text-4xl flex-shrink-0 text-orange opacity-0 scale-150 transform transition-all translate-x-16 group-hover:opacity-100 group-hover:scale-100 group-hover:translate-x-0" />
           <p>{children}</p>
-          <QuoteRightIcon className="hidden md:block text-4xl flex-shrink-0 text-orange opacity-0 scale-150 transform transition-all -translate-x-16 group-hover:opacity-100 group-hover:scale-100 group-hover:translate-x-0" />
         </blockquote>
         <figcaption className="mt-10 md:grid grid-cols-11 text-left">
           <div className="flex items-center col-start-6 col-span-5">

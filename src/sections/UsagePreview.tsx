@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Code } from '../components/Code'
 import { HiInformationCircle as InfoIcon } from 'react-icons/hi'
+import { Section } from '../components/Section'
 
 interface TokenProps {
   type: 'string' | 'keyword' | 'method' | 'delimiter'
@@ -38,19 +39,11 @@ const Space: React.FC = () => {
 
 export const UsagePreview: React.FC = () => {
   return (
-    <div className="bg-gray-lightest">
-      <div className="container py-40">
-        <header className="text-center">
-          <p className="mb-2 text-orange text-sm uppercase font-bold tracking-widest">
-            Explore
-          </p>
-          <h2 className="mb-5">Workflow</h2>
-        </header>
-
-        <Code
-          className="mt-20 text-xl leading-8 max-w-2xl mx-auto shadow-xl rounded-2xl"
-          language="javascript"
-          code={`
+    <Section prefix="Explore the" title="Workflow" className="bg-gray-50">
+      <Code
+        className="text-xl leading-8 max-w-2xl mx-auto shadow-xl rounded-2xl"
+        language="javascript"
+        code={`
 // src/mocks/handlers.js
 import { rest } from 'msw'
 
@@ -60,53 +53,64 @@ export const handlers = [
   })
 ]
         `}
-          tokens={[
-            {
-              token: {
-                type: 'imports',
-                content: 'rest',
-              },
-              line: 2,
-              onClick() {},
+        tokens={[
+          {
+            token: {
+              type: 'imports',
+              content: 'rest',
             },
-            {
-              token: {
-                type: 'plain',
-                content: 'rest',
-              },
-              line: 5,
-              onClick() {},
+            line: 2,
+            onClick() {},
+          },
+          {
+            token: {
+              type: 'plain',
+              content: 'rest',
             },
-            {
-              token: {
-                type: 'string',
-                content: `'/user'`,
-              },
-              line: 5,
-              onClick() {},
+            line: 5,
+            onClick() {},
+          },
+          {
+            token: {
+              type: 'string',
+              content: `'/user'`,
             },
-            {
-              token: {
-                type: 'function',
-                content: 'res',
-              },
-              line: 6,
-              onClick() {},
+            line: 5,
+            onClick() {},
+          },
+          {
+            token: {
+              type: 'function',
+              content: 'res',
             },
-          ]}
-        />
+            line: 6,
+            onClick() {},
+          },
+        ]}
+      />
 
-        <aside className="mt-5 flex items-center justify-center text-gray-dark">
-          <InfoIcon className="mr-1.5 text-gray-darkest" />
-          <p>
-            Click on the{' '}
-            <span className="border-b-2 border-dotted border-orange text-black">
-              interactive parts
-            </span>{' '}
-            to explore the API
-          </p>
-        </aside>
-      </div>
-    </div>
+      <aside className="mt-5 flex items-center justify-center text-gray-dark">
+        <InfoIcon className="mr-1.5 text-gray-darkest" />
+        <p>
+          Click on the{' '}
+          <span className="border-b-2 border-dotted border-orange text-black">
+            interactive parts
+          </span>{' '}
+          to explore the API
+        </p>
+      </aside>
+    </Section>
+
+    // <div className="bg-gray-lightest">
+    //   <div className="container py-40">
+    //     <header className="text-center">
+    //       <p className="mb-2 text-orange text-sm uppercase font-bold tracking-widest">
+    //         Explore
+    //       </p>
+    //       <h2 className="mb-5">Workflow</h2>
+    //     </header>
+
+    //   </div>
+    // </div>
   )
 }

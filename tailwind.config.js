@@ -1,9 +1,5 @@
 module.exports = {
-  purge: [
-    './pages/**/*.{tsx}',
-    './components/**/*.{tsx}',
-    './utils/**/*.{tsx}',
-  ],
+  purge: ['./src/**/*.{tsx}'],
   darkMode: 'class',
   theme: {
     container: {
@@ -71,7 +67,8 @@ module.exports = {
             },
             code: {
               border: 0,
-              backgroundColor: '#ECE9FC',
+              borderRadius: 4,
+              backgroundColor: theme('colors.yellow.100'),
             },
             'code::before': {
               content: '""',

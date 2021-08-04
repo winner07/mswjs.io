@@ -5,7 +5,7 @@ seo:
 order: 12
 ---
 
-Below you can find an unbiased comparison between Mock Service Worker and other open source mocking libraries. Be mindful when choosing a solution, and make sure it suits your application's needs the most.
+Below you can find an unbiased comparison between Mock Service Worker and other open-source API mocking libraries. Be mindful when choosing a solution, and make sure it suits your application's needs the most.
 
 <Hint mode="warning">
   This page will not reason about what technology is better or worse. All the
@@ -22,9 +22,11 @@ Below you can find an unbiased comparison between Mock Service Worker and other 
 - **Integration**. Steps to perform in order to integrate a library into your project.
 - **Definition**. How the mocking logic is defined.
 
+---
+
 ## Nock
 
-[Nock](https://github.com/nock/nock) is an HTTP server mocking and expectations library for NodeJS.
+[Nock](https://github.com/nock/nock) is an HTTP server mocking and expectations library for Node.js.
 
 | Criteria       | Nock                                                                                                                         | Mock Service Worker                                                                                       |
 | -------------- | ---------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
@@ -34,7 +36,9 @@ Below you can find an unbiased comparison between Mock Service Worker and other 
 | Integration    | Does not require any changes to an existing code. Requires additional adapters for request issuing libraries (i.e. `axios`). | Does not require any changes to an existing code. Does not require any additional adapters.               |
 | Definition     | Response mocking through method chaining.                                                                                    | Response mocking through functional composition.                                                          |
 
-> Nock is a great tool for combining API mocking and assertions in NodeJS. NodeJS API of Mock Service Worker functions similarly to Nock, but allows you to reuse the same mock definition in browser as well.
+> Nock is a great tool for combining API mocking and assertions in Node.js. Node.js API of Mock Service Worker functions similarly to Nock, but allows you to reuse the same mock definition in browser as well.
+
+---
 
 ## JSON Server
 
@@ -50,6 +54,8 @@ Below you can find an unbiased comparison between Mock Service Worker and other 
 
 > JSON Server is an actual HTTP server based on an abstract definition. Mock Service Worker is a Service Worker intercepting actual requests your application makes.
 
+---
+
 ## MirageJS
 
 [`MirageJS`](https://github.com/miragejs/miragejs) is a mocking library that is highly focused on data relation, and allows to model dynamic scenarios similar to those of an actual production server.
@@ -63,6 +69,8 @@ Below you can find an unbiased comparison between Mock Service Worker and other 
 | Definition     | Uses OOP and ORM oriented declaration of mocks. Provides rich tools for data modelling.       | Uses functional declaration of routes and responses. Non-opinionated in regards to data modelling. |
 
 > MirageJS has a focus on data relation during mocking. Mock Service Worker, on the other hand, conducts API mocking on per-transaction basis, making mocking a matter of request-response relation.
+
+---
 
 ## Service Mocker
 

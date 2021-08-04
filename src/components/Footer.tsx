@@ -67,31 +67,31 @@ export function Footer() {
               <li>
                 <Link
                   to="/docs"
-                  className="inline-block py-1.5 hover:text-orange"
+                  className="inline-block py-1.5 hover:text-white"
                 >
                   Fundamentals
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/docs"
-                  className="inline-block py-1.5 hover:text-orange"
+                  to="/docs/api/setup-worker"
+                  className="inline-block py-1.5 hover:text-white"
                 >
                   setupWorker
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/docs"
-                  className="inline-block py-1.5 hover:text-orange"
+                  to="/docs/api/setup-server"
+                  className="inline-block py-1.5 hover:text-white"
                 >
                   setupServer
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/docs"
-                  className="inline-block py-1.5 hover:text-orange"
+                  to="/docs/faq"
+                  className="inline-block py-1.5 hover:text-white"
                 >
                   FAQ
                 </Link>
@@ -106,7 +106,7 @@ export function Footer() {
               <li>
                 <Link
                   to="/learn/guides/storybook"
-                  className="inline-block py-1.5 hover:text-orange"
+                  className="inline-block py-1.5 hover:text-white"
                 >
                   Storybook
                 </Link>
@@ -114,7 +114,7 @@ export function Footer() {
               <li>
                 <Link
                   to="/learn/guides/cypress"
-                  className="inline-block py-1.5 hover:text-orange"
+                  className="inline-block py-1.5 hover:text-white"
                 >
                   Cypress
                 </Link>
@@ -122,7 +122,7 @@ export function Footer() {
               <li>
                 <Link
                   to="/learn/guides/nextjs"
-                  className="inline-block py-1.5 hover:text-orange"
+                  className="inline-block py-1.5 hover:text-white"
                 >
                   Next.js
                 </Link>
@@ -137,7 +137,7 @@ export function Footer() {
               <li>
                 <Link
                   to="/learn/recipes/cookies"
-                  className="inline-block py-1.5 hover:text-orange"
+                  className="inline-block py-1.5 hover:text-white"
                 >
                   Cookies
                 </Link>
@@ -145,7 +145,7 @@ export function Footer() {
               <li>
                 <Link
                   to="/learn/recipes/query-parameters"
-                  className="inline-block py-1.5 hover:text-orange"
+                  className="inline-block py-1.5 hover:text-white"
                 >
                   Query parameters
                 </Link>
@@ -153,7 +153,7 @@ export function Footer() {
               <li>
                 <Link
                   to="/learn/recipes/error-responses"
-                  className="inline-block py-1.5 hover:text-orange"
+                  className="inline-block py-1.5 hover:text-white"
                 >
                   Mocking error responses
                 </Link>
@@ -161,7 +161,7 @@ export function Footer() {
               <li>
                 <Link
                   to="/learn/recipes/debugging-uncaught-requests"
-                  className="inline-block py-1.5 hover:text-orange"
+                  className="inline-block py-1.5 hover:text-white"
                 >
                   Debugging uncaught requests
                 </Link>
@@ -178,7 +178,7 @@ export function Footer() {
               target="_blank"
               className="text-white hover:underline"
             >
-              contributors
+              incredible contributors
             </a>
             .
           </p>

@@ -7,50 +7,6 @@ module.exports = {
   },
   plugins: [
     {
-      resolve: 'gatsby-plugin-react-helmet',
-    },
-    {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        name: 'images',
-        path: `${__dirname}/src/images`,
-      },
-    },
-    // {
-    //   resolve: `gatsby-source-filesystem`,
-    //   options: {
-    //     name: `docs`,
-    //     path: `${__dirname}/docs/`,
-    //   },
-    // },
-    // {
-    //   resolve: `gatsby-source-filesystem`,
-    //   options: {
-    //     name: `docs-assets`,
-    //     path: `${__dirname}/docs/assets/`,
-    //   },
-    // },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `blog`,
-        path: `${__dirname}/blog/`,
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `learn`,
-        path: `${__dirname}/learn/`,
-      },
-    },
-    {
-      resolve: 'gatsby-transformer-sharp',
-    },
-    {
-      resolve: 'gatsby-plugin-sharp',
-    },
-    {
       resolve: 'gatsby-plugin-manifest',
       options: {
         name: 'Mock Service Worker',
@@ -63,6 +19,44 @@ module.exports = {
       },
     },
     {
+      resolve: 'gatsby-plugin-react-helmet',
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'images',
+        path: `${__dirname}/src/images`,
+      },
+    },
+    // {
+    //   resolve: 'gatsby-source-filesystem',
+    //   options: {
+    //     name: 'docs-assets',
+    //     path: `${__dirname}/docs/assets/`,
+    //   },
+    // },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'docs',
+        path: `${__dirname}/docs/`,
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'learn',
+        path: `${__dirname}/learn/`,
+      },
+    },
+    {
+      resolve: 'gatsby-transformer-sharp',
+    },
+    {
+      resolve: 'gatsby-plugin-sharp',
+    },
+
+    {
       resolve: 'gatsby-plugin-typescript',
     },
     {
@@ -70,13 +64,16 @@ module.exports = {
       options: {
         svgo: {
           plugins: [
+            // {
+            //   removeViewBox: false,
+            // },
+            // {
+            //   removeAttrs: {
+            //     attrs: ['svg:height'],
+            //   },
+            // },
             {
-              removeViewBox: false,
-            },
-            {
-              removeAttrs: {
-                attrs: ['svg:height'],
-              },
+              removeDimensions: true,
             },
           ],
         },
@@ -84,6 +81,9 @@ module.exports = {
     },
     {
       resolve: 'gatsby-plugin-sass',
+    },
+    {
+      resolve: 'gatsby-plugin-postcss',
     },
     {
       resolve: 'gatsby-plugin-mdx',
@@ -99,9 +99,7 @@ module.exports = {
         ],
       },
     },
-    {
-      resolve: 'gatsby-plugin-postcss',
-    },
+
     {
       resolve: 'gatsby-plugin-google-analytics',
       options: {

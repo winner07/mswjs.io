@@ -3,21 +3,23 @@ title: Request handler
 order: 41
 ---
 
-**Request handler** is a function that determines whether an outgoing request should be mocked, and specifies its mocked response.
+**Request handler** is a function that decides whether a captured request should be mocked, and declares a mocked response in a function called "response resolver".
 
 Here's an example of a `GET` request handler:
 
 ```js showLineNumbers
 import { rest } from 'msw'
 
-// Matches any "GET /user" requests,
-// and responds using the `responseResolver` function.
-rest.get('/user', responseResolver)
+// Matches all "GET /user" requests
+// and responds with the "hello world!" text body.
+rest.get('/user', (req, res, ctx) => {
+  return res(ctx.text('hello world!'))
+})
 ```
 
 ## Standard handlers
 
-Mock Service Worker ships with multiple ready-to-use request handlers for working with popular API types. For example, you would use the [`rest`](/docs/api/rest) handlers when mocking a REST API, and [`graphql`](/docs/api/graphql) request handlers for a GraphQL API.
+Mock Service Worker comes with multiple ready-to-use request handlers for working with various API types. For example, you would use the [`rest`](/docs/api/rest) handlers when mocking a REST API, and [`graphql`](/docs/api/graphql) request handlers for a GraphQL API.
 
 ### List of handlers
 

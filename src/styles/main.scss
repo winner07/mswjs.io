@@ -2,8 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-@import 'react-cdx/themes/nako.css';
+// @import 'react-cdx/themes/nako.css';
+// @import './nako.theme.scss';
 @import './code';
+@import './code.github.dim.scss';
 
 html {
   @apply font-sans;

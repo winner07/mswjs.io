@@ -1,0 +1,50 @@
+.prism-code {
+  --color-comment: #768390;
+  --color-keyword: #f47067;
+  --color-string: #96d0ff;
+  --color-operator: #6cb6ff;
+
+  --color-yellow: #d9931e;
+
+  background-color: #2d333b;
+  color: #adbac7;
+
+  padding: 0.75rem 0;
+  line-height: 1.5;
+}
+
+.token {
+  &.comment {
+    color: var(--color-comment);
+  }
+
+  &.keyword {
+    color: var(--color-keyword);
+    font-weight: bold;
+  }
+
+  &.string {
+    color: var(--color-string);
+  }
+
+  &.function,
+  &.method {
+    color: #dcbdfb;
+  }
+
+  &.operator {
+    color: var(--color-operator);
+  }
+
+  &.tag {
+    color: #dcbdfb;
+
+    &.attr-value {
+      color: var(--color-string);
+    }
+  }
+
+  &.attr-name {
+    color: var(--color-yellow);
+  }
+}

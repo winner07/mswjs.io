@@ -105,9 +105,9 @@ test('allows user to log in', async () => {
 
 ## Direct usage
 
-You can use the `setupServer` API of Mock Service Worker in any NodeJS application (for example, when developing or testing an Express server).
+You can use the `setupServer` API of Mock Service Worker in any Node.js application (for example, when developing or testing an Express server).
 
-Bear in mind that without a DOM-like environment, like the jsdom from Jest, **you must use absolute request URLs in NodeJS**. This should be reflected in your request handlers:
+Bear in mind that without a DOM-like environment, like the jsdom from Jest, **you must use absolute request URLs in Node.js**. This should be reflected in your request handlers:
 
 ```js showLineNumbers focusedLines=2
 const server = setupServer(

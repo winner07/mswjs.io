@@ -18,7 +18,7 @@ export function Install() {
       <div className="container grid lg:grid-cols-12 gap-16 items-top">
         <div className="col-span-6 text-lg">
           <p className="mb-2 text-orange text-sm uppercase font-bold tracking-widest">
-            Don't hesitate
+            Don't hesitate to
           </p>
           <h2 className="mb-10">Get started</h2>
           <p className="font-medium text-gray-300">

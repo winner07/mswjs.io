@@ -10,7 +10,9 @@ To determine which outgoing requests should be mocked, Mock Service Worker perfo
   (bypassed).
 </Hint>
 
-Request matching substantially differs based on the request handler (`rest`/`graphql`) that's being used. See the summary of that difference between the standard request handlers of the library below.
+Request matching substantially differs based on the request handler that's being used (`rest` or `graphql`). See the summary of that difference between the standard request handlers below.
+
+---
 
 ## REST API
 
@@ -105,14 +107,16 @@ rest.delete(/\/posts\//, responseResolver)
 
 > Unlike paths, regular expressions use _weak_ comparison, supporting partial matches.
 
+---
+
 ## GraphQL API
 
-Working with `graphql.*` request handlers allows you to match GraphQL requests (operations) by the following criteria:
+Working with `graphql.*` request handlers allows you to match GraphQL operations by the following criteria:
 
-- Operation kind (query/mutation);
+- Operation kind (query or mutation);
 - Operation name.
 
-> Both `GET` and `POST` requests are supported according to the GraphQL specification.
+> GraphQL operations made via both `GET` and `POST` methods are supported.
 
 <PageLink
   url="/docs/api/graphql"

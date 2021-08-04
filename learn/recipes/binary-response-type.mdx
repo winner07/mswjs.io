@@ -57,8 +57,9 @@ const server = setupServer(
     )
 
     return res(
-      ctx.set('Content-Length', imageBuffer.byteLength.toString()),
+      // Set the correct binary type and length.
       ctx.set('Content-Type', 'image/jpeg'),
+      ctx.set('Content-Length', imageBuffer.byteLength.toString()),
       ctx.body(imageBuffer),
     )
   }),

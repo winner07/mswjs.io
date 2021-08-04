@@ -1,9 +1,14 @@
 import * as React from 'react'
-import Highlight, { Language, defaultProps } from 'prism-react-renderer'
+import Highlight, {
+  Language,
+  defaultProps,
+  PrismTheme,
+} from 'prism-react-renderer'
 
 interface Props {
   code: string
   language: string
+  theme?: PrismTheme
   highlights?: RandgeDefinition[]
   formatLineNumber?(number: number): React.ReactNode
   showLineNumbers?: boolean
@@ -60,9 +65,10 @@ export const Code = ({
   startLineNumber,
   tokens: interactiveTokens,
   className,
+  theme,
 }: Props) => {
   const parentClassName = React.useMemo(() => {
-    return ['rounded-lg overflow-hidden']
+    return ['rounded-md overflow-hidden']
       .concat(className)
       .filter(Boolean)
       .join(' ')
@@ -76,7 +82,7 @@ export const Code = ({
     <div className={parentClassName}>
       <Highlight
         {...defaultProps}
-        theme={null}
+        theme={theme}
         code={code.trim()}
         language={language as Language}
       >

@@ -3,6 +3,7 @@ const path = require('path')
 const gql = (str) => str.join('')
 
 const components = {
+  docsPage: path.resolve(__dirname, '../../src/layouts/DocsPage.tsx'),
   blogPage: path.resolve(__dirname, '../../src/layouts/BlogPage.tsx'),
   tutorialPage: path.resolve(__dirname, '../../src/layouts/TutorialPage.tsx'),
   tutorialLessonPage: path.resolve(
@@ -19,6 +20,24 @@ function normalizeSlug(slug) {
 module.exports = async function createPages({ graphql, actions }) {
   const { data } = await graphql(gql`
     {
+      docs: allFile(
+        filter: { sourceInstanceName: { eq: "docs" }, extension: { eq: "mdx" } }
+      ) {
+        nodes {
+          sourceInstanceName
+          mdx: childMdx {
+            slug
+            body
+            frontmatter {
+              title
+              seo {
+                description
+              }
+            }
+          }
+        }
+      }
+
       # Blog articles
       articles: allFile(
         filter: { sourceInstanceName: { eq: "blog" }, extension: { eq: "mdx" } }
@@ -82,6 +101,23 @@ module.exports = async function createPages({ graphql, actions }) {
       }
     }
   `)
+
+  // Create docs pages.
+  data.docs.nodes.forEach((node) => {
+    const pagePath = path.join(
+      node.sourceInstanceName,
+      normalizeSlug(node.mdx.slug),
+    )
+
+    actions.createPage({
+      path: pagePath,
+      component: components.docsPage,
+      context: {
+        content: node.mdx.body,
+        frontmatter: node.mdx.frontmatter,
+      },
+    })
+  })
 
   // Create blog pages.
   data.articles.nodes.forEach((node) => {

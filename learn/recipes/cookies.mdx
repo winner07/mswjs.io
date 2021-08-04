@@ -7,7 +7,7 @@ order: 1
 
 The fetch specification [explicitly forbids](https://developer.mozilla.org/en-US/docs/Glossary/Forbidden_header_name) setting `Set-Cookie` and `Set-Cookie2` response headers when constructing a `Response` instance due to security considerations. However, since Mock Service Worker executes on the client, it can provide a functionality similar to receiving a mocked cookie from the response without violating security. To achieve that, use the `ctx.cookie` utility function to set the given cookies on the `document.cookie` directly.
 
-There are some limitations when mocking response cookies:
+**There are some limitations when mocking response cookies:**
 
 - Response cookies cannot be accessed in the client code under the `Set-Cookie`/`Set-Cookie2` response headers, because none of these headers are actually set.
 
@@ -97,4 +97,4 @@ fetch('/user', {
 
 ### Server-side persistency
 
-On the "server" side, cookies are handled by the library to ensure that they are sent to any request made within your response resolver. The library respects a cookie's domain and expiration date when doing so.
+When running in Node.js, cookies are handled by the library to ensure that they are sent to any request made within your response resolver. The library respects a cookie's domain and expiration date when doing so.

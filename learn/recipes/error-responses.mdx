@@ -3,7 +3,7 @@ title: Mocking error responses
 order: 3
 ---
 
-When it comes to mocking error responses, it's recommended to compose a valid response using `res` composition chain, rather than throwing an exception inside a request handler. This is mainly to distinguish between _internal_ and _intended_ exceptions.
+To respond with an error, compose a valid HTTP error response by setting the appropriate error HTTP status (`4xx`/`5xx`) on the mocked response. By doing so, you're abiding by the HTTP specification and ensure that your client receives an actual errors response it may encounter in the wild.
 
 <Hint>
   All exceptions originating from request handlers are gracefully handled as 500
@@ -14,24 +14,24 @@ When it comes to mocking error responses, it's recommended to compose a valid re
   .
 </Hint>
 
-By treating an error response as an actual response, and not an exception, you respect the standards and ensure your client code receives and handles a valid error response.
+Here's an example of how to respond with a permission error when requesting a `GET /user` without the `Authorization` header set:
 
-Let's respond to a `GET /user` request with a 403 error in case there's no `Authorization` header set:
-
-```js highlights=3-11
+```js focusedLines=3-11
 rest.get('/user', (req, res, ctx) => {
+  // Check when the "Authorization" header is not set.
   if (!req.headers.get('Authorization')) {
     return res(
-      // Provide an error status code (4xx/5xx),
+      // Respond with a "403 Permission denied" status code.
       ctx.status(403),
-      // ...and any additional response parts,
-      // such as response headers, body, etc.
+      // Optionally, provide any additional response data
+      // such as headers, error message, etc.
       ctx.json({
         errorMessage: 'Permission denied: not authorized.',
       }),
     )
   }
 
+  // If the "Authorization" header is set, respond with a user.
   return res(
     ctx.json({
       firstName: 'John',
