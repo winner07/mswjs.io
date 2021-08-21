@@ -9,7 +9,6 @@ import {
 import { Main } from './Main'
 import { MetaTags } from '../components/MetaTags'
 import { Mdx } from '../mdx/Mdx'
-import { IconType } from 'react-icons'
 import { BackLink } from '../components/BackLink'
 import { Prose } from '../components/Prose'
 import { SidebarGroup } from '../components/SidebarGroup'
